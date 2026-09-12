@@ -1,0 +1,31 @@
+{
+  "startedAt": "2026-09-12T08:32:03.104Z",
+  "consumerCommit": "6139c9141e67db1c9d01396e477a5b604791ec56",
+  "url": "http://127.0.0.1:4174/player/",
+  "viewport": {
+    "width": 1280,
+    "height": 840
+  },
+  "size": [
+    256,
+    256
+  ],
+  "launchArgs": [
+    "--enable-unsafe-webgpu",
+    "--ignore-gpu-blocklist"
+  ],
+  "channel": "chromium",
+  "browserVersion": "153.0.8010.12",
+  "build": {
+    "runtimeVersion": "0.1.0-alpha.0",
+    "apiSchemaVersion": 1,
+    "engineVersion": "0.1.0",
+    "engineRevision": "4b914feb9f3365d292b27ea60c5e0b6004f745e8",
+    "engineDirty": false,
+    "buildId": "sha256:759549793271c7fdd257b0289dab11b2fa9524dbc500b5033cb717179f5d1243"
+  },
+  "planHash": "sha256:f4699e4e2ff423985b566ddfbcf086d9305574c9fb131acb8e385581c0620aa1",
+  "result": "256 × 256 · baseColor · rgba8-srgb · 262,144 bytes",
+  "status": "passed",
+  "finishedAt": "2026-09-12T08:32:04.511Z"
+}

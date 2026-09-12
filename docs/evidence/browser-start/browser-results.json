@@ -1,0 +1,102 @@
+{
+  "stats": {
+    "startTime": "2026-09-12T08:30:51.304Z",
+    "duration": 11611.669,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "tests": [
+    {
+      "title": "package import has no WASM effects; CPU contract does not touch WebGPU",
+      "file": "browser.spec.ts",
+      "line": 19,
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 1380,
+          "startTime": "2026-09-12T08:30:51.869Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "missing WASM produces a structured loader failure",
+      "file": "browser.spec.ts",
+      "line": 74,
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 1253,
+          "startTime": "2026-09-12T08:30:53.724Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "explicit packaged WASM URL and supplied bytes load without a loader refetch",
+      "file": "browser.spec.ts",
+      "line": 90,
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 1075,
+          "startTime": "2026-09-12T08:30:54.982Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "real WebGPU renders owned odd-size pixels and obeys busy/destruction rules",
+      "file": "browser.spec.ts",
+      "line": 122,
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 1175,
+          "startTime": "2026-09-12T08:30:56.067Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "Player loads user bytes, reports invalid input, renders and keeps preview after disposal",
+      "file": "browser.spec.ts",
+      "line": 182,
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 4610,
+          "startTime": "2026-09-12T08:30:57.247Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "pagehide releases the old GPU and allows a new explicit initialization",
+      "file": "browser.spec.ts",
+      "line": 208,
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 984,
+          "startTime": "2026-09-12T08:31:01.868Z",
+          "errors": []
+        }
+      ]
+    }
+  ]
+}

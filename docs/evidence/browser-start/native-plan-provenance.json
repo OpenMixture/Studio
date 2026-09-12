@@ -1,0 +1,6 @@
+{
+  "engineRevision": "4b914feb9f3365d292b27ea60c5e0b6004f745e8",
+  "engineDirty": false,
+  "capturedAt": "2026-09-12T08:31:19.542219+00:00",
+  "command": "cargo run --locked -p mixture-cli -- inspect examples/checker.mix --plan --size 65x3 --output baseColor --json"
+}

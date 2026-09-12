@@ -1,0 +1,100 @@
+{
+  "recordVersion": 1,
+  "scope": "Initial browser chain only; not full M5 acceptance or a human material decision",
+  "recordedAt": "2026-09-12T08:32:47.185134+00:00",
+  "consumer": {
+    "repository": "https://github.com/OpenMixture/Studio",
+    "commit": "6139c9141e67db1c9d01396e477a5b604791ec56",
+    "workingTreeCleanDuringTests": true,
+    "laterEvidenceCommitIsNotTheTestedCommit": true,
+    "lockSha256": "dd1d81c31fbf4a6258fae1de1fb7433402728ad61fd4e2f9fff60a7adf58a196"
+  },
+  "producer": {
+    "repository": "https://github.com/OpenMixture/OpenMixture",
+    "runtimeVersion": "0.1.0-alpha.0",
+    "apiSchemaVersion": 1,
+    "engineVersion": "0.1.0",
+    "engineRevision": "4b914feb9f3365d292b27ea60c5e0b6004f745e8",
+    "engineDirty": false,
+    "buildId": "sha256:759549793271c7fdd257b0289dab11b2fa9524dbc500b5033cb717179f5d1243",
+    "cargoLockSha256": "f5ec5de2f3430f16ad189070a7d78c184a46c0e0b90d1951b0a2d8e887f00b38"
+  },
+  "archive": {
+    "path": "../../../vendor/openmixture-runtime-0.1.0-alpha.0.tgz",
+    "sha256": "9e245578de160cee1050259ef34358c3fcd3353a21bbb1672d29701bc1ac8084",
+    "bytes": 347239,
+    "registryPublished": false,
+    "buildReceipt": "../../../vendor/runtime-build.json"
+  },
+  "fixture": {
+    "path": "../../../public/samples/checker.mix",
+    "sha256": "296c9d92e06211e8583ce0810f49562e0d36a68b6d795268b80dd19d8fda03b0",
+    "size": [
+      65,
+      3
+    ],
+    "channels": [
+      "baseColor"
+    ],
+    "overrides": {},
+    "nativeAndBrowserPlanHash": "sha256:9995360fbeec3cc3cb4d78b7a660eef4ed0e630f1816161454dc80c9b58c0585"
+  },
+  "execution": {
+    "environment": {
+      "browserVersion": "153.0.8010.12",
+      "os": "darwin",
+      "osRelease": "25.5.0",
+      "architecture": "arm64",
+      "node": "v24.20.0",
+      "launchArgs": [
+        "--enable-unsafe-webgpu",
+        "--ignore-gpu-blocklist"
+      ],
+      "channel": "chromium",
+      "baseUrl": "http://127.0.0.1:4173/player/"
+    },
+    "macOS": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.1\nBuildVersion:\t\t25F80",
+    "actualAdapter": {
+      "name": "",
+      "deviceType": "Other",
+      "backend": "BrowserWebGpu",
+      "vendor": 0,
+      "device": 0,
+      "driver": "",
+      "driverInfo": ""
+    },
+    "acquisitionVerdict": "unverified",
+    "renderResult": "passed independently; acquisition verdict is not rewritten",
+    "rgbaBytes": "780",
+    "mappedBytes": "2304",
+    "liveBytesAfterRender": "0",
+    "all780OutputBytesMatchIndependentExpectedChecker": true
+  },
+  "gates": {
+    "cleanNpmInstall": "passed",
+    "typecheckAndProductionBuild": "passed",
+    "browserTests": {
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0
+    },
+    "nativePlanHashComparison": "passed",
+    "pagehide": "real device.destroy and reinitialization; synthetic event, not bfcache admission"
+  },
+  "limitations": [
+    "One macOS host and explicit Chromium flags; no wider browser support promise.",
+    "Browser adapter name/vendor/device/driver are redacted; no hardware identity inferred from native Metal evidence.",
+    "No browser device-loss, three-material, full Player or Studio acceptance.",
+    "Screenshot is an agent-inspected initial UI preview, not user visual or material acceptance.",
+    "Complete stdout/stderr and full Playwright report remain ignored local output; retained structured results and supporting content cover this narrow checkpoint."
+  ],
+  "retainedFiles": {
+    "checks.json": "b9be2329884d19588a30d3b9c7c07493ba37e40e3b06aabafed1c675d9492ce1",
+    "runtime-context.json": "3681223895b317108281cf2cbcf4d5dde39d4e9b9d2272a00a85db4a2c056ad6",
+    "browser-results.json": "5e9c9081ffb47947ca7e91247e0115e3dcdcac9e15b498e63fac77267526190d",
+    "native-plan.json": "93f2ce342b88df38b87c3c8c55ac86dc2c1de8f753ed4a77eb781aa1998805ca",
+    "native-plan-provenance.json": "128a3559af2813e6faefbd418b4dd390badbd5831d6ce51749c7d67035d8e17b",
+    "screenshot.json": "5ba02799274927b094e62c069271e0427699eb062d839d8f32cdebe827c3d7de",
+    "player-preview.png": "a05450d3ac05f2407fa2894399a18ac85caed55b39acf1023cffd33952285226"
+  }
+}

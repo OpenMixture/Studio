@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#202c36" />
+    <title>OpenMixture Player</title>
+  </head>
+  <body>
+    <main>
+      <header>
+        <a class="brand" href="https://github.com/OpenMixture/Studio">OpenMixture</a>
+        <span class="phase">Player · browser preview</span>
+        <h1>A material, from source to pixels.</h1>
+        <p>Open a .mix file, initialize WebGPU, and render its base color.</p>
+      </header>
+      <div class="workspace">
+        <section class="controls" aria-label="Material and runtime controls">
+          <h2>Source</h2>
+          <div class="source-actions">
+            <button id="sample" type="button">Use checker sample</button>
+            <label class="file-button" for="file">Open .mix file</label>
+            <input id="file" type="file" accept=".mix,application/json" />
+          </div>
+          <p id="source-name" class="muted">Loading checker.mix…</p>
+          <details>
+            <summary>View source</summary>
+            <pre id="source-text" class="source-code"></pre>
+          </details>
+          <h2>Render</h2>
+          <div class="dimensions">
+            <label>Width<input id="width" type="number" min="1" step="1" value="256" /></label>
+            <span aria-hidden="true">×</span>
+            <label>Height<input id="height" type="number" min="1" step="1" value="256" /></label>
+          </div>
+          <p class="muted">Channel: baseColor · RGBA8 sRGB</p>
+          <div class="runtime-actions">
+            <button id="validate" type="button">Validate source</button>
+            <button id="initialize" type="button">Initialize WebGPU</button>
+            <button id="render" type="button" class="primary" disabled>Render</button>
+            <button id="dispose" type="button" disabled>Dispose GPU</button>
+          </div>
+          <p id="status" role="status" aria-live="polite">Runtime not loaded.</p>
+          <div id="error" role="alert" hidden></div>
+        </section>
+        <section class="preview-panel" aria-label="Rendered material">
+          <div class="preview-heading"><h2>Preview</h2><span id="preview-state" class="muted">No render yet</span></div>
+          <div class="preview-stage">
+            <p id="placeholder">Your rendered material will appear here.</p>
+            <canvas id="preview" width="1" height="1" aria-label="Rendered baseColor channel" hidden></canvas>
+          </div>
+          <p id="result-info" class="muted">Initialize the GPU before rendering.</p>
+        </section>
+      </div>
+      <details class="evidence"><summary>Runtime details and diagnostics</summary><pre id="details">No runtime operation yet.</pre></details>
+      <footer>Early browser chain · WebGPU required · <a href="https://github.com/OpenMixture/Studio">Source &amp; setup</a></footer>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
