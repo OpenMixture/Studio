@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "plan": {
+    "version": 1,
+    "documentVersion": 1,
+    "size": [
+      65,
+      3
+    ],
+    "materialOutput": {
+      "id": "out",
+      "typeId": "material-output",
+      "version": 1
+    },
+    "passes": [
+      {
+        "id": 0,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "checker",
+            "typeId": "checker",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "checker",
+          "cells": [
+            8,
+            8
+          ],
+          "colorA": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "colorB": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "output": 0,
+        "outputDesc": {
+          "width": 65,
+          "height": 3,
+          "format": "rgba16float",
+          "kind": "color"
+        },
+        "dispatch": [
+          9,
+          1,
+          1
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "channel": "baseColor",
+        "kind": "color",
+        "input": {
+          "source": "connected",
+          "from": {
+            "nodeId": "checker",
+            "portId": "color"
+          }
+        },
+        "resource": 0
+      }
+    ],
+    "estimates": {
+      "textureBytes": 1560,
+      "uniformBytes": 48,
+      "paddedBytesPerRow": 768,
+      "readbackBufferBytes": 2304,
+      "readbackBytes": 1560,
+      "cumulativeReadbackBytes": 2304,
+      "cumulativeBytes": 3912,
+      "peakBytes": 3912
+    },
+    "hash": "sha256:9995360fbeec3cc3cb4d78b7a660eef4ed0e630f1816161454dc80c9b58c0585"
+  },
+  "ok": true,
+  "diagnostics": []
+}

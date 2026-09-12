@@ -48,6 +48,8 @@ The suite checks:
 
 Reports, browser context/build evidence and failure traces go to ignored `test-results/`. A test command being present does not imply it has passed on a particular environment. Retain the exact browser/OS/adapter/build record when publishing results. Wider browser compatibility, device-loss coverage and full M5 acceptance remain separate engine/product gates.
 
+The [2026-09-12 browser checkpoint](./docs/evidence/browser-start/README.md) records six passing real-browser tests, the clean producer/consumer revisions, archive digest and actual context.
+
 ## Runtime archive and fixture
 
 See [vendor/README.md](./vendor/README.md) for the artifact boundary and update procedure. The committed archive plus lockfile allows installation from this product checkout without the engine checkout or Rust. The public package is the only engine import in product and test code.

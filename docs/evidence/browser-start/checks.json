@@ -1,0 +1,37 @@
+{
+  "startedAt": "2026-09-12T08:30:44.546505+00:00",
+  "consumerCommit": "6139c9141e67db1c9d01396e477a5b604791ec56",
+  "initialGitStatus": "",
+  "environment": {
+    "node": "v24.20.0",
+    "npm": "11.19.0",
+    "os": "macOS-26.5.1-arm64-arm-64bit",
+    "macOS": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.1\nBuildVersion:\t\t25F80",
+    "architecture": "arm64"
+  },
+  "checks": [
+    {
+      "command": "npm ci",
+      "startedAt": "2026-09-12T08:30:44.643642+00:00",
+      "log": "work/final-npm-ci.log",
+      "finishedAt": "2026-09-12T08:30:47.172346+00:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run check",
+      "startedAt": "2026-09-12T08:30:47.173455+00:00",
+      "log": "work/final-npm-check.log",
+      "finishedAt": "2026-09-12T08:30:49.968417+00:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:browser",
+      "startedAt": "2026-09-12T08:30:49.968726+00:00",
+      "log": "work/final-browser-tests.log",
+      "finishedAt": "2026-09-12T08:31:02.923569+00:00",
+      "exitCode": 0
+    }
+  ],
+  "finishedAt": "2026-09-12T08:31:02.923595+00:00",
+  "finalGitStatus": ""
+}
