@@ -1,0 +1,31 @@
+{
+  "name": "@openmixture/studio",
+  "version": "0.1.0-alpha.0",
+  "private": true,
+  "description": "Independent OpenMixture Player consuming the packaged browser runtime",
+  "type": "module",
+  "license": "MIT OR Apache-2.0",
+  "engines": {
+    "node": "24.20.0",
+    "npm": "11.19.0"
+  },
+  "packageManager": "npm@11.19.0",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
+    "check": "npm run typecheck && npm run build",
+    "test:browser": "npm run typecheck && vite build --mode browser-test && playwright test",
+    "test:browser:headed": "npm run test:browser -- --headed"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "22.20.2",
+    "typescript": "5.9.3",
+    "vite": "8.3.0"
+  },
+  "dependencies": {
+    "@openmixture/runtime": "file:vendor/openmixture-runtime-0.1.0-alpha.0.tgz"
+  }
+}
