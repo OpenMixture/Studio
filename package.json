@@ -15,9 +15,10 @@
     "typecheck": "tsc --noEmit",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
-    "check": "npm run typecheck && npm run build",
+    "check": "npm run typecheck && npm test && npm run build",
     "test:browser": "npm run typecheck && vite build --mode browser-test && playwright test",
-    "test:browser:headed": "npm run test:browser -- --headed"
+    "test:browser:headed": "npm run test:browser -- --headed",
+    "test": "node --test tests/unit/*.test.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",

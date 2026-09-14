@@ -1,174 +1,230 @@
-import { loadRuntime } from '@openmixture/runtime';
+import type { ChannelId, GpuRuntime, ParameterValue, RenderResult, RuntimeModule } from '@openmixture/runtime';
+import { LatestRenderer } from './latest';
+import { captureJob, runtimeClient, type RenderJob } from './runtime-client';
+import { parameterControls } from './controls';
+import { drawPreview } from './preview';
+import { fileBytes, sampleBytes } from './files';
 import './style.css';
-
-type Runtime = Awaited<ReturnType<typeof loadRuntime>>;
-type Gpu = Awaited<ReturnType<Runtime['createGpu']>>;
 
 function element<T extends HTMLElement>(id: string): T {
   const result = document.getElementById(id);
   if (!result) throw new Error(`Missing element: ${id}`);
   return result as T;
 }
-
 const sample = element<HTMLButtonElement>('sample');
+const samples = element<HTMLSelectElement>('samples');
 const file = element<HTMLInputElement>('file');
 const initialize = element<HTMLButtonElement>('initialize');
 const validate = element<HTMLButtonElement>('validate');
 const render = element<HTMLButtonElement>('render');
 const dispose = element<HTMLButtonElement>('dispose');
+const reset = element<HTMLButtonElement>('reset');
 const width = element<HTMLInputElement>('width');
 const height = element<HTMLInputElement>('height');
+const channels = element<HTMLSelectElement>('channels');
 const status = element('status');
 const error = element('error');
 const details = element('details');
 const preview = element<HTMLCanvasElement>('preview');
 const previewState = element('preview-state');
-
-let runtime: Runtime | undefined;
-let gpu: Gpu | undefined;
+const ensureRuntime = runtimeClient();
+let runtime: RuntimeModule | undefined;
+let gpu: GpuRuntime | undefined;
+let scheduler: LatestRenderer<RenderJob, RenderResult> | undefined;
 let source: Uint8Array | undefined;
 let sourceName = 'checker.mix';
-let busy = false;
+let overrides: Record<string, ParameterValue> = Object.create(null);
+let sourceGeneration = 0;
+let gpuGeneration = 0;
+let loading = false;
+let initializing = false;
+let acquisition: Promise<void> | undefined;
+let closing = false;
+let metadataReady = false;
+let validRequest = false;
 let hasPreview = false;
 
+const controls = parameterControls(element('parameters'), (id, value) => {
+  overrides[id] = value;
+  edited();
+});
+
 function describe(value: unknown): string {
-  // SDK reports contain exact u64 bigint values; stringify them without rounding.
-  return JSON.stringify(value, (_key, entry: unknown) =>
-    typeof entry === 'bigint' ? entry.toString() : entry, 2);
+  return JSON.stringify(value, (_key, entry: unknown) => typeof entry === 'bigint' ? entry.toString() : entry, 2);
 }
 
 function updateControls(): void {
-  for (const control of [sample, file, width, height]) control.disabled = busy;
-  initialize.disabled = busy || Boolean(gpu);
-  validate.disabled = busy || !source;
-  render.disabled = busy || !source || !gpu;
-  dispose.disabled = busy || !gpu;
-}
-
-function markStale(): void {
-  if (hasPreview) previewState.textContent = 'Previous render · source or size changed';
-}
-
-function showError(failure: unknown): void {
-  error.hidden = false;
-  if (failure instanceof Error) {
-    error.textContent = failure.message;
-    details.textContent = describe({ ...failure, name: failure.name, message: failure.message });
-  } else {
-    error.textContent = 'The operation failed. See diagnostics below.';
-    details.textContent = describe(failure);
+  initialize.disabled = initializing || closing || Boolean(gpu);
+  validate.disabled = loading || !source;
+  render.disabled = !gpu || !validRequest || loading;
+  dispose.disabled = closing || (!gpu && !initializing);
+  reset.disabled = !metadataReady;
+  channels.disabled = !metadataReady;
+  if (scheduler?.busy && validRequest && !loading) {
+    status.textContent = scheduler.queued ? 'Rendering… Latest changes queued.' : 'Rendering…';
   }
-  status.textContent = 'Operation failed.';
-  if (hasPreview) previewState.textContent = 'Previous render · latest operation failed';
 }
 
-async function operation(message: string, action: () => Promise<void>): Promise<void> {
-  if (busy) return;
-  busy = true;
-  error.hidden = true;
+function markStale(reason = 'settings changed'): void {
+  if (hasPreview) {
+    previewState.textContent = `Previous render · ${reason}`;
+    previewState.dataset.stale = 'true';
+  }
+}
+
+function showError(failure: unknown, message = 'Operation failed.'): void {
+  const value = failure as { message?: string; code?: string; diagnostics?: Array<{ code: string; message: string; suggestion?: string }> } | null;
+  error.hidden = false;
+  error.textContent = value?.diagnostics?.length
+    ? value.diagnostics.map(item => `${item.code}: ${item.message}${item.suggestion ? `\n${item.suggestion}` : ''}`).join('\n')
+    : value?.message ?? 'The operation failed. See diagnostics below.';
+  details.textContent = describe({ failure, code: value?.code, message: value?.message });
   status.textContent = message;
-  updateControls();
+  markStale('latest operation failed');
+}
+
+function request() {
+  return { size: [width.valueAsNumber, height.valueAsNumber] as [number, number],
+    channels: [channels.value as ChannelId || 'baseColor'], overrides };
+}
+
+function validateCurrent(autoRender: boolean): boolean {
+  if (!runtime || !source || loading) return false;
+  validRequest = false;
+  controls.validity();
   try {
-    await action();
+    const result = runtime.validate(source, request());
+    if (!result.ok) {
+      showError(result, 'Source is invalid.');
+      return false;
+    }
+    if (!metadataReady) {
+      controls.build(result.exposedParameters);
+      const selected = channels.value;
+      channels.replaceChildren();
+      for (const channel of result.materialChannels) {
+        channels.add(new Option(`${channel.id}${channel.input.source === 'default' ? ' · default' : ''}`, channel.id));
+      }
+      channels.value = result.materialChannels.some(item => item.id === selected) ? selected : 'baseColor';
+      metadataReady = true;
+    }
+    controls.validity(result);
+    validRequest = true;
+    error.hidden = true;
+    details.textContent = describe({ build: runtime.getBuildInfo(), validation: result });
+    status.textContent = 'Source is valid. Validation does not acquire a GPU.';
+    if (autoRender && scheduler) scheduler.submit(captureJob(source, sourceName, request()));
+    return true;
   } catch (failure) {
     showError(failure);
-  } finally {
-    busy = false;
-    updateControls();
-  }
+    return false;
+  } finally { updateControls(); }
 }
 
-async function ensureRuntime(): Promise<Runtime> {
-  runtime ??= await loadRuntime();
-  return runtime;
-}
-
-function replaceSource(bytes: Uint8Array, name: string): void {
-  // Keep the original UTF-8 bytes for Rust. Display decoding is never render input.
-  source = bytes;
-  sourceName = name;
-  element('source-name').textContent = `${name} · ${bytes.byteLength.toLocaleString()} bytes`;
-  element('source-text').textContent = new TextDecoder().decode(bytes);
+function edited(): void {
+  scheduler?.invalidate();
   markStale();
+  validateCurrent(true);
 }
 
-async function loadSample(): Promise<void> {
-  const response = await fetch(`${import.meta.env.BASE_URL}samples/checker.mix`);
-  if (!response.ok) throw new Error(`Could not load checker.mix (HTTP ${response.status}).`);
-  replaceSource(new Uint8Array(await response.arrayBuffer()), 'checker.mix');
-  status.textContent = gpu ? 'Checker loaded. Ready to render.' : 'Checker loaded. Initialize WebGPU to render.';
+async function loadSource(read: () => Promise<Uint8Array>, name: string, initial = false): Promise<void> {
+  const generation = ++sourceGeneration;
+  scheduler?.invalidate();
+  loading = true; source = undefined; metadataReady = false; validRequest = false;
+  overrides = Object.create(null);
+  controls.clear('Load a valid material to see its exposed parameters.');
+  channels.replaceChildren(new Option('baseColor', 'baseColor'));
+  sourceName = name;
+  element('source-name').textContent = `Loading ${name}…`;
+  element('source-text').textContent = '';
+  error.hidden = true; status.textContent = 'Reading source…'; markStale('source changed'); updateControls();
+  try {
+    const [bytes, module] = await Promise.all([read(), ensureRuntime()]);
+    if (generation !== sourceGeneration) return;
+    source = bytes; runtime = module; loading = false;
+    element('source-name').textContent = `${name} · ${bytes.byteLength.toLocaleString()} bytes`;
+    // Display decoding never becomes render input; Rust receives the original bytes.
+    element('source-text').textContent = new TextDecoder().decode(bytes);
+    if (validateCurrent(true) && initial && !gpu) status.textContent = 'Checker loaded. Initialize WebGPU to render.';
+  } catch (failure) {
+    if (generation === sourceGeneration) showError(failure);
+  } finally {
+    if (generation === sourceGeneration) { loading = false; updateControls(); }
+  }
 }
 
-sample.addEventListener('click', () => void operation('Loading sample…', loadSample));
-file.addEventListener('change', () => {
-  const selected = file.files?.[0];
-  if (!selected) return;
-  void operation('Reading source…', async () => {
-    replaceSource(new Uint8Array(await selected.arrayBuffer()), selected.name);
-    status.textContent = 'Source loaded. Validate or render to check it.';
-    file.value = '';
-  });
-});
-for (const input of [width, height]) input.addEventListener('input', markStale);
-
-validate.addEventListener('click', () => void operation('Loading runtime and validating source…', async () => {
-  const module = await ensureRuntime();
-  const result = module.validate(source!, { size: [width.valueAsNumber, height.valueAsNumber], channels: ['baseColor'] });
-  details.textContent = describe({ build: module.getBuildInfo(), validation: result });
-  if (result.ok) {
-    status.textContent = 'Source is valid. Validation does not acquire a GPU.';
-  } else {
-    status.textContent = 'Source is invalid.';
-    error.hidden = false;
-    error.textContent = result.diagnostics.map((item) => `${item.code}: ${item.message}`).join('\n');
-  }
-}));
-
-initialize.addEventListener('click', () => void operation('Initializing WebGPU…', async () => {
-  const module = await ensureRuntime();
-  gpu = await module.createGpu();
-  details.textContent = describe({ build: module.getBuildInfo(), context: gpu.context });
-  status.textContent = 'WebGPU ready. Render when ready.';
-}));
-
-render.addEventListener('click', () => void operation('Rendering…', async () => {
-  const result = await gpu!.render(source!, { size: [width.valueAsNumber, height.valueAsNumber], channels: ['baseColor'] });
-  const channel = result.channels.find((item) => item.channel === 'baseColor');
-  if (!channel) throw new Error('The runtime returned no requested baseColor output.');
-  const [renderWidth, renderHeight] = channel.size;
-  if (channel.pixels.byteLength !== renderWidth * renderHeight * 4) {
-    throw new Error('The runtime returned an unexpected RGBA8 output length.');
-  }
-  const context = preview.getContext('2d');
-  if (!context) throw new Error('This browser could not create the preview canvas.');
-  preview.width = renderWidth;
-  preview.height = renderHeight;
-  // Canvas receives a display copy of the returned JS-owned bytes, with no color transform.
-  const displayPixels = new Uint8ClampedArray(channel.pixels);
-  context.putImageData(new ImageData(displayPixels, renderWidth, renderHeight), 0, 0);
-  preview.hidden = false;
+function showResult(result: RenderResult, job: RenderJob): void {
+  const channel = result.channels.find(item => item.channel === job.request.channels?.[0]);
+  if (!channel) throw new Error('The runtime returned no requested output.');
+  drawPreview(preview, channel);
   element('placeholder').hidden = true;
   hasPreview = true;
-  previewState.textContent = sourceName;
-  element('result-info').textContent = `${renderWidth} × ${renderHeight} · ${channel.channel} · ${channel.encoding} · ${channel.pixels.byteLength.toLocaleString()} bytes`;
+  previewState.textContent = job.name;
+  previewState.dataset.stale = 'false';
+  const [w, h] = channel.size;
+  element('result-info').textContent = `${w} × ${h} · ${channel.channel} · ${channel.encoding} · ${channel.pixels.byteLength.toLocaleString()} bytes${channel.kind === 'color' ? '' : ' · data preview'}`;
   details.textContent = describe({ build: runtime!.getBuildInfo(), plan: result.plan, report: result.report });
   status.textContent = 'Render complete.';
-}));
+}
 
-dispose.addEventListener('click', () => void operation('Disposing GPU…', async () => {
-  await gpu!.destroy();
-  gpu = undefined;
-  status.textContent = 'GPU disposed. The rendered preview remains available.';
-}));
-
-// Browser termination cannot await asynchronous cleanup; explicit Dispose is the tested path.
-window.addEventListener('pagehide', () => {
-  const hiddenGpu = gpu;
-  gpu = undefined;
-  updateControls();
-  if (hiddenGpu) {
-    status.textContent = 'GPU disposed. Initialize WebGPU to render again.';
-    void hiddenGpu.destroy().catch(showError);
-  }
+initialize.addEventListener('click', () => {
+  if (initializing || closing || gpu) return;
+  const generation = ++gpuGeneration;
+  initializing = true; error.hidden = true; status.textContent = 'Initializing WebGPU…'; updateControls();
+  const pending = (async () => {
+    const module = await ensureRuntime();
+    if (generation !== gpuGeneration) return;
+    const created = await module.createGpu();
+    if (generation !== gpuGeneration) { await created.destroy(); return; }
+    runtime = module; gpu = created;
+    scheduler = new LatestRenderer(job => created.render(job.source, job.request), {
+      result: showResult, error: showError, state: updateControls,
+    });
+    details.textContent = describe({ build: module.getBuildInfo(), context: created.context });
+    status.textContent = 'WebGPU ready. Render when ready.';
+  })().catch(failure => { if (generation === gpuGeneration) showError(failure); })
+    .finally(() => {
+      if (acquisition === pending) acquisition = undefined;
+      if (generation === gpuGeneration) { initializing = false; updateControls(); }
+    });
+  acquisition = pending;
 });
-void operation('Loading checker.mix…', loadSample);
+
+async function stopGpu(message: string): Promise<void> {
+  if (closing) return;
+  const generation = ++gpuGeneration;
+  const previousScheduler = scheduler, previousGpu = gpu, previousAcquisition = acquisition;
+  scheduler = undefined; gpu = undefined; initializing = false; closing = true;
+  status.textContent = 'Disposing GPU…'; updateControls();
+  try {
+    await previousAcquisition;
+    await previousScheduler?.close();
+    await previousGpu?.destroy();
+    if (generation === gpuGeneration) status.textContent = message;
+  } catch (failure) { if (generation === gpuGeneration) showError(failure); }
+  finally { if (generation === gpuGeneration) { closing = false; updateControls(); } }
+}
+
+dispose.addEventListener('click', () => void stopGpu('GPU disposed. The rendered preview remains available.'));
+validate.addEventListener('click', () => validateCurrent(false));
+render.addEventListener('click', () => { if (validateCurrent(false) && source) scheduler?.submit(captureJob(source, sourceName, request())); });
+for (const input of [width, height]) input.addEventListener('input', edited);
+channels.addEventListener('change', edited);
+reset.addEventListener('click', () => { overrides = Object.create(null); metadataReady = false; edited(); });
+sample.addEventListener('click', () => { samples.value = 'checker'; void loadSource(() => sampleBytes(import.meta.env.BASE_URL, 'checker'), 'checker.mix', true); });
+samples.addEventListener('change', () => {
+  const name = samples.value;
+  if (!name) return;
+  void loadSource(() => sampleBytes(import.meta.env.BASE_URL, name), `${name}.mix`);
+});
+file.addEventListener('change', () => {
+  const selected = file.files?.[0];
+  if (selected) { samples.value = ''; void loadSource(() => fileBytes(selected), selected.name); }
+  file.value = '';
+});
+// Invalidate display ownership immediately; browser termination cannot await cleanup.
+window.addEventListener('pagehide', () => {
+  sourceGeneration++; loading = false;
+  void stopGpu('GPU disposed. Initialize WebGPU to render again.');
+});
+void loadSource(() => sampleBytes(import.meta.env.BASE_URL, 'checker'), 'checker.mix', true);

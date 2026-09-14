@@ -6,6 +6,7 @@ const extraArgs = process.env.MIXTURE_BROWSER_ARGS
 
 export default defineConfig({
   testDir: './tests',
+  testMatch: '**/*.spec.ts',
   timeout: 90_000,
   expect: { timeout: 10_000 },
   fullyParallel: false,

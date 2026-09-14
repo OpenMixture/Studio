@@ -2,12 +2,12 @@
 
 English | [简体中文](./AGENTS.zh-CN.md)
 
-This is the independent OpenMixture product repository. Read [README.md](./README.md) before extending scope. The current deliverable is the first packaged-runtime Player chain; full Player MVP and Studio editing follow their own planned batches.
+This is the independent OpenMixture product repository. Read [README.md](./README.md) before extending scope. The Player now includes M5-04 parameters and channel previews. Export acceptance and Studio editing follow their own planned batches.
 
 - Import engine behavior only from the public `@openmixture/runtime` package. Do not import producer paths, link to the engine checkout for acceptance, compile Rust during npm installation, or copy a renderer/catalog/validator into TypeScript.
 - Preserve incoming `.mix` bytes. Do not parse and reserialize user source before Rust validation. Keep editor layout and product state outside the material format.
 - GPU acquisition and disposal are explicit. Unsupported GPU and failed execution must remain errors, with no alternate renderer. Do not describe mocks, unavailable or skipped WebGPU tests as successful rendering.
-- Keep one active UI operation in this first page. A later scheduler must follow the public runtime's busy/destruction contract and the planned latest-request rules; do not add an unbounded queue.
+- Keep one active render and one replaceable latest pending request. Edits remain usable while rendering; invalid requests, source replacement and shutdown invalidate older completions. Never add an unbounded queue or describe freshness invalidation as GPU cancellation.
 - Returned pixels belong to the consumer. Retain only necessary previews/results, preserve channel encoding, and keep product canvas/export responsibilities outside the engine.
 - Update English and Simplified Chinese documentation together, with identical commands, versions and API examples. Preserve fixture provenance and archive identity.
 - Pin direct dependencies, retain `package-lock.json`, and use the real vendor tarball. Updating the artifact requires documenting its build identity/digest and rerunning public type/build/browser checks.
