@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "scope": "M5-04 parameters and previews only; export and full MVP acceptance remain open",
+  "productRevision": "ec7a98ac6e14f9d34eaa9606e32cff6ff0fced92",
+  "productClean": true,
+  "runtime": {
+    "runtimeVersion": "0.1.0-alpha.0",
+    "apiSchemaVersion": 1,
+    "engineVersion": "0.1.0",
+    "engineRevision": "4b914feb9f3365d292b27ea60c5e0b6004f745e8",
+    "engineDirty": false,
+    "buildId": "sha256:759549793271c7fdd257b0289dab11b2fa9524dbc500b5033cb717179f5d1243",
+    "tarball": "target/browser-runtime/openmixture-runtime-0.1.0-alpha.0.tgz",
+    "sha256": "9e245578de160cee1050259ef34358c3fcd3353a21bbb1672d29701bc1ac8084",
+    "toolchain": {
+      "rust": "rustc 1.98.1 (48a229cea 2026-09-01)",
+      "bindgen": "wasm-bindgen 0.2.128",
+      "node": "v24.20.0",
+      "npm": "11.19.0",
+      "target": "wasm32-unknown-unknown"
+    },
+    "files": [
+      "LICENSE-APACHE",
+      "LICENSE-MIT",
+      "README.md",
+      "README.zh-CN.md",
+      "build-info.json",
+      "package.json",
+      "src/build-info.mjs",
+      "src/index.d.ts",
+      "src/index.mjs",
+      "src/runtime.mjs",
+      "wasm/bindings.mjs",
+      "wasm/mixture_wasm_bg.wasm"
+    ],
+    "status": "built; browser acceptance is a separate verification"
+  },
+  "productLockSha256": "dd1d81c31fbf4a6258fae1de1fb7433402728ad61fd4e2f9fff60a7adf58a196",
+  "inputsSha256": {
+    "public/samples/checker.mix": "296c9d92e06211e8583ce0810f49562e0d36a68b6d795268b80dd19d8fda03b0",
+    "public/samples/glazed-ceramic.mix": "ec04b518719ec7aab7a7cf351624bfc370e755b41645cf2edbd9425dd3bbf4fd",
+    "public/samples/leather.mix": "8f74e407d0b7359c74149adc2440d39dbc0d64e821655404310939e5c5be9153",
+    "public/samples/wood.mix": "204e1952105d51a369a8549ee11c0f4bf06c22afd78b4a43daa765623b86b21d",
+    "tests/fixtures/controls.mix": "1d000ea6258c70bb810c5664ac8a9ea34fe9f8ef54f0d7f1ff16ff5a96fdfbaf"
+  },
+  "startedAt": "2026-09-14T07:54:33.275Z",
+  "completedAt": "2026-09-14T07:54:53.803Z",
+  "result": "passed",
+  "browserTests": {
+    "passed": 23,
+    "failed": 0,
+    "skipped": 0
+  },
+  "nodeTests": {
+    "passed": 6,
+    "failed": 0
+  },
+  "comparisons": {
+    "materials": [
+      "glazed-ceramic",
+      "leather",
+      "wood"
+    ],
+    "size": [
+      128,
+      128
+    ],
+    "channels": [
+      "baseColor",
+      "normal",
+      "roughness",
+      "height"
+    ],
+    "reference": "independent public runtime invocation in the same browser; exact displayed bytes at opaque alpha",
+    "parameterChangesAlterBaseColor": true,
+    "resetRestoresBaseColor": true
+  },
+  "visualReview": {
+    "reviewer": "agent",
+    "scope": "metadata controls, channel preview, layout and 390px responsive screenshot; no golden baseline change",
+    "result": "agent inspected all three desktop previews and the 390px wood screenshot; controls readable, material displayed, no horizontal overflow"
+  },
+  "limits": [
+    "No PNG export or complete M5-04 acceptance",
+    "Not M5-05 1K native/browser quality or CI qualification",
+    "Controlled real device loss and test-only completion barriers; not spontaneous hardware failure",
+    "Canvas is a display copy, not a lossless export representation",
+    "Original full command logs/raw Playwright report/temporary checkout are not retained in Git",
+    "Runtime unchanged and unpublished"
+  ],
+  "retainedFilesSha256": {
+    "browser-results.json": "6a871fd452e4c8ec1b53a6eb9271ce215a7fe957db7b7ab2182143b028ed7bf6",
+    "freshness.json": "59ab9a7b33e19f1de91db990bfe0b8d7a4a4ca8c267c125c385d00b4031b20f5",
+    "glazed-ceramic-preview.json": "ffceb32adcb82528aa1e2f59da7a28c44c0127f57b2dae2a4b533932d784a1dc",
+    "glazed-ceramic-preview.png": "5b371092da2d9bd80a4ab81939525ae39519cbb3064da55fff78645f63ee9e17",
+    "isolation.json": "55952638f676f047f1fce70ab2cd968211ad8a12484f81737de0a9129ebe8457",
+    "leather-preview.json": "687344ec5c430f39c25b5826f8d7499d23e2908c08971849a7b5768f746634c3",
+    "leather-preview.png": "561890f5041204dd330dfc8ea869d0e01c9325022b72d49042aab8153b0a5890",
+    "runtime-context.json": "35b6416e7cbfeae97c1d3f797661b9ef8532e66045c862a17aef947b2fb9d862",
+    "wood-mobile.png": "518c75757228d55f3c8e58be2cb67f4fc1ca9e8889204a8d306cd3456d7ed4b4",
+    "wood-preview.json": "d70791bc514ce408822dc6140f7831c0d7d6051c2148122dd3564529682399e9",
+    "wood-preview.png": "ee538248eeb63a1b7268b82b206008a17d1ad296babf7b73e3df4a9512e2b394"
+  }
+}

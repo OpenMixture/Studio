@@ -2,7 +2,7 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-An independent product repository for OpenMixture. The first deliverable is a small **Player** that opens `.mix` source, explicitly initializes WebGPU, and previews the engine's returned baseColor pixels. Studio graph authoring comes later.
+An independent product repository for OpenMixture. The **Player** opens `.mix` source, builds public parameter controls from Rust metadata, explicitly initializes WebGPU, and previews requested material channels. Studio graph authoring comes later.
 
 The engine and `@openmixture/runtime` are built in [OpenMixture/OpenMixture](https://github.com/OpenMixture/OpenMixture). This repository consumes the real packaged runtime from `vendor/`; it does not compile Rust or import producer source. The package is an unpublished local Alpha archive, not an npm registry release.
 
@@ -15,7 +15,7 @@ npm ci
 npm run dev
 ```
 
-Open the local `/player/` URL printed by Vite. Choose the included checker or a `.mix` file, optionally validate it, select dimensions, click **Initialize WebGPU**, then **Render**. **Dispose GPU** releases the renderer while retaining the displayed preview. Validation loads WASM but does not acquire a GPU. File bytes are passed directly to Rust; the source display is never parsed and reserialized for rendering.
+Open the local `/player/` URL printed by Vite. Choose checker, glazed ceramic, leather, wood or a `.mix` file; select dimensions, click **Initialize WebGPU**, then **Render**. Parameter and channel changes then preview automatically; **Reset parameters** restores source/default values. **Dispose GPU** releases the renderer while retaining the displayed preview. Validation loads WASM but does not acquire a GPU. File bytes are passed directly to Rust; the source display is never parsed and reserialized for rendering.
 
 A secure browser context with working WebGPU is required for rendering. The page reports initialization/render failures; there is no alternate pixel executor. Module import itself does not fetch WASM or request a GPU. Explicit disposal is the tested lifecycle path; page termination cannot wait for asynchronous cleanup.
 
@@ -28,7 +28,7 @@ npm run preview
 
 Open [http://127.0.0.1:4173/player/](http://127.0.0.1:4173/player/). Production assets are intentionally built for the non-root `/player/` base, including package-relative WASM. A static host must serve the `dist/` contents at that base with JavaScript and `application/wasm` MIME types. `vite preview` is a local verification server, not the production hosting service. No hosting deployment is performed by this repository bootstrap.
 
-The `Product checks` workflow runs a clean npm install, public type checks and the production build. It does **not** certify browser GPU execution.
+The `Product checks` workflow runs a clean npm install, public type checks, six scheduler/request-snapshot tests and the production build. It does **not** certify browser GPU execution.
 
 For actual browser verification:
 
@@ -58,10 +58,12 @@ The [checker fixture](./public/samples/checker.mix) is copied unchanged from the
 
 ## Current boundary
 
-This is the first M5-03 consumption chain: file selection, explicit initialization, baseColor preview, dimensions, diagnostics and disposal. Public parameter controls, channel switching/export, latest-request scheduling, material acceptance, registry publication and Studio graph editing belong to later work. Controls are disabled during each operation, so this minimal page never queues concurrent render requests.
+The [M5-04 parameter/preview slice](./docs/player-parameters.md) adds metadata-driven controls, channel selection, explicit stale previews and one active render plus one replaceable latest pending request. Edits remain usable while rendering. PNG export, full M5-04 workflow acceptance, M5-05 material/CI qualification, registry publication and Studio editing remain open.
 
 Contributors should follow the paired [agent guide](./AGENTS.md) and the engine's [M5 plan](https://github.com/OpenMixture/OpenMixture/blob/main/M5_PRS.md). Keep product behavior and consumer documentation together; keep render semantics in Rust.
 
 The extended lifecycle and isolated-consumer recipe is documented in [M5-02/M5-03 verification](./docs/m5-02-03.md).
 
 [2026-09-14 M5-02/M5-03 local acceptance](./docs/evidence/m5-02-03/README.md) records 13 passing Chromium checks, controlled real-device loss, cleanup and an isolated package consumer. M5-04/M5-05 remain open.
+
+[2026-09-14 parameter/preview evidence](./docs/evidence/m5-04-parameters/README.md) records the clean isolated consumer, 23 browser checks, six Node tests and inspected screenshots.

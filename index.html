@@ -12,7 +12,7 @@
         <a class="brand" href="https://github.com/OpenMixture/Studio">OpenMixture</a>
         <span class="phase">Player · browser preview</span>
         <h1>A material, from source to pixels.</h1>
-        <p>Open a .mix file, initialize WebGPU, and render its base color.</p>
+        <p>Open a .mix file, initialize WebGPU, adjust its exposed parameters, and preview its channels.</p>
       </header>
       <div class="workspace">
         <section class="controls" aria-label="Material and runtime controls">
@@ -22,18 +22,22 @@
             <label class="file-button" for="file">Open .mix file</label>
             <input id="file" type="file" accept=".mix,application/json" />
           </div>
+          <label class="sample-picker">Material sample<select id="samples" aria-label="Material sample"><option value="" disabled>Uploaded file</option><option value="checker">Checker</option><option value="glazed-ceramic">Glazed ceramic</option><option value="leather">Leather</option><option value="wood">Wood</option></select></label>
           <p id="source-name" class="muted">Loading checker.mix…</p>
           <details>
             <summary>View source</summary>
             <pre id="source-text" class="source-code"></pre>
           </details>
+          <div class="parameter-heading"><h2>Parameters</h2><button id="reset" type="button" disabled>Reset parameters</button></div>
+          <div id="parameters" class="parameters">Loading parameters…</div>
           <h2>Render</h2>
           <div class="dimensions">
             <label>Width<input id="width" type="number" min="1" step="1" value="256" /></label>
             <span aria-hidden="true">×</span>
             <label>Height<input id="height" type="number" min="1" step="1" value="256" /></label>
           </div>
-          <p class="muted">Channel: baseColor · RGBA8 sRGB</p>
+          <label class="channel-picker">Preview channel<select id="channels" aria-label="Preview channel"><option value="baseColor">baseColor</option></select></label>
+          <p class="muted">Changes preview automatically after WebGPU initialization.</p>
           <div class="runtime-actions">
             <button id="validate" type="button">Validate source</button>
             <button id="initialize" type="button">Initialize WebGPU</button>
@@ -53,7 +57,7 @@
         </section>
       </div>
       <details class="evidence"><summary>Runtime details and diagnostics</summary><pre id="details">No runtime operation yet.</pre></details>
-      <footer>Early browser chain · WebGPU required · <a href="https://github.com/OpenMixture/Studio">Source &amp; setup</a></footer>
+      <footer>Material Player · WebGPU required · <a href="https://github.com/OpenMixture/Studio">Source &amp; setup</a></footer>
     </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
