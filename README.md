@@ -61,3 +61,5 @@ The [checker fixture](./public/samples/checker.mix) is copied unchanged from the
 This is the first M5-03 consumption chain: file selection, explicit initialization, baseColor preview, dimensions, diagnostics and disposal. Public parameter controls, channel switching/export, latest-request scheduling, material acceptance, registry publication and Studio graph editing belong to later work. Controls are disabled during each operation, so this minimal page never queues concurrent render requests.
 
 Contributors should follow the paired [agent guide](./AGENTS.md) and the engine's [M5 plan](https://github.com/OpenMixture/OpenMixture/blob/main/M5_PRS.md). Keep product behavior and consumer documentation together; keep render semantics in Rust.
+
+The extended lifecycle and isolated-consumer recipe is documented in [M5-02/M5-03 verification](./docs/m5-02-03.md).
