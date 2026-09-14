@@ -65,3 +65,5 @@ npm run test:browser
 扩展生命周期与隔离消费者步骤见 [M5-02／M5-03 验证](./docs/m5-02-03.zh-CN.md)。
 
 [2026-09-14 M5-02／M5-03 本地验收](./docs/evidence/m5-02-03/README.zh-CN.md)记录 13 项 Chromium 检查通过、可控真实设备丢失、清理及隔离软件包消费。M5-04／M5-05 仍开放。
+
+[2026-09-14 参数／预览证据](./docs/evidence/m5-04-parameters/README.zh-CN.md)记录干净隔离消费者、23 项浏览器检查、六项 Node 测试及已检查截图。

@@ -1,0 +1,34 @@
+{
+  "material": "glazed-ceramic",
+  "parameter": "tilesX",
+  "sourceValue": "8",
+  "override": "12",
+  "size": [
+    128,
+    128
+  ],
+  "channels": [
+    {
+      "channel": "baseColor",
+      "encoding": "rgba8-srgb",
+      "sha256": "e170bdddd6ba7640c76b0d2ee3e9d99316e17e3525a4413c08a610f5b9f0eaf0"
+    },
+    {
+      "channel": "normal",
+      "encoding": "rgba8-linear",
+      "sha256": "812055c0b27f310ecb67d70b632efe84a2a854987b448c254073c7e4422cb2bb"
+    },
+    {
+      "channel": "roughness",
+      "encoding": "rgba8-linear",
+      "sha256": "1e01e5510faf41f5ca8fe643e759b4ccea7ecc40b74c301df7176d0021a2ffa3"
+    },
+    {
+      "channel": "height",
+      "encoding": "rgba8-linear",
+      "sha256": "49f6ff9b24c008dc281f9b5e78644c12d9398ed5af3a3160620a88edbb117b00"
+    }
+  ],
+  "initialBaseColorSha256": "da7c4fd81d58675ef27e2f2d59dc43efe785a163a2068d94accabe57c038d40f",
+  "sourceSha256": "ec04b518719ec7aab7a7cf351624bfc370e755b41645cf2edbd9425dd3bbf4fd"
+}

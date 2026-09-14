@@ -1,0 +1,34 @@
+{
+  "material": "wood",
+  "parameter": "warpStrength",
+  "sourceValue": "0.018",
+  "override": "0.04",
+  "size": [
+    128,
+    128
+  ],
+  "channels": [
+    {
+      "channel": "baseColor",
+      "encoding": "rgba8-srgb",
+      "sha256": "69b91307526fe13656366e5ff762b12d33fce772d211737a12f11552571b4449"
+    },
+    {
+      "channel": "normal",
+      "encoding": "rgba8-linear",
+      "sha256": "6832cce18694eefdc39c0e6274d71ceacb6c30ca1fbfc7503fe8c66221d15818"
+    },
+    {
+      "channel": "roughness",
+      "encoding": "rgba8-linear",
+      "sha256": "56971fae3ccd438d41e4530239689d16f6ebcf5b8b90e0c260c9825c4627b0fe"
+    },
+    {
+      "channel": "height",
+      "encoding": "rgba8-linear",
+      "sha256": "c37605fae455e5072fe650493fb32aa8bdf1c31c9853ed820317be491363ba1f"
+    }
+  ],
+  "initialBaseColorSha256": "920c10e5b96bbdba139c74a136508fb0ef9990d12edc35ab55ee89fde64bf179",
+  "sourceSha256": "204e1952105d51a369a8549ee11c0f4bf06c22afd78b4a43daa765623b86b21d"
+}
