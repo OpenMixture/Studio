@@ -34,6 +34,8 @@ const receipt = { schemaVersion: 1, productRevision: revision, clean: true, prod
   archiveSha256: sha256(join(consumer, 'vendor/openmixture-runtime-0.1.0-alpha.0.tgz')),
   fixtureSha256: sha256(join(consumer, 'public/samples/checker.mix')),
   node: process.version, startedAt: new Date().toISOString(), consumer, checks: [] };
+const provenance = JSON.parse(readFileSync(join(consumer, 'vendor/runtime-build.json'), 'utf8'));
+if (receipt.archiveSha256 !== provenance.sha256) throw new Error('Archive does not match its build receipt');
 console.log(`Isolated consumer: ${consumer}`);
 function run(label, command, args) {
   const startedAt = new Date().toISOString();

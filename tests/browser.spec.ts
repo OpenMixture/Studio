@@ -3,6 +3,10 @@ import { readFile } from 'node:fs/promises';
 import { platform, release, arch } from 'node:os';
 import type {} from './harness';
 
+const provenance = JSON.parse(await readFile(new URL('../vendor/runtime-build.json', import.meta.url), 'utf8'));
+const expectedBuild = Object.fromEntries(['runtimeVersion', 'apiSchemaVersion', 'engineVersion', 'engineRevision', 'engineDirty', 'buildId']
+  .map((key) => [key, provenance[key]]));
+
 const checker = await readFile(new URL('../public/samples/checker.mix', import.meta.url), 'utf8');
 
 // Exact independent black/white sentinels for the unchanged 8-by-8 checker at 65-by-3.
@@ -66,8 +70,12 @@ test('package import has no WASM effects; CPU contract does not touch WebGPU', a
   expect(result.invalidUtf8).toMatchObject({ ok: false, diagnostics: [{ code: 'MIX_PARSE_INVALID_UTF8' }] });
   expect(result.invalidRequest).toHaveProperty('code', 'MIX_BROWSER_INVALID_ARGUMENT');
   expect(result.fractionalOverride).toHaveProperty('code');
-  expect(Object.values(result.estimateTypes)).toContain('bigint');
-  expect(result.build.runtimeVersion).toBe('0.1.0-alpha.0');
+  expect(result.estimateTypes).toEqual({
+    textureBytes: 'bigint', uniformBytes: 'bigint', paddedBytesPerRow: 'number',
+    readbackBufferBytes: 'bigint', readbackBytes: 'bigint', cumulativeReadbackBytes: 'bigint',
+    cumulativeBytes: 'bigint', peakBytes: 'bigint',
+  });
+  expect(result.build).toEqual(expectedBuild);
   expect(wasmRequests.length).toBeGreaterThan(0);
 });
 
