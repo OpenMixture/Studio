@@ -61,3 +61,7 @@ npm run test:browser
 这里实现第一条 M5-03 消费链路：文件选择、显式初始化、baseColor 预览、尺寸、诊断与释放。公开参数控件、通道切换及导出、最新请求调度、材质验收、registry 发布与 Studio 节点编辑属于后续工作。每次操作期间禁用控件，因此这个最小页面不会排队执行并发渲染请求。
 
 贡献者应遵守成对的 [代理指南](./AGENTS.zh-CN.md) 和引擎的 [M5 计划](https://github.com/OpenMixture/OpenMixture/blob/main/M5_PRS.zh-CN.md)。同步维护产品行为与消费者文档，渲染语义由 Rust 持有。
+
+扩展生命周期与隔离消费者步骤见 [M5-02／M5-03 验证](./docs/m5-02-03.zh-CN.md)。
+
+[2026-09-14 M5-02／M5-03 本地验收](./docs/evidence/m5-02-03/README.zh-CN.md)记录 13 项 Chromium 检查通过、可控真实设备丢失、清理及隔离软件包消费。M5-04／M5-05 仍开放。

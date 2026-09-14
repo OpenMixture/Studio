@@ -1,0 +1,100 @@
+{
+  "stats": {
+    "startTime": "2026-09-14T04:33:30.045Z",
+    "duration": 17404.542999999998,
+    "expected": 13,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "tests": [
+    {
+      "title": "package import has no WASM effects; CPU contract does not touch WebGPU",
+      "status": "passed",
+      "durationMs": 5950,
+      "attachments": []
+    },
+    {
+      "title": "missing WASM produces a structured loader failure",
+      "status": "passed",
+      "durationMs": 398,
+      "attachments": []
+    },
+    {
+      "title": "explicit packaged WASM URL and supplied bytes load without a loader refetch",
+      "status": "passed",
+      "durationMs": 588,
+      "attachments": []
+    },
+    {
+      "title": "real WebGPU renders owned odd-size pixels and obeys busy/destruction rules",
+      "status": "passed",
+      "durationMs": 927,
+      "attachments": [
+        "runtime-context.json"
+      ]
+    },
+    {
+      "title": "Player loads user bytes, reports invalid input, renders and keeps preview after disposal",
+      "status": "passed",
+      "durationMs": 3136,
+      "attachments": []
+    },
+    {
+      "title": "pagehide releases the old GPU and allows a new explicit initialization",
+      "status": "passed",
+      "durationMs": 546,
+      "attachments": []
+    },
+    {
+      "title": "real device destruction between renders settles with loss evidence",
+      "status": "passed",
+      "durationMs": 299,
+      "attachments": [
+        "loss-between-renders.json"
+      ]
+    },
+    {
+      "title": "real device destruction during readback settles with loss evidence",
+      "status": "passed",
+      "durationMs": 1988,
+      "attachments": [
+        "loss-during-map.json"
+      ]
+    },
+    {
+      "title": "real mapping validation failure cleans up scopes and permits a later render",
+      "status": "passed",
+      "durationMs": 978,
+      "attachments": [
+        "map-failure.json"
+      ]
+    },
+    {
+      "title": "repeated independent modules and devices retain owned outputs with no live per-call allocations",
+      "status": "passed",
+      "durationMs": 380,
+      "attachments": [
+        "repeated-lifecycle.json"
+      ]
+    },
+    {
+      "title": "unavailable WebGPU remains a structured failure while CPU validation works",
+      "status": "passed",
+      "durationMs": 270,
+      "attachments": []
+    },
+    {
+      "title": "injected adapter acquisition rejection preserves its structured stage",
+      "status": "passed",
+      "durationMs": 286,
+      "attachments": []
+    },
+    {
+      "title": "injected device acquisition rejection preserves its structured stage",
+      "status": "passed",
+      "durationMs": 607,
+      "attachments": []
+    }
+  ]
+}
