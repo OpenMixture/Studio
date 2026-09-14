@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "scope": "M5-02 initial browser execution and M5-03 isolated packaged consumer; local acceptance",
+  "productRevision": "d38bf68ddc470a33c608592363e3554f05887fe1",
+  "runtime": {
+    "runtimeVersion": "0.1.0-alpha.0",
+    "apiSchemaVersion": 1,
+    "engineVersion": "0.1.0",
+    "engineRevision": "4b914feb9f3365d292b27ea60c5e0b6004f745e8",
+    "engineDirty": false,
+    "buildId": "sha256:759549793271c7fdd257b0289dab11b2fa9524dbc500b5033cb717179f5d1243",
+    "tarball": "target/browser-runtime/openmixture-runtime-0.1.0-alpha.0.tgz",
+    "sha256": "9e245578de160cee1050259ef34358c3fcd3353a21bbb1672d29701bc1ac8084",
+    "toolchain": {
+      "rust": "rustc 1.98.1 (48a229cea 2026-09-01)",
+      "bindgen": "wasm-bindgen 0.2.128",
+      "node": "v24.20.0",
+      "npm": "11.19.0",
+      "target": "wasm32-unknown-unknown"
+    },
+    "files": [
+      "LICENSE-APACHE",
+      "LICENSE-MIT",
+      "README.md",
+      "README.zh-CN.md",
+      "build-info.json",
+      "package.json",
+      "src/build-info.mjs",
+      "src/index.d.ts",
+      "src/index.mjs",
+      "src/runtime.mjs",
+      "wasm/bindings.mjs",
+      "wasm/mixture_wasm_bg.wasm"
+    ],
+    "status": "built; browser acceptance is a separate verification"
+  },
+  "productLockSha256": "dd1d81c31fbf4a6258fae1de1fb7433402728ad61fd4e2f9fff60a7adf58a196",
+  "fixtureSha256": "296c9d92e06211e8583ce0810f49562e0d36a68b6d795268b80dd19d8fda03b0",
+  "startedAt": "2026-09-14T04:33:23.018Z",
+  "completedAt": "2026-09-14T04:33:47.458Z",
+  "result": "passed",
+  "browserTests": {
+    "passed": 13,
+    "failed": 0,
+    "skipped": 0
+  },
+  "os": "26.5.1",
+  "deviceLossTrigger": "real GPUDevice.destroy; delivered destroyed reason; no spontaneous hardware-loss claim",
+  "retainedFilesSha256": {
+    "browser-results.json": "60b8e7e631ccdce9760fd4d4b1413d05c5c4fbf721565ad42b97f2a3c80526e6",
+    "isolation-probe.txt": "df2c23f2b6a6f1547246342e5c894158cdabe14018113001a7da89a14ac44ed9",
+    "isolation.json": "7b3c684b88385bc2947aae02588dba20e91201d73e66db6a0af11f91c6342001",
+    "loss-between-renders.json": "8a24b1c7e3a8e74d6331c74b5ebcc97b5485019cb9c6c70e12c858ac8c5fdb12",
+    "loss-during-map.json": "6a2082c35a3f4060a5379cd5324459c59832588592d605e1089bf7a69d74d0af",
+    "map-failure.json": "d5f1d932b82f0807304e604cba5d9924372a36ca894eabafa3ee2235639f75f8",
+    "repeated-lifecycle.json": "2de9dd532bb2d890afa89023aa55be0dbce9a529ae0b99fdf85c0b3f87e1ef97",
+    "runtime-context.json": "42146699adfa532225d6cf2d10b14572e57ddcb376268f0f196d0df6fc7b8561"
+  },
+  "limitations": [
+    "One recorded macOS/Chromium configuration with explicit WebGPU flags",
+    "Adapter identity redacted by browser",
+    "Descriptor accounting is not physical GPU memory",
+    "Three-material regression, full Player MVP, accepted browser CI matrix remain open",
+    "Full logs, temporary checkout and raw Playwright report are not retained in Git",
+    "Runtime archive unchanged and unpublished"
+  ]
+}
