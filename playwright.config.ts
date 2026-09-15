@@ -22,7 +22,7 @@ export default defineConfig({
     screenshot: 'only-on-failure',
   },
   webServer: {
-    command: 'npm run preview',
+    command: 'node scripts/static-server.mjs',
     url: 'http://127.0.0.1:4173/player/',
     reuseExistingServer: false,
     timeout: 30_000,

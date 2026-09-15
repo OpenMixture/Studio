@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "testedProductRevision": "56c510ab57daa1b68ef660525a648a582730a37e",
+  "clean": true,
+  "result": "passed local product gates; engine comparison acceptance recorded separately",
+  "files": {
+    "deployment.json": {
+      "sha256": "bdfc85a2e4cd4286e170c256f27d954a56ee6a79f6c5febbc5920a105233e498",
+      "bytes": 1223
+    },
+    "checker.png": {
+      "sha256": "ffca77b541d61251a3905d4974d02808c8c1d4d3c2215e4965689288c1232c55",
+      "bytes": 115
+    },
+    "materials.json": {
+      "sha256": "f2b09717d25685bff0253a73466a0b8fdc74986fad33788ec92823233a1a594f",
+      "bytes": 15876
+    },
+    "browser-results.json": {
+      "sha256": "74fea984a226f7f59251a43350edd609e917846ef4eac64def76c5c7f9859faf",
+      "bytes": 4580
+    },
+    "isolation.json": {
+      "sha256": "8717d02670308fe0492db4844794fcb09c8354d80c246d196e00ac3547c1b258",
+      "bytes": 3501
+    },
+    "deployment.png": {
+      "sha256": "80708463f48bfe7ecc1e95a36f65c9343a4ec0fe11c2802b8cf9331a3c895aea",
+      "bytes": 97740
+    }
+  }
+}

@@ -69,3 +69,7 @@ npm run test:browser
 [2026-09-14 参数／预览证据](./docs/evidence/m5-04-parameters/README.zh-CN.md)记录干净隔离消费者、23 项浏览器检查、九项 Node 测试及已检查截图。
 
 [2026-09-15 M5-04 导出验收](./docs/evidence/m5-04-export/README.zh-CN.md)记录 28 项浏览器检查、九项 Node 测试及 12 份独立解码的材质 PNG。
+
+M5-05 工具及剩余门槛见[浏览器验收](./docs/browser-qualification.zh-CN.md)。
+
+[M5-05 产品证据](./docs/evidence/m5-05/README.zh-CN.md)记录隔离执行、正常静态部署及通过的浏览器 CI；引擎材质比较单独记录。
