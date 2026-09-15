@@ -1,0 +1,71 @@
+{
+  "material": "wood",
+  "parameter": "warpStrength",
+  "sourceValue": "0.018",
+  "override": "0.04",
+  "size": [
+    128,
+    128
+  ],
+  "channels": [
+    {
+      "channel": "baseColor",
+      "encoding": "rgba8-srgb",
+      "sha256": "69b91307526fe13656366e5ff762b12d33fce772d211737a12f11552571b4449",
+      "pngSha256": "dc945ee2d032a4fdc79c47a5ba9058173dd40fb0ab1259f17974ee56055dedf3",
+      "gamma": 45455,
+      "srgb": 0,
+      "chunks": [
+        "IHDR",
+        "gAMA",
+        "sRGB",
+        "IDAT",
+        "IEND"
+      ]
+    },
+    {
+      "channel": "normal",
+      "encoding": "rgba8-linear",
+      "sha256": "6832cce18694eefdc39c0e6274d71ceacb6c30ca1fbfc7503fe8c66221d15818",
+      "pngSha256": "c27acd292fc205bac2b3fbd3b5e46f14ac81a2cf01ad04175816f8cf5a73d304",
+      "gamma": 100000,
+      "srgb": null,
+      "chunks": [
+        "IHDR",
+        "gAMA",
+        "IDAT",
+        "IEND"
+      ]
+    },
+    {
+      "channel": "roughness",
+      "encoding": "rgba8-linear",
+      "sha256": "56971fae3ccd438d41e4530239689d16f6ebcf5b8b90e0c260c9825c4627b0fe",
+      "pngSha256": "174e2c67cda7eb0d962035781e0d5684cd8c218297a6afb98bcb15bafe0f89bb",
+      "gamma": 100000,
+      "srgb": null,
+      "chunks": [
+        "IHDR",
+        "gAMA",
+        "IDAT",
+        "IEND"
+      ]
+    },
+    {
+      "channel": "height",
+      "encoding": "rgba8-linear",
+      "sha256": "c37605fae455e5072fe650493fb32aa8bdf1c31c9853ed820317be491363ba1f",
+      "pngSha256": "e916b70b212ffb65a6319576ed431211c45a49649748991adeb88e78b8acdb65",
+      "gamma": 100000,
+      "srgb": null,
+      "chunks": [
+        "IHDR",
+        "gAMA",
+        "IDAT",
+        "IEND"
+      ]
+    }
+  ],
+  "initialBaseColorSha256": "920c10e5b96bbdba139c74a136508fb0ef9990d12edc35ab55ee89fde64bf179",
+  "sourceSha256": "204e1952105d51a369a8549ee11c0f4bf06c22afd78b4a43daa765623b86b21d"
+}

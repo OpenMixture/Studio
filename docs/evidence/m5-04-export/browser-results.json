@@ -1,0 +1,208 @@
+{
+  "stats": {
+    "startTime": "2026-09-15T04:28:51.414Z",
+    "duration": 20978.671000000002,
+    "expected": 28,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "tests": [
+    {
+      "title": "package import has no WASM effects; CPU contract does not touch WebGPU",
+      "status": "passed",
+      "durationMs": 394,
+      "attachments": []
+    },
+    {
+      "title": "missing WASM produces a structured loader failure",
+      "status": "passed",
+      "durationMs": 334,
+      "attachments": []
+    },
+    {
+      "title": "explicit packaged WASM URL and supplied bytes load without a loader refetch",
+      "status": "passed",
+      "durationMs": 420,
+      "attachments": []
+    },
+    {
+      "title": "real WebGPU renders owned odd-size pixels and obeys busy/destruction rules",
+      "status": "passed",
+      "durationMs": 378,
+      "attachments": [
+        "runtime-context.json"
+      ]
+    },
+    {
+      "title": "Player loads user bytes, reports invalid input, renders and keeps preview after disposal",
+      "status": "passed",
+      "durationMs": 624,
+      "attachments": []
+    },
+    {
+      "title": "pagehide releases the old GPU and allows a new explicit initialization",
+      "status": "passed",
+      "durationMs": 570,
+      "attachments": []
+    },
+    {
+      "title": "odd dimensions, all eight channel encodings and downloads after disposal",
+      "status": "passed",
+      "durationMs": 1139,
+      "attachments": [
+        "export-mobile.png"
+      ]
+    },
+    {
+      "title": "pending PNG edit cannot download stale bytes and releases export busy state",
+      "status": "passed",
+      "durationMs": 869,
+      "attachments": []
+    },
+    {
+      "title": "pending PNG pagehide cannot download stale bytes and releases export busy state",
+      "status": "passed",
+      "durationMs": 834,
+      "attachments": []
+    },
+    {
+      "title": "pending PNG failure cannot download stale bytes and releases export busy state",
+      "status": "passed",
+      "durationMs": 496,
+      "attachments": []
+    },
+    {
+      "title": "long uploaded filenames remain bounded and visible on narrow screens",
+      "status": "passed",
+      "durationMs": 556,
+      "attachments": []
+    },
+    {
+      "title": "real device destruction between renders settles with loss evidence",
+      "status": "passed",
+      "durationMs": 356,
+      "attachments": []
+    },
+    {
+      "title": "real device destruction during readback settles with loss evidence",
+      "status": "passed",
+      "durationMs": 372,
+      "attachments": []
+    },
+    {
+      "title": "real mapping validation failure cleans up scopes and permits a later render",
+      "status": "passed",
+      "durationMs": 437,
+      "attachments": []
+    },
+    {
+      "title": "repeated independent modules and devices retain owned outputs with no live per-call allocations",
+      "status": "passed",
+      "durationMs": 492,
+      "attachments": []
+    },
+    {
+      "title": "unavailable WebGPU remains a structured failure while CPU validation works",
+      "status": "passed",
+      "durationMs": 356,
+      "attachments": []
+    },
+    {
+      "title": "injected adapter acquisition rejection preserves its structured stage",
+      "status": "passed",
+      "durationMs": 380,
+      "attachments": []
+    },
+    {
+      "title": "injected device acquisition rejection preserves its structured stage",
+      "status": "passed",
+      "durationMs": 360,
+      "attachments": []
+    },
+    {
+      "title": "glazed-ceramic: metadata controls, parameter changes and four real channel previews",
+      "status": "passed",
+      "durationMs": 2036,
+      "attachments": [
+        "glazed-ceramic-baseColor.png",
+        "glazed-ceramic-normal.png",
+        "glazed-ceramic-roughness.png",
+        "glazed-ceramic-height.png",
+        "glazed-ceramic-preview.png",
+        "glazed-ceramic-preview.json"
+      ]
+    },
+    {
+      "title": "leather: metadata controls, parameter changes and four real channel previews",
+      "status": "passed",
+      "durationMs": 2039,
+      "attachments": [
+        "leather-baseColor.png",
+        "leather-normal.png",
+        "leather-roughness.png",
+        "leather-height.png",
+        "leather-preview.png",
+        "leather-preview.json"
+      ]
+    },
+    {
+      "title": "wood: metadata controls, parameter changes and four real channel previews",
+      "status": "passed",
+      "durationMs": 2121,
+      "attachments": [
+        "wood-baseColor.png",
+        "wood-normal.png",
+        "wood-roughness.png",
+        "wood-height.png",
+        "wood-preview.png",
+        "wood-preview.json",
+        "wood-mobile.png"
+      ]
+    },
+    {
+      "title": "color and enum controls preserve exact values and show Rust validation failures",
+      "status": "passed",
+      "durationMs": 1075,
+      "attachments": []
+    },
+    {
+      "title": "rapid edits replace queued work, invalid overrides suppress old completion, and disposal waits",
+      "status": "passed",
+      "durationMs": 730,
+      "attachments": [
+        "freshness.json"
+      ]
+    },
+    {
+      "title": "an invalid new file clears old bindings and cannot receive an earlier render",
+      "status": "passed",
+      "durationMs": 553,
+      "attachments": []
+    },
+    {
+      "title": "unsupported WebGPU leaves metadata controls usable and reports a structured error",
+      "status": "passed",
+      "durationMs": 452,
+      "attachments": []
+    },
+    {
+      "title": "pagehide during initialization waits for and destroys the late device",
+      "status": "passed",
+      "durationMs": 473,
+      "attachments": []
+    },
+    {
+      "title": "a latest real GPU failure retains the previous preview with stale status",
+      "status": "passed",
+      "durationMs": 624,
+      "attachments": []
+    },
+    {
+      "title": "a late file read cannot replace the newer file or its parameter bindings",
+      "status": "passed",
+      "durationMs": 419,
+      "attachments": []
+    }
+  ]
+}

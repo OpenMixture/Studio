@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import type { ChannelId, ParameterValue } from '@openmixture/runtime';
 import type {} from './harness';
+import { decodePng } from './helpers/png';
 
 const checker = await readFile(new URL('../public/samples/checker.mix', import.meta.url), 'utf8');
 const pixels = (page: Page) => page.locator('canvas').evaluate((canvas: HTMLCanvasElement) =>
@@ -43,7 +44,7 @@ for (const [material, parameter, value] of [
     const expected = await reference(ref, source, { [parameter]: Number(value) }, ['baseColor', 'normal', 'roughness', 'height']);
     await ref.close();
     await ready(page, 128);
-    await page.getByLabel('Material sample', { exact: true }).selectOption(material);
+    await page.locator('#file').setInputFiles({ name: `${material}.mix`, mimeType: 'application/json', buffer: Buffer.from(source) });
     await expect(page.getByLabel(parameter, { exact: true })).toBeVisible();
     const initialValue = await page.getByLabel(parameter, { exact: true }).inputValue();
     await initialize(page); await render(page);
@@ -59,7 +60,23 @@ for (const [material, parameter, value] of [
       const actual = await pixels(page);
       expect(digest(actual)).toBe(digest(channel.pixels));
       await expect(page.locator('#result-info')).toContainText(`${channel.channel} · ${channel.encoding}`);
-      measurements.push({ channel: channel.channel, encoding: channel.encoding, sha256: digest(actual) });
+      // Corrupt the display canvas: export must still use owned runtime samples.
+      await page.locator('canvas').evaluate((canvas: HTMLCanvasElement) => canvas.getContext('2d')!.clearRect(0, 0, canvas.width, canvas.height));
+      const downloaded = page.waitForEvent('download');
+      await page.getByRole('button', { name: 'Download channel PNG', exact: true }).click();
+      const download = await downloaded;
+      expect(download.suggestedFilename()).toBe(`${material}-${channel.channel}-128x128.png`);
+      const bytes = await readFile((await download.path())!);
+      const decoded = decodePng(bytes);
+      expect([decoded.width, decoded.height]).toEqual([128, 128]);
+      expect(digest([...decoded.pixels])).toBe(digest(channel.pixels));
+      expect(decoded.gamma).toBe(channel.encoding === 'rgba8-srgb' ? 45455 : 100000);
+      expect(decoded.srgb).toBe(channel.encoding === 'rgba8-srgb' ? 0 : undefined);
+      expect(decoded.chunks).toEqual(channel.encoding === 'rgba8-srgb'
+        ? ['IHDR', 'gAMA', 'sRGB', 'IDAT', 'IEND'] : ['IHDR', 'gAMA', 'IDAT', 'IEND']);
+      await testInfo.attach(`${material}-${channel.channel}.png`, { body: bytes, contentType: 'image/png' });
+      measurements.push({ channel: channel.channel, encoding: channel.encoding, sha256: digest(actual),
+        pngSha256: digest([...bytes]), gamma: decoded.gamma, srgb: decoded.srgb ?? null, chunks: decoded.chunks });
     }
     expect(before).not.toBe(measurements.find(item => item.channel === 'baseColor')!.sha256);
     await page.getByLabel('Preview channel', { exact: true }).selectOption('baseColor');
@@ -96,6 +113,7 @@ test('color and enum controls preserve exact values and show Rust validation fai
   await page.getByLabel('tint Alpha', { exact: true }).fill('2');
   await expect(page.getByRole('alert')).toContainText('MIX_');
   await expect(page.locator('#preview-state')).toHaveAttribute('data-stale', 'true');
+  await expect(page.locator('#download')).toBeDisabled();
   await expect(page.getByRole('button', { name: 'Render', exact: true })).toBeDisabled();
   expect(await pixels(page)).toEqual(prior);
   await page.getByLabel('tint Alpha', { exact: true }).fill('1');
@@ -133,6 +151,7 @@ test('rapid edits replace queued work, invalid overrides suppress old completion
   await page.getByLabel('frequency', { exact: true }).fill('5');
   await page.getByLabel('frequency', { exact: true }).fill('6');
   await expect(page.getByRole('status')).toHaveText('Rendering… Latest changes queued.');
+  await expect(page.locator('#download')).toBeDisabled();
   expect(await pixels(page)).toEqual(original);
   await releaseMap(page);
   await expect(page.getByRole('status')).toHaveText('Render complete.');
@@ -150,6 +169,7 @@ test('rapid edits replace queued work, invalid overrides suppress old completion
   await expect(page.getByRole('status')).toHaveText('GPU disposed. The rendered preview remains available.');
   expect(await pixels(page)).toEqual(newest);
   await expect(page.locator('#preview-state')).toHaveAttribute('data-stale', 'true');
+  await expect(page.locator('#download')).toBeDisabled();
   expect((await mapState(page)).maps).toBe(4);
   await testInfo.attach('freshness.json', { body: JSON.stringify({ maps: 4, intermediateRequestsDropped: true, invalidOverridePreservedPreview: true, originalSha256: digest(original), latestSha256: digest(newest) }), contentType: 'application/json' });
 });
@@ -167,6 +187,7 @@ test('an invalid new file clears old bindings and cannot receive an earlier rend
   await expect(page.getByRole('status')).toHaveText('GPU disposed. The rendered preview remains available.');
   expect(await pixels(page)).toEqual(prior);
   await expect(page.locator('#preview-state')).toHaveAttribute('data-stale', 'true');
+  await expect(page.locator('#download')).toBeDisabled();
 });
 
 test('unsupported WebGPU leaves metadata controls usable and reports a structured error', async ({ page }) => {
@@ -230,6 +251,7 @@ test('a latest real GPU failure retains the previous preview with stale status',
   await page.getByLabel('frequency', { exact: true }).fill('4');
   await expect(page.getByRole('alert')).toContainText('MIX_GPU_DEVICE_LOST');
   await expect(page.locator('#preview-state')).toHaveAttribute('data-stale', 'true');
+  await expect(page.locator('#download')).toBeDisabled();
   expect(await pixels(page)).toEqual(previous);
   await page.getByRole('button', { name: 'Dispose GPU', exact: true }).click();
   await expect(page.getByRole('status')).toHaveText('GPU disposed. The rendered preview remains available.');
