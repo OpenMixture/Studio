@@ -16,13 +16,16 @@ const args=['--enable-unsafe-webgpu','--ignore-gpu-blocklist',...JSON.parse(proc
 const server=await serveStatic();let browser;
 try {
  browser=await chromium.launch({channel:'chromium',args});
- const page=await browser.newPage(),failures=[];page.on('pageerror',e=>failures.push(e.message));
+ const page=await browser.newPage(),failures=[];page.on('pageerror',e=>{failures.push(e.message);console.error('Browser error:',e.message);});
+ page.on('console',message=>{if(message.type()==='error')console.error('Browser console:',message.text());});
  const responses=[];page.on('response',response=>responses.push({url:response.url(),status:response.status(),type:response.headers()['content-type']}));
  await page.goto('http://127.0.0.1:4173/player/tests/contract.html');
- const context=await page.evaluate(async()=>{
+ const contextText=await page.evaluate(async()=>{
   window.runtime=await window.mixtureContract.loadRuntime();window.gpu=await window.runtime.createGpu();
-  return JSON.parse(JSON.stringify({build:window.runtime.getBuildInfo(),context:window.gpu.context},(_,v)=>typeof v==='bigint'?v.toString():v));
+  return JSON.stringify({build:window.runtime.getBuildInfo(),context:window.gpu.context},(_,v)=>typeof v==='bigint'?v.toString():v);
  });
+ assert.equal(typeof contextText,'string',`Browser initialization returned no context: ${failures.join('; ')}`);
+ const context=JSON.parse(contextText);
  assert.equal(context.build.engineRevision,manifest.runtimeRevision);
  const receipt={schemaVersion:1,archiveSha256:sha(await readFile('vendor/openmixture-runtime-0.1.0-alpha.0.tgz')),lockSha256:sha(await readFile('package-lock.json')),runnerImage:process.env.ImageVersion??null,startedAt:new Date().toISOString(),manifestSha256:sha(manifestBytes),browser:browser.version(),os:platform(),osRelease:release(),arch:arch(),node:process.version,args,...context,cases:[]};
  for(const item of manifest.cases){

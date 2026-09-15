@@ -65,6 +65,7 @@ console.log('Both working checkouts denied; cargo and rustc absent from PATH');
 run('install', '/usr/bin/env', ['npm', 'ci']);
 run('check', '/usr/bin/env', ['npm', 'run', 'check']);
 run('browser', '/usr/bin/env', ['npm', 'run', 'test:browser']);
+run('deployment', '/usr/bin/env', ['npm', 'run', 'test:deployment']);
 if (process.argv[3]) {
   const reference = join(work, 'native-reference');
   cpSync(resolve(process.argv[3]), reference, { recursive: true, errorOnExist: true, force: false });

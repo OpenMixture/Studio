@@ -14,3 +14,5 @@ node scripts/verify-isolated.mjs /absolute/path/to/OpenMixture /absolute/native-
 两套浏览器测试均通过 `scripts/static-server.mjs` 在 `/player/` 下提供构建后的 `dist/` 文件，明确提供 WASM MIME。普通生产构建不含测试契约页面。这是本地静态部署检查，不是公开网站发布。缺失资源或不可用 WebGPU 均失败。CI 锁定 Ubuntu 24.04、Node/npm、Playwright 及对应 Chromium 修订；在已有 unsafe-WebGPU／blocklist 参数之外，通过 `--use-angle=swiftshader` 和 `--use-webgpu-adapter=swiftshader` 选择 Chromium 自带 SwiftShader。浏览器提供适配器信息时保留确切值；软件设备是显式选择，不是语义回退。
 
 浏览器 CI 任务不会把未执行的材质比较视为通过。校准和冻结容差后的验收是独立引擎步骤。完整 M5-05 就绪结论需要已记录的 CI 及隔离比较结果。不包含 registry 发布、公开托管或 Studio 编辑。
+
+`npm run test:deployment` 另构建不含测试页面的正常生产入口，在静态部署下验证真实渲染／下载、WASM MIME 及测试页面返回 404。该步骤纳入隔离验收和浏览器 CI。
