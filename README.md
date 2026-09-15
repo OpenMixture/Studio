@@ -69,3 +69,5 @@ The extended lifecycle and isolated-consumer recipe is documented in [M5-02/M5-0
 [2026-09-14 parameter/preview evidence](./docs/evidence/m5-04-parameters/README.md) records the clean isolated consumer, 23 browser checks, six Node tests and inspected screenshots.
 
 [2026-09-15 M5-04 export acceptance](./docs/evidence/m5-04-export/README.md) records 28 browser checks, nine Node tests and 12 independently decoded material PNGs.
+
+M5-05 tooling and its remaining gates are described in [browser qualification](./docs/browser-qualification.md).

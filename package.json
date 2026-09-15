@@ -18,7 +18,8 @@
     "check": "npm run typecheck && npm test && npm run build",
     "test:browser": "npm run typecheck && vite build --mode browser-test && playwright test",
     "test:browser:headed": "npm run test:browser -- --headed",
-    "test": "node --test tests/unit/*.test.mjs"
+    "test": "node --test tests/unit/*.test.mjs",
+    "test:materials": "npm run typecheck && vite build --mode browser-test && node scripts/verify-materials.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",

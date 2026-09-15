@@ -1,7 +1,7 @@
 // macOS acceptance recipe: archive committed product sources, deny both working
 // checkouts to child processes, remove Rust from PATH, then consume the real package.
 import { execFileSync, spawnSync } from 'node:child_process';
-import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, realpathSync } from 'node:fs';
+import { cpSync, mkdtempSync, mkdirSync, readFileSync, writeFileSync, realpathSync } from 'node:fs';
 import { tmpdir, platform } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { createHash } from 'node:crypto';
@@ -65,4 +65,11 @@ console.log('Both working checkouts denied; cargo and rustc absent from PATH');
 run('install', '/usr/bin/env', ['npm', 'ci']);
 run('check', '/usr/bin/env', ['npm', 'run', 'check']);
 run('browser', '/usr/bin/env', ['npm', 'run', 'test:browser']);
+if (process.argv[3]) {
+  const reference = join(work, 'native-reference');
+  cpSync(resolve(process.argv[3]), reference, { recursive: true, errorOnExist: true, force: false });
+  receipt.nativeManifestSha256 = sha256(join(reference, 'manifest.json'));
+  run('materials', '/usr/bin/env', ['npm', 'run', 'test:materials', '--', reference, join(work, 'browser-materials')]);
+}
+
 console.log(`Passed; receipt and logs: ${work}`);
