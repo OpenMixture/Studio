@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "scope": "M5-04 Player open/edit/channel preview/PNG export; M5-05 remains open",
+  "productRevision": "c4fba3f3ca77d465ee1039768d404af063c1f71b",
+  "productClean": true,
+  "runtime": {
+    "runtimeVersion": "0.1.0-alpha.0",
+    "apiSchemaVersion": 1,
+    "engineVersion": "0.1.0",
+    "engineRevision": "4b914feb9f3365d292b27ea60c5e0b6004f745e8",
+    "engineDirty": false,
+    "buildId": "sha256:759549793271c7fdd257b0289dab11b2fa9524dbc500b5033cb717179f5d1243",
+    "tarball": "target/browser-runtime/openmixture-runtime-0.1.0-alpha.0.tgz",
+    "sha256": "9e245578de160cee1050259ef34358c3fcd3353a21bbb1672d29701bc1ac8084",
+    "toolchain": {
+      "rust": "rustc 1.98.1 (48a229cea 2026-09-01)",
+      "bindgen": "wasm-bindgen 0.2.128",
+      "node": "v24.20.0",
+      "npm": "11.19.0",
+      "target": "wasm32-unknown-unknown"
+    },
+    "files": [
+      "LICENSE-APACHE",
+      "LICENSE-MIT",
+      "README.md",
+      "README.zh-CN.md",
+      "build-info.json",
+      "package.json",
+      "src/build-info.mjs",
+      "src/index.d.ts",
+      "src/index.mjs",
+      "src/runtime.mjs",
+      "wasm/bindings.mjs",
+      "wasm/mixture_wasm_bg.wasm"
+    ],
+    "status": "built; browser acceptance is a separate verification"
+  },
+  "productLockSha256": "dd1d81c31fbf4a6258fae1de1fb7433402728ad61fd4e2f9fff60a7adf58a196",
+  "inputsSha256": {
+    "public/samples/glazed-ceramic.mix": "ec04b518719ec7aab7a7cf351624bfc370e755b41645cf2edbd9425dd3bbf4fd",
+    "public/samples/checker.mix": "296c9d92e06211e8583ce0810f49562e0d36a68b6d795268b80dd19d8fda03b0",
+    "public/samples/wood.mix": "204e1952105d51a369a8549ee11c0f4bf06c22afd78b4a43daa765623b86b21d",
+    "public/samples/leather.mix": "8f74e407d0b7359c74149adc2440d39dbc0d64e821655404310939e5c5be9153",
+    "src/main.ts": "de6256f2a35ef786f76079a22011b1d05e0ab8695f9a13bc6223f9a8b2042868",
+    "src/png.ts": "54daf3bec50d76a4931448aa1237181c3ba13b9fa3bf77f932b7c91a0299e9a6",
+    "src/latest.ts": "28b36783082006b1bc0e7b971f199b417bb9d7ae11ef91bfd178932322361704",
+    "src/style.css": "e2e174291e7ffc2d6d886374daf4ba1a5e0ba6b690587325a57214a1fe485bee",
+    "src/runtime-client.ts": "b1e455198f27639987944ddb3e02813ffc41fd317c0c5e0f97512c56781dfcfd",
+    "src/files.ts": "db4406383268f37be46935d039263d807400b64192b928c43c4a59ace2f9e5da",
+    "src/controls.ts": "8824c7c716d1a29e04d2c1ab9d921cabeab3c924534ce2b7407629c9e879d90c",
+    "src/preview.ts": "c0e012c9dd0da29161ecaf23d27ede51e5245beb22e1df4a59dbb749c4e9a9ab"
+  },
+  "startedAt": "2026-09-15T04:28:45.681Z",
+  "completedAt": "2026-09-15T04:29:12.402Z",
+  "result": "passed",
+  "browserTests": {
+    "passed": 28,
+    "failed": 0,
+    "skipped": 0
+  },
+  "nodeTests": {
+    "passed": 9
+  },
+  "retention": "Selected downloads, screenshots, measurements, runtime context and isolated receipt in Git. Full logs/traces remain temporary. Later evidence commits are not the tested source.",
+  "artifacts": {
+    "browser-results.json": {
+      "sha256": "27868867d04f483ab985f151182d1fa9021f0601af225a8ffee57925d43d659c",
+      "bytes": 6021
+    },
+    "export-mobile.png": {
+      "sha256": "92d37aa0a54591af3e04009b837df11e71dd592319e8e6dcde270afdd78d360f",
+      "bytes": 89953
+    },
+    "freshness.json": {
+      "sha256": "59ab9a7b33e19f1de91db990bfe0b8d7a4a4ca8c267c125c385d00b4031b20f5",
+      "bytes": 250
+    },
+    "glazed-ceramic-baseColor.png": {
+      "sha256": "a4255c63e0b0417615da11906a498f258a8fd4fe1dbe64ae6914971d35a79aee",
+      "bytes": 544
+    },
+    "glazed-ceramic-height.png": {
+      "sha256": "869e3e4b45f98482d7645101309fcc569168822a4cc25c66e9a0b0f396c5f3e6",
+      "bytes": 310
+    },
+    "glazed-ceramic-normal.png": {
+      "sha256": "7f3229bc40584c29e47b66494332840524a702495757b6efde64aef563d644ec",
+      "bytes": 373
+    },
+    "glazed-ceramic-preview.json": {
+      "sha256": "bdb574448c1052edc965252e03d4a12452350054cb790c8237ba04f850fdacde",
+      "bytes": 1861
+    },
+    "glazed-ceramic-preview.png": {
+      "sha256": "7576b728ceab86d6cfd04b8ee8ffb8da98eadce0f66b2787ccc4635517309386",
+      "bytes": 107409
+    },
+    "glazed-ceramic-roughness.png": {
+      "sha256": "7edad7d50da81c59daeb49aeac8457d4d904cd4f20165c76bf9b61638af2eda0",
+      "bytes": 374
+    },
+    "isolation.json": {
+      "sha256": "eca0cb42b032a31b26d82ec1f51a5250600ba3cd30ae417c90a809fa23c0e81b",
+      "bytes": 2594
+    },
+    "leather-baseColor.png": {
+      "sha256": "e06eba2da751e342e9e9932772d5c1adf61d26dcf5c06e1321520f81abc1551b",
+      "bytes": 18501
+    },
+    "leather-height.png": {
+      "sha256": "6d4aa00ef57aaea9ae136c7b8a5cbbcaf2de839f9c46b9b054c25a16414f5842",
+      "bytes": 23846
+    },
+    "leather-normal.png": {
+      "sha256": "f1009ccd7c2e43b99368db13fb513e401f4ce10a6efae27a5e39fa2d17ae661c",
+      "bytes": 24613
+    },
+    "leather-preview.json": {
+      "sha256": "890824faf825319a19456bf7f0e942eb05c3395c1924352f33bf7dc6a76e894c",
+      "bytes": 1859
+    },
+    "leather-preview.png": {
+      "sha256": "80085ae92c1999d6282e528013006246d1c1153430cdac8ee30856ecf9341554",
+      "bytes": 147782
+    },
+    "leather-roughness.png": {
+      "sha256": "2c058b8c630403ab1be5d693fbc4c42f7e12c586394693a2e8e74c1696151d02",
+      "bytes": 17111
+    },
+    "runtime-context.json": {
+      "sha256": "b44bacf0550d001e6ce1124d69f850c43b9f896fe224bcda69a31be002bf26ce",
+      "bytes": 15475
+    },
+    "wood-baseColor.png": {
+      "sha256": "dc945ee2d032a4fdc79c47a5ba9058173dd40fb0ab1259f17974ee56055dedf3",
+      "bytes": 19825
+    },
+    "wood-height.png": {
+      "sha256": "e916b70b212ffb65a6319576ed431211c45a49649748991adeb88e78b8acdb65",
+      "bytes": 19563
+    },
+    "wood-mobile.png": {
+      "sha256": "c8143e563a78ea18c4dd0f52d66bdcdfe3a87630890b7971d18e535d380996fa",
+      "bytes": 122596
+    },
+    "wood-normal.png": {
+      "sha256": "c27acd292fc205bac2b3fbd3b5e46f14ac81a2cf01ad04175816f8cf5a73d304",
+      "bytes": 7860
+    },
+    "wood-preview.json": {
+      "sha256": "d3454f59afb96f42422f2d21b463e32d7cda6ffd3d0cd023a2787c79f3901c8c",
+      "bytes": 1863
+    },
+    "wood-preview.png": {
+      "sha256": "5bdabff8f971bf64a7212d7cfd36e6dc38feffa3277419639c328c319e97ee09",
+      "bytes": 142243
+    },
+    "wood-roughness.png": {
+      "sha256": "174e2c67cda7eb0d962035781e0d5684cd8c218297a6afb98bcb15bafe0f89bb",
+      "bytes": 11015
+    }
+  }
+}

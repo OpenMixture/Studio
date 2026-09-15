@@ -1,0 +1,71 @@
+{
+  "material": "leather",
+  "parameter": "grainScale",
+  "sourceValue": "64",
+  "override": "32",
+  "size": [
+    128,
+    128
+  ],
+  "channels": [
+    {
+      "channel": "baseColor",
+      "encoding": "rgba8-srgb",
+      "sha256": "2cee2a7f6ad0af76b50b6168698eb03580b45b8c5b77bded4e12e6a7151fd688",
+      "pngSha256": "e06eba2da751e342e9e9932772d5c1adf61d26dcf5c06e1321520f81abc1551b",
+      "gamma": 45455,
+      "srgb": 0,
+      "chunks": [
+        "IHDR",
+        "gAMA",
+        "sRGB",
+        "IDAT",
+        "IEND"
+      ]
+    },
+    {
+      "channel": "normal",
+      "encoding": "rgba8-linear",
+      "sha256": "bf585f07ac9480a15ce10fa792c16a6dcf5f3840434b50fb4e8ee13f3f9d7046",
+      "pngSha256": "f1009ccd7c2e43b99368db13fb513e401f4ce10a6efae27a5e39fa2d17ae661c",
+      "gamma": 100000,
+      "srgb": null,
+      "chunks": [
+        "IHDR",
+        "gAMA",
+        "IDAT",
+        "IEND"
+      ]
+    },
+    {
+      "channel": "roughness",
+      "encoding": "rgba8-linear",
+      "sha256": "c4e16bfe8d770b3f47522b2baf394220578897a2ea01a0af0da975db2724cf17",
+      "pngSha256": "2c058b8c630403ab1be5d693fbc4c42f7e12c586394693a2e8e74c1696151d02",
+      "gamma": 100000,
+      "srgb": null,
+      "chunks": [
+        "IHDR",
+        "gAMA",
+        "IDAT",
+        "IEND"
+      ]
+    },
+    {
+      "channel": "height",
+      "encoding": "rgba8-linear",
+      "sha256": "cd5baeb14d0a6c05ef4f7ff7c82b9608f22474dcc1184be67bb2b3a13fb5ebd2",
+      "pngSha256": "6d4aa00ef57aaea9ae136c7b8a5cbbcaf2de839f9c46b9b054c25a16414f5842",
+      "gamma": 100000,
+      "srgb": null,
+      "chunks": [
+        "IHDR",
+        "gAMA",
+        "IDAT",
+        "IEND"
+      ]
+    }
+  ],
+  "initialBaseColorSha256": "dcbeb06080a107053f03669ab4cb711209248edb667e5ea209583f60384f50ca",
+  "sourceSha256": "8f74e407d0b7359c74149adc2440d39dbc0d64e821655404310939e5c5be9153"
+}

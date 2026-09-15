@@ -67,3 +67,5 @@ npm run test:browser
 [2026-09-14 M5-02／M5-03 本地验收](./docs/evidence/m5-02-03/README.zh-CN.md)记录 13 项 Chromium 检查通过、可控真实设备丢失、清理及隔离软件包消费。M5-04／M5-05 仍开放。
 
 [2026-09-14 参数／预览证据](./docs/evidence/m5-04-parameters/README.zh-CN.md)记录干净隔离消费者、23 项浏览器检查、九项 Node 测试及已检查截图。
+
+[2026-09-15 M5-04 导出验收](./docs/evidence/m5-04-export/README.zh-CN.md)记录 28 项浏览器检查、九项 Node 测试及 12 份独立解码的材质 PNG。
