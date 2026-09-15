@@ -1,0 +1,152 @@
+{
+  "stats": {
+    "startTime": "2026-09-15T07:20:59.288Z",
+    "duration": 20551.219999999998,
+    "expected": 28,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "tests": [
+    {
+      "title": "package import has no WASM effects; CPU contract does not touch WebGPU",
+      "status": "passed",
+      "durationMs": 388
+    },
+    {
+      "title": "missing WASM produces a structured loader failure",
+      "status": "passed",
+      "durationMs": 370
+    },
+    {
+      "title": "explicit packaged WASM URL and supplied bytes load without a loader refetch",
+      "status": "passed",
+      "durationMs": 434
+    },
+    {
+      "title": "real WebGPU renders owned odd-size pixels and obeys busy/destruction rules",
+      "status": "passed",
+      "durationMs": 378
+    },
+    {
+      "title": "Player loads user bytes, reports invalid input, renders and keeps preview after disposal",
+      "status": "passed",
+      "durationMs": 644
+    },
+    {
+      "title": "pagehide releases the old GPU and allows a new explicit initialization",
+      "status": "passed",
+      "durationMs": 584
+    },
+    {
+      "title": "odd dimensions, all eight channel encodings and downloads after disposal",
+      "status": "passed",
+      "durationMs": 1077
+    },
+    {
+      "title": "pending PNG edit cannot download stale bytes and releases export busy state",
+      "status": "passed",
+      "durationMs": 849
+    },
+    {
+      "title": "pending PNG pagehide cannot download stale bytes and releases export busy state",
+      "status": "passed",
+      "durationMs": 812
+    },
+    {
+      "title": "pending PNG failure cannot download stale bytes and releases export busy state",
+      "status": "passed",
+      "durationMs": 495
+    },
+    {
+      "title": "long uploaded filenames remain bounded and visible on narrow screens",
+      "status": "passed",
+      "durationMs": 565
+    },
+    {
+      "title": "real device destruction between renders settles with loss evidence",
+      "status": "passed",
+      "durationMs": 377
+    },
+    {
+      "title": "real device destruction during readback settles with loss evidence",
+      "status": "passed",
+      "durationMs": 358
+    },
+    {
+      "title": "real mapping validation failure cleans up scopes and permits a later render",
+      "status": "passed",
+      "durationMs": 353
+    },
+    {
+      "title": "repeated independent modules and devices retain owned outputs with no live per-call allocations",
+      "status": "passed",
+      "durationMs": 495
+    },
+    {
+      "title": "unavailable WebGPU remains a structured failure while CPU validation works",
+      "status": "passed",
+      "durationMs": 355
+    },
+    {
+      "title": "injected adapter acquisition rejection preserves its structured stage",
+      "status": "passed",
+      "durationMs": 367
+    },
+    {
+      "title": "injected device acquisition rejection preserves its structured stage",
+      "status": "passed",
+      "durationMs": 356
+    },
+    {
+      "title": "glazed-ceramic: metadata controls, parameter changes and four real channel previews",
+      "status": "passed",
+      "durationMs": 2043
+    },
+    {
+      "title": "leather: metadata controls, parameter changes and four real channel previews",
+      "status": "passed",
+      "durationMs": 2114
+    },
+    {
+      "title": "wood: metadata controls, parameter changes and four real channel previews",
+      "status": "passed",
+      "durationMs": 2185
+    },
+    {
+      "title": "color and enum controls preserve exact values and show Rust validation failures",
+      "status": "passed",
+      "durationMs": 1096
+    },
+    {
+      "title": "rapid edits replace queued work, invalid overrides suppress old completion, and disposal waits",
+      "status": "passed",
+      "durationMs": 575
+    },
+    {
+      "title": "an invalid new file clears old bindings and cannot receive an earlier render",
+      "status": "passed",
+      "durationMs": 561
+    },
+    {
+      "title": "unsupported WebGPU leaves metadata controls usable and reports a structured error",
+      "status": "passed",
+      "durationMs": 450
+    },
+    {
+      "title": "pagehide during initialization waits for and destroys the late device",
+      "status": "passed",
+      "durationMs": 452
+    },
+    {
+      "title": "a latest real GPU failure retains the previous preview with stale status",
+      "status": "passed",
+      "durationMs": 612
+    },
+    {
+      "title": "a late file read cannot replace the newer file or its parameter bindings",
+      "status": "passed",
+      "durationMs": 392
+    }
+  ]
+}
