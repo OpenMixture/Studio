@@ -24,7 +24,7 @@ try {
   return JSON.parse(JSON.stringify({build:window.runtime.getBuildInfo(),context:window.gpu.context},(_,v)=>typeof v==='bigint'?v.toString():v));
  });
  assert.equal(context.build.engineRevision,manifest.runtimeRevision);
- const receipt={schemaVersion:1,startedAt:new Date().toISOString(),manifestSha256:sha(manifestBytes),browser:browser.version(),os:platform(),osRelease:release(),arch:arch(),node:process.version,args,...context,cases:[]};
+ const receipt={schemaVersion:1,archiveSha256:sha(await readFile('vendor/openmixture-runtime-0.1.0-alpha.0.tgz')),lockSha256:sha(await readFile('package-lock.json')),runnerImage:process.env.ImageVersion??null,startedAt:new Date().toISOString(),manifestSha256:sha(manifestBytes),browser:browser.version(),os:platform(),osRelease:release(),arch:arch(),node:process.version,args,...context,cases:[]};
  for(const item of manifest.cases){
   assert.match(item.material,/^[a-z-]+$/);assert.match(item.id,/^[a-z-]+$/);
   assert.equal(sha(Buffer.from(item.sourceBase64,'base64')),item.sourceSha256);
