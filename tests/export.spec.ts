@@ -88,3 +88,16 @@ for (const action of ['edit', 'pagehide', 'failure'] as const) {
     expect(downloads).toBe(0);
   });
 }
+
+test('long uploaded filenames remain bounded and visible on narrow screens', async ({ page }) => {
+  await start(page);
+  const source = await readFile(new URL('../public/samples/checker.mix', import.meta.url));
+  await page.locator('#file').setInputFiles({ name: `${'a'.repeat(200)}.mix`, mimeType: 'application/json', buffer: source });
+  await expect(page.getByRole('status')).toHaveText('Render complete.');
+  const downloaded = page.waitForEvent('download');
+  await page.locator('#download').click();
+  expect((await downloaded).suggestedFilename()).toBe(`${'a'.repeat(80)}-baseColor-65x3.png`);
+  await page.setViewportSize({ width: 390, height: 844 });
+  const bounds = await page.locator('#export-status').evaluate(el => ({ scroll: el.scrollWidth, client: el.clientWidth }));
+  expect(bounds.scroll).toBe(bounds.client);
+});
