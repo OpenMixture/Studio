@@ -2,7 +2,7 @@
 
 [English](./README.md) | 简体中文
 
-这是 OpenMixture 的独立产品仓库。**Player** 打开 `.mix` 源文件，从 Rust 元数据生成公开参数控件，显式初始化 WebGPU，并预览请求的材质通道。Studio 节点编辑功能后续再做。
+这是 OpenMixture 的独立产品仓库。**Player** 打开 `.mix` 源文件，从 Rust 元数据生成公开参数控件，显式初始化 WebGPU，并预览请求的材质通道、下载带正确标记的 PNG。Studio 节点编辑功能后续再做。
 
 引擎与 `@openmixture/runtime` 由 [OpenMixture/OpenMixture](https://github.com/OpenMixture/OpenMixture) 构建。本仓库消费 `vendor/` 中的真实运行时包，不编译 Rust，也不导入生产者源码。该包是尚未发布的本地 Alpha 归档，并非 npm registry 发行版。
 
@@ -28,7 +28,7 @@ npm run preview
 
 打开 [http://127.0.0.1:4173/player/](http://127.0.0.1:4173/player/)。生产资源刻意使用非根路径 `/player/`，包括相对包路径解析的 WASM。静态主机需将 `dist/` 内容挂载到该路径，并提供正确的 JavaScript 与 `application/wasm` MIME 类型。`vite preview` 用于本地验证，不是生产托管服务。此次仓库引导不执行线上网站部署。
 
-`Product checks` 工作流执行干净 npm 安装、公开类型检查、六项调度／请求快照测试和生产构建；它**不代表**浏览器 GPU 执行通过。
+`Product checks` 工作流执行干净 npm 安装、公开类型检查、九项调度／请求快照测试和生产构建；它**不代表**浏览器 GPU 执行通过。
 
 运行真实浏览器验证：
 
@@ -58,7 +58,7 @@ npm run test:browser
 
 ## 当前边界
 
-[M5-04 参数／预览切片](./docs/player-parameters.zh-CN.md)增加元数据驱动控件、通道选择、明确的过期预览，以及一个活动渲染加一个可替换最新待处理请求。渲染期间仍可编辑。PNG 导出、完整 M5-04 流程验收、M5-05 材质／CI 验证、Registry 发布与 Studio 编辑仍开放。
+[M5-04 参数／预览切片](./docs/player-parameters.zh-CN.md)增加元数据驱动控件、通道选择、明确的过期预览，以及一个活动渲染加一个可替换最新待处理请求。渲染期间仍可编辑。[PNG 导出流程](./docs/player-export.zh-CN.md)补齐 M5-04 产品实现。M5-05 材质／CI 验证、Registry 发布与 Studio 编辑仍开放。
 
 贡献者应遵守成对的 [代理指南](./AGENTS.zh-CN.md) 和引擎的 [M5 计划](https://github.com/OpenMixture/OpenMixture/blob/main/M5_PRS.zh-CN.md)。同步维护产品行为与消费者文档，渲染语义由 Rust 持有。
 
@@ -66,4 +66,4 @@ npm run test:browser
 
 [2026-09-14 M5-02／M5-03 本地验收](./docs/evidence/m5-02-03/README.zh-CN.md)记录 13 项 Chromium 检查通过、可控真实设备丢失、清理及隔离软件包消费。M5-04／M5-05 仍开放。
 
-[2026-09-14 参数／预览证据](./docs/evidence/m5-04-parameters/README.zh-CN.md)记录干净隔离消费者、23 项浏览器检查、六项 Node 测试及已检查截图。
+[2026-09-14 参数／预览证据](./docs/evidence/m5-04-parameters/README.zh-CN.md)记录干净隔离消费者、23 项浏览器检查、九项 Node 测试及已检查截图。

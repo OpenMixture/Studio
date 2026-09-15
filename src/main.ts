@@ -1,9 +1,10 @@
-import type { ChannelId, GpuRuntime, ParameterValue, RenderResult, RuntimeModule } from '@openmixture/runtime';
+import type { ChannelId, GpuRuntime, ParameterValue, RenderedChannel, RenderResult, RuntimeModule } from '@openmixture/runtime';
 import { LatestRenderer } from './latest';
 import { captureJob, runtimeClient, type RenderJob } from './runtime-client';
 import { parameterControls } from './controls';
 import { drawPreview } from './preview';
 import { fileBytes, sampleBytes } from './files';
+import { encodePng, pngFilename } from './png';
 import './style.css';
 
 function element<T extends HTMLElement>(id: string): T {
@@ -18,6 +19,11 @@ const initialize = element<HTMLButtonElement>('initialize');
 const validate = element<HTMLButtonElement>('validate');
 const render = element<HTMLButtonElement>('render');
 const dispose = element<HTMLButtonElement>('dispose');
+const download = element<HTMLButtonElement>('download');
+const exportStatus = element('export-status');
+const downloadUrls = new Set<string>();
+let exportable: { channel: RenderedChannel; name: string } | undefined;
+let exporting = false;
 const reset = element<HTMLButtonElement>('reset');
 const width = element<HTMLInputElement>('width');
 const height = element<HTMLInputElement>('height');
@@ -54,6 +60,7 @@ function describe(value: unknown): string {
 }
 
 function updateControls(): void {
+  download.disabled = !exportable || exporting;
   initialize.disabled = initializing || closing || Boolean(gpu);
   validate.disabled = loading || !source;
   render.disabled = !gpu || !validRequest || loading;
@@ -66,6 +73,9 @@ function updateControls(): void {
 }
 
 function markStale(reason = 'settings changed'): void {
+  exportable = undefined;
+  download.disabled = true;
+  exportStatus.textContent = 'Render current settings to download a PNG.';
   if (hasPreview) {
     previewState.textContent = `Previous render · ${reason}`;
     previewState.dataset.stale = 'true';
@@ -159,6 +169,8 @@ function showResult(result: RenderResult, job: RenderJob): void {
   drawPreview(preview, channel);
   element('placeholder').hidden = true;
   hasPreview = true;
+  exportable = { channel, name: job.name };
+  exportStatus.textContent = 'Download this channel at its rendered dimensions.';
   previewState.textContent = job.name;
   previewState.dataset.stale = 'false';
   const [w, h] = channel.size;
@@ -166,6 +178,26 @@ function showResult(result: RenderResult, job: RenderJob): void {
   details.textContent = describe({ build: runtime!.getBuildInfo(), plan: result.plan, report: result.report });
   status.textContent = 'Render complete.';
 }
+
+download.addEventListener('click', () => {
+  const captured = exportable;
+  if (!captured || exporting) return;
+  exporting = true; updateControls();
+  exportStatus.textContent = 'Encoding PNG…';
+  void encodePng(captured.channel).then(blob => {
+    if (exportable !== captured) return;
+    const url = URL.createObjectURL(blob);
+    downloadUrls.add(url);
+    const anchor = document.createElement('a');
+    anchor.href = url; anchor.download = pngFilename(captured.name, captured.channel);
+    document.body.append(anchor); anchor.click(); anchor.remove();
+    // Keep the URL alive long enough for the browser to start consuming it.
+    window.setTimeout(() => { URL.revokeObjectURL(url); downloadUrls.delete(url); }, 1000);
+    exportStatus.textContent = `PNG download started: ${anchor.download}`;
+  }).catch(failure => {
+    if (exportable === captured) exportStatus.textContent = `PNG export failed: ${failure instanceof Error ? failure.message : String(failure)}`;
+  }).finally(() => { exporting = false; updateControls(); });
+});
 
 initialize.addEventListener('click', () => {
   if (initializing || closing || gpu) return;
@@ -225,6 +257,9 @@ file.addEventListener('change', () => {
 // Invalidate display ownership immediately; browser termination cannot await cleanup.
 window.addEventListener('pagehide', () => {
   sourceGeneration++; loading = false;
+  markStale('page closed');
+  for (const url of downloadUrls) URL.revokeObjectURL(url);
+  downloadUrls.clear();
   void stopGpu('GPU disposed. Initialize WebGPU to render again.');
 });
 void loadSource(() => sampleBytes(import.meta.env.BASE_URL, 'checker'), 'checker.mix', true);
