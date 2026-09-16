@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "testedProductRevision": "72565bd2abbff0c0aed6cef0d406e36b95ab2931",
+  "date": "2026-09-16",
+  "os": {
+    "system": "Darwin",
+    "release": "25.5.0",
+    "architecture": "arm64"
+  },
+  "node": "v24.20.0",
+  "npm": "11.19.0",
+  "playwright": "1.63.0",
+  "chromium": "153.0.8010.12",
+  "flags": [
+    "--enable-unsafe-webgpu",
+    "--ignore-gpu-blocklist"
+  ],
+  "nodeTests": 20,
+  "browserTests": 52,
+  "newHistorySaveBrowserTests": 8,
+  "archiveSha256": "9e245578de160cee1050259ef34358c3fcd3353a21bbb1672d29701bc1ac8084",
+  "lockSha256": "dd1d81c31fbf4a6258fae1de1fb7433402728ad61fd4e2f9fff60a7adf58a196",
+  "limits": [
+    "Measured Chromium environment only; adapter identity redacted",
+    "Download checkpoints record download initiation, not disk completion",
+    "History is session-only, bounded to 100 commands",
+    "No STUDIO-05 native CLI or 1K saved-file qualification",
+    "Remote CI and PR integration recorded separately"
+  ],
+  "retained": {
+    "browser-results.json": {
+      "bytes": 14531,
+      "sha256": "bed08de344ec43ac4393c91847ffcbf5f497bea162ce1de3d50b50c0e439d264"
+    },
+    "deployment.json": {
+      "bytes": 12481,
+      "sha256": "d59b6f0c772570d4e2be0567caac3fdf57109b97ae67816e851de92484f63740"
+    },
+    "deployment.png": {
+      "bytes": 293552,
+      "sha256": "4cb2737ec9a97c47a3acdd034455de1dd3c353dab0a77be3cf50a9ba4bf28337"
+    },
+    "isolation.json": {
+      "bytes": 2877,
+      "sha256": "3791b491f28b71d96f27eb6842e3bc20bc3e59b13579183c50e489300f760ce8"
+    },
+    "saved-glazed-ceramic.mix": {
+      "bytes": 1501,
+      "sha256": "1d8b2f4915b5e8ca14c4fab36f2c622575a87020da261a06b5f088c82b374ce6"
+    },
+    "saved-leather.mix": {
+      "bytes": 1763,
+      "sha256": "aeb42df4668e21dd9368ed7914c73f1555fd037406a1e507441f2e880baf698b"
+    },
+    "saved-wood.mix": {
+      "bytes": 2533,
+      "sha256": "fcea184b368457ac06453799f1aeba184ba7f8c45b8e7dee98071979e178f5aa"
+    },
+    "saved.mix": {
+      "bytes": 425,
+      "sha256": "1e80450eeb5396d79c97e4ffa3e9ae4588303132eaf67dca8a75fc1ca1125bc5"
+    },
+    "saved.mix.layout.json": {
+      "bytes": 289,
+      "sha256": "33a901d6c68e7901818eca47b8d6892e091706f55c5b4c36ae1e8c183209cc93"
+    },
+    "studio-save.png": {
+      "bytes": 309442,
+      "sha256": "91a73d1494537fd737663aa691149eb4542ba07eb71dd917308dcca2b93cd8c1"
+    },
+    "undo-freshness.json": {
+      "bytes": 63,
+      "sha256": "a1f27f098126e43f86ed1b5196835e8c7d1b52c23ccf102ef3d225ecbbed6b58"
+    }
+  }
+}
