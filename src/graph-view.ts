@@ -1,8 +1,8 @@
-import type { RuntimeModule } from '@openmixture/runtime';
+import type { Diagnostic, RuntimeModule } from '@openmixture/runtime';
 import { defaultLayout, nodeHeight, NODE_WIDTH, parseLayout, readSourceGraph, type GraphLayout, type SourceGraph } from './source-graph';
 import './graph.css';
 
-export function graphView(root: HTMLElement) {
+export function graphView(root: HTMLElement, options: { selected?: (id: string) => void; materialDirty?: () => boolean } = {}) {
   const get = <T extends HTMLElement>(id: string) => root.querySelector<T>(`#${id}`)!;
   const viewport = get('graph-viewport'), world = get('graph-world'), nodes = get('graph-nodes');
   const edges = root.querySelector<SVGSVGElement>('#graph-edges')!;
@@ -16,7 +16,7 @@ export function graphView(root: HTMLElement) {
   let gesture: { pointer: number; id?: string; x: number; y: number; startX: number; startY: number } | undefined;
 
   function note(message?: string) {
-    status.textContent = message ?? (dirty ? 'Layout changed · not saved. Material source is unchanged.' : 'Layout ready. Material source is read-only.');
+    status.textContent = message ?? (options.materialDirty?.() ? 'Material draft changed. Layout stays separate from source.' : dirty ? 'Layout changed · not saved. Material source is unchanged.' : 'Layout ready. Material source is read-only.');
   }
   function controls(enabled: boolean) {
     for (const control of root.querySelectorAll<HTMLButtonElement | HTMLInputElement | HTMLSelectElement>('button, input, select')) control.disabled = !enabled;
@@ -28,10 +28,12 @@ export function graphView(root: HTMLElement) {
     window.setTimeout(() => { URL.revokeObjectURL(url); urls.delete(url); }, 1000);
   }
   function select(id: string) {
+    const previous = selected;
     selected = id; picker.value = id;
     for (const [key, button] of buttons) button.setAttribute('aria-pressed', String(key === id));
     const node = graph?.nodes.find(item => item.id === id);
     inspector.replaceChildren();
+    if (previous !== id) options.selected?.(id);
     if (!node) return;
     const heading = document.createElement('h3'); heading.textContent = node.id;
     const kind = document.createElement('p'); kind.textContent = `${node.contract.label} · ${node.type} v${node.version}`;
@@ -71,7 +73,8 @@ export function graphView(root: HTMLElement) {
     const byId = new Map(graph.nodes.map(node => [node.id, node]));
     for (const edge of graph.edges) {
       const from = layout.positions[edge.from.nodeId], to = layout.positions[edge.to.nodeId];
-      const a = byId.get(edge.from.nodeId)!, b = byId.get(edge.to.nodeId)!;
+      const a = byId.get(edge.from.nodeId), b = byId.get(edge.to.nodeId);
+      if (!from || !to || !a || !b) continue;
       const x1 = from.x + NODE_WIDTH, y1 = from.y + 70 + a.contract.outputs.findIndex(p => p.id === edge.from.portId) * 22;
       const x2 = to.x, y2 = to.y + 70 + b.contract.inputs.findIndex(p => p.id === edge.to.portId) * 22;
       const bend = Math.max(60, Math.abs(x2 - x1) / 2);
@@ -170,17 +173,56 @@ export function graphView(root: HTMLElement) {
       note(`Layout ignored; using default positions. ${error instanceof Error ? error.message : String(error)}`);
     });
   });
-  window.addEventListener('beforeunload', event => { if (dirty) { event.preventDefault(); event.returnValue = ''; } });
+  window.addEventListener('beforeunload', event => { if (dirty || options.materialDirty?.()) { event.preventDefault(); event.returnValue = ''; } });
   window.addEventListener('pagehide', () => { generation++; layoutRead++; for (const url of urls) URL.revokeObjectURL(url); urls.clear(); });
   function clear() {
     generation++; layoutRead++; graph = undefined; layout = undefined; bytes = undefined; dirty = false; gesture = undefined;
     nodes.replaceChildren(); edges.replaceChildren(); buttons.clear(); picker.replaceChildren(); inspector.replaceChildren();
     controls(false); get('graph-summary').textContent = 'No graph'; note('Open a valid material to inspect its source graph.');
   }
+  function buildNodes(preferred: string) {
+    nodes.replaceChildren(); edges.replaceChildren(); buttons.clear(); picker.replaceChildren();
+    for (const node of graph!.nodes) {
+      const button = document.createElement('button'); button.type = 'button'; button.className = 'graph-node'; button.dataset.nodeId = node.id;
+      button.style.height = `${nodeHeight(node)}px`; button.setAttribute('aria-label', `Node ${node.id}`);
+      const title = document.createElement('strong'); title.textContent = node.id;
+      const type = document.createElement('span'); type.className = 'node-type'; type.textContent = `${node.type} v${node.version}`;
+      const ports = document.createElement('span'); ports.className = 'node-ports';
+      for (const contracts of [node.contract.inputs, node.contract.outputs]) {
+        const column = document.createElement('span');
+        for (const port of contracts) { const line = document.createElement('span'); line.textContent = `${port.id} · ${port.kind}`; column.append(line); }
+        ports.append(column);
+      }
+      button.append(title, type, ports);
+      button.addEventListener('click', () => select(node.id));
+      button.addEventListener('focus', () => select(node.id));
+      nodes.append(button); buttons.set(node.id, button); picker.add(new Option(node.id, node.id));
+    }
+    get('graph-summary').textContent = `${graph!.nodes.length} nodes · ${graph!.edges.length} connections · source graph`;
+    select(graph!.nodes.some(n => n.id === preferred) ? preferred : graph!.nodes[0]?.id ?? '');
+  }
   clear();
   return {
     clear,
-    confirmReplace: () => !dirty || window.confirm('Discard unsaved layout changes and open another material?'),
+    select,
+    update(projected: SourceGraph, preferred = selected) {
+      if (!layout) return;
+      if (Object.keys(layout.positions).length !== projected.nodes.length || projected.nodes.some(node => !Object.hasOwn(layout!.positions, node.id))) dirty = true;
+      graph = projected; layoutRead++;
+      const next = defaultLayout(graph, layout.sourceSha256);
+      for (const node of graph.nodes) if (Object.hasOwn(layout.positions, node.id)) next.positions[node.id] = layout.positions[node.id];
+      layout.positions = next.positions; buildNodes(preferred); draw();
+    },
+    draftMode(active: boolean) {
+      get<HTMLButtonElement>('save-layout').disabled = active;
+      layoutFile.disabled = active;
+      if (active) { layoutRead++; note('Material draft changed. Original download is unchanged; layout files are available after discarding edits.'); }
+      else note();
+    },
+    diagnostics(diagnostics: Diagnostic[]) {
+      for (const [id, button] of buttons) button.classList.toggle('node-error', diagnostics.some(d => d.nodeId === id));
+    },
+    confirmReplace: () => (!dirty && !options.materialDirty?.()) || window.confirm('Discard unsaved material or layout changes and open another material?'),
     async load(runtime: RuntimeModule, source: Uint8Array, name: string) {
       const current = ++generation;
       try {
@@ -188,23 +230,7 @@ export function graphView(root: HTMLElement) {
         const digest = [...new Uint8Array(await crypto.subtle.digest('SHA-256', new Uint8Array(source)))].map(n => n.toString(16).padStart(2, '0')).join('');
         if (current !== generation) return;
         graph = projected; bytes = source.slice(); filename = name; layout = defaultLayout(graph, digest);
-        for (const node of graph.nodes) {
-          const button = document.createElement('button'); button.type = 'button'; button.className = 'graph-node'; button.dataset.nodeId = node.id;
-          button.style.height = `${nodeHeight(node)}px`; button.setAttribute('aria-label', `Node ${node.id}`);
-          const title = document.createElement('strong'); title.textContent = node.id;
-          const type = document.createElement('span'); type.className = 'node-type'; type.textContent = `${node.type} v${node.version}`;
-          const ports = document.createElement('span'); ports.className = 'node-ports';
-          for (const contracts of [node.contract.inputs, node.contract.outputs]) {
-            const column = document.createElement('span');
-            for (const port of contracts) { const line = document.createElement('span'); line.textContent = `${port.id} · ${port.kind}`; column.append(line); }
-            ports.append(column);
-          }
-          button.append(title, type, ports);
-          button.addEventListener('click', () => select(node.id));
-          button.addEventListener('focus', () => select(node.id));
-          nodes.append(button); buttons.set(node.id, button); picker.add(new Option(node.id, node.id));
-        }
-        get('graph-summary').textContent = `${graph.nodes.length} nodes · ${graph.edges.length} connections · source graph`;
+        buildNodes(graph.nodes[0]?.id ?? '');
         controls(true); select(graph.nodes[0]?.id ?? ''); fit(false); note();
       } catch (error) {
         if (current === generation) { clear(); note(`Graph unavailable: ${error instanceof Error ? error.message : String(error)}`); }

@@ -1,23 +1,13 @@
 import type { NodeContract, RuntimeModule } from '@openmixture/runtime';
 
-// Display-only transport. The original bytes remain the sole material artifact.
-class NumberToken {
-  readonly text: string;
-  constructor(text: string) { this.text = text; }
-}
-function display(value: unknown): string {
-  if (value instanceof NumberToken) return value.text;
-  if (Array.isArray(value)) return `[${value.map(display).join(', ')}]`;
-  if (value !== null && typeof value === 'object') {
-    return `{${Object.entries(value).map(([key, item]) => `${JSON.stringify(key)}: ${display(item)}`).join(', ')}}`;
-  }
-  return JSON.stringify(value) ?? '';
-}
+import { parseDocument, jsonText, type MaterialDocument } from './document.ts';
+import type { GraphEdge } from './document.ts';
+export type { GraphEdge } from './document.ts';
+
 export interface GraphNode {
   id: string; type: string; version: string; contract: NodeContract;
   parameters: Array<{ id: string; value: string; origin: 'source' | 'default' }>;
 }
-export interface GraphEdge { from: { nodeId: string; portId: string }; to: { nodeId: string; portId: string }; }
 export interface SourceGraph {
   nodes: GraphNode[]; edges: GraphEdge[];
   bindings: Array<{ id: string; nodeId: string; parameterId: string }>;
@@ -27,24 +17,19 @@ export interface SourceGraph {
 export function readSourceGraph(runtime: RuntimeModule, bytes: Uint8Array): SourceGraph {
   const validation = runtime.validate(bytes);
   if (!validation.ok) throw Object.assign(new Error('Source is invalid.'), { diagnostics: validation.diagnostics });
-  const source = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
-  // Native JSON reviver source context retains numeric lexemes without JS rounding.
-  // A browser without it refuses projection; source/rendering is never rewritten.
-  const doc = JSON.parse(source, (_key: string, value: unknown, context?: { source?: string }) => {
-    if (typeof value !== 'number') return value;
-    if (context?.source === undefined) throw new Error('This browser cannot preserve source numeric tokens in the graph view.');
-    return new NumberToken(context.source);
-  }) as { nodes: Array<{ id: string; type: string; version: NumberToken; parameters?: Record<string, unknown> }>;
-    edges?: GraphEdge[]; exposedParameters?: SourceGraph['bindings'] };
-  const catalog = runtime.getNodeCatalog();
+  return projectGraph(parseDocument(bytes), runtime.getNodeCatalog());
+}
+
+/** Display authored drafts, including invalid candidates; never certifies their semantics. */
+export function projectGraph(doc: MaterialDocument, catalog: NodeContract[]): SourceGraph {
   return {
     nodes: doc.nodes.map(node => {
-      const contract = catalog.find(item => item.typeId === node.type && item.version === Number(node.version.text));
-      if (!contract) throw new Error(`No public contract for ${node.type} ${node.version.text}.`);
+      const contract = catalog.find(item => item.typeId === node.type && item.version === Number(jsonText(node.version)));
+      if (!contract) throw new Error(`No public contract for ${node.type} ${jsonText(node.version)}.`);
       const authored = node.parameters ?? {};
-      return { id: node.id, type: node.type, version: node.version.text, contract,
+      return { id: node.id, type: node.type, version: jsonText(node.version), contract,
         parameters: contract.parameters.map(parameter => ({ id: parameter.id,
-          value: Object.hasOwn(authored, parameter.id) ? display(authored[parameter.id]) : display(parameter.default),
+          value: Object.hasOwn(authored, parameter.id) ? jsonText(authored[parameter.id]) : jsonText(parameter.default),
           origin: Object.hasOwn(authored, parameter.id) ? 'source' as const : 'default' as const })) };
     }),
     edges: doc.edges ?? [], bindings: doc.exposedParameters ?? [],
