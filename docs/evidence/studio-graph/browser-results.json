@@ -1,0 +1,432 @@
+{
+  "stats": {
+    "startTime": "2026-09-16T03:44:30.985Z",
+    "duration": 24949.748,
+    "expected": 35,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "cases": [
+    {
+      "file": "browser.spec.ts",
+      "title": "package import has no WASM effects; CPU contract does not touch WebGPU",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 263
+        }
+      ]
+    },
+    {
+      "file": "browser.spec.ts",
+      "title": "missing WASM produces a structured loader failure",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 172
+        }
+      ]
+    },
+    {
+      "file": "browser.spec.ts",
+      "title": "explicit packaged WASM URL and supplied bytes load without a loader refetch",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 301
+        }
+      ]
+    },
+    {
+      "file": "browser.spec.ts",
+      "title": "real WebGPU renders owned odd-size pixels and obeys busy/destruction rules",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 214
+        }
+      ]
+    },
+    {
+      "file": "browser.spec.ts",
+      "title": "Player loads user bytes, reports invalid input, renders and keeps preview after disposal",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 487
+        }
+      ]
+    },
+    {
+      "file": "browser.spec.ts",
+      "title": "pagehide releases the old GPU and allows a new explicit initialization",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 396
+        }
+      ]
+    },
+    {
+      "file": "export.spec.ts",
+      "title": "odd dimensions, all eight channel encodings and downloads after disposal",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 1029
+        }
+      ]
+    },
+    {
+      "file": "export.spec.ts",
+      "title": "pending PNG edit cannot download stale bytes and releases export busy state",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 705
+        }
+      ]
+    },
+    {
+      "file": "export.spec.ts",
+      "title": "pending PNG pagehide cannot download stale bytes and releases export busy state",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 697
+        }
+      ]
+    },
+    {
+      "file": "export.spec.ts",
+      "title": "pending PNG failure cannot download stale bytes and releases export busy state",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 370
+        }
+      ]
+    },
+    {
+      "file": "export.spec.ts",
+      "title": "long uploaded filenames remain bounded and visible on narrow screens",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 413
+        }
+      ]
+    },
+    {
+      "file": "lifecycle.spec.ts",
+      "title": "real device destruction between renders settles with loss evidence",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 199
+        }
+      ]
+    },
+    {
+      "file": "lifecycle.spec.ts",
+      "title": "real device destruction during readback settles with loss evidence",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 214
+        }
+      ]
+    },
+    {
+      "file": "lifecycle.spec.ts",
+      "title": "real mapping validation failure cleans up scopes and permits a later render",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 205
+        }
+      ]
+    },
+    {
+      "file": "lifecycle.spec.ts",
+      "title": "repeated independent modules and devices retain owned outputs with no live per-call allocations",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 318
+        }
+      ]
+    },
+    {
+      "file": "lifecycle.spec.ts",
+      "title": "unavailable WebGPU remains a structured failure while CPU validation works",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 169
+        }
+      ]
+    },
+    {
+      "file": "lifecycle.spec.ts",
+      "title": "injected adapter acquisition rejection preserves its structured stage",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 165
+        }
+      ]
+    },
+    {
+      "file": "lifecycle.spec.ts",
+      "title": "injected device acquisition rejection preserves its structured stage",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 171
+        }
+      ]
+    },
+    {
+      "file": "player.spec.ts",
+      "title": "glazed-ceramic: metadata controls, parameter changes and four real channel previews",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 1889
+        }
+      ]
+    },
+    {
+      "file": "player.spec.ts",
+      "title": "leather: metadata controls, parameter changes and four real channel previews",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 1847
+        }
+      ]
+    },
+    {
+      "file": "player.spec.ts",
+      "title": "wood: metadata controls, parameter changes and four real channel previews",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 2026
+        }
+      ]
+    },
+    {
+      "file": "player.spec.ts",
+      "title": "color and enum controls preserve exact values and show Rust validation failures",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 894
+        }
+      ]
+    },
+    {
+      "file": "player.spec.ts",
+      "title": "rapid edits replace queued work, invalid overrides suppress old completion, and disposal waits",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 427
+        }
+      ]
+    },
+    {
+      "file": "player.spec.ts",
+      "title": "an invalid new file clears old bindings and cannot receive an earlier render",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 397
+        }
+      ]
+    },
+    {
+      "file": "player.spec.ts",
+      "title": "unsupported WebGPU leaves metadata controls usable and reports a structured error",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 284
+        }
+      ]
+    },
+    {
+      "file": "player.spec.ts",
+      "title": "pagehide during initialization waits for and destroys the late device",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 278
+        }
+      ]
+    },
+    {
+      "file": "player.spec.ts",
+      "title": "a latest real GPU failure retains the previous preview with stale status",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 446
+        }
+      ]
+    },
+    {
+      "file": "player.spec.ts",
+      "title": "a late file read cannot replace the newer file or its parameter bindings",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 251
+        }
+      ]
+    },
+    {
+      "file": "studio.spec.ts",
+      "title": "source graphs for all samples work without GPU acquisition and show catalog details",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 705
+        }
+      ]
+    },
+    {
+      "file": "studio.spec.ts",
+      "title": "projection keeps disconnected nodes and numeric source tokens; invalid bytes clear the graph",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 420
+        }
+      ]
+    },
+    {
+      "file": "studio.spec.ts",
+      "title": "keyboard, dragging, sidecar round trips and layout failures preserve material bytes",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 628
+        }
+      ]
+    },
+    {
+      "file": "studio.spec.ts",
+      "title": "late source and layout reads cannot replace a newer graph or layout",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 2036
+        }
+      ]
+    },
+    {
+      "file": "studio.spec.ts",
+      "title": "Studio glazed-ceramic preview and PNG match independent installed runtime",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 1671
+        }
+      ]
+    },
+    {
+      "file": "studio.spec.ts",
+      "title": "Studio leather preview and PNG match independent installed runtime",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 1721
+        }
+      ]
+    },
+    {
+      "file": "studio.spec.ts",
+      "title": "Studio wood preview and PNG match independent installed runtime",
+      "expected": "passed",
+      "outcome": "expected",
+      "runs": [
+        {
+          "status": "passed",
+          "durationMs": 1645
+        }
+      ]
+    }
+  ]
+}

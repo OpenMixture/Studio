@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "testedProductRevision": "de4d18dc477420121f55c1fa845ee185bd29a5e6",
+  "date": "2026-09-16",
+  "os": {
+    "system": "Darwin",
+    "release": "25.5.0",
+    "architecture": "arm64"
+  },
+  "node": "v24.20.0",
+  "npm": "11.19.0",
+  "playwright": "1.63.0",
+  "chromium": "153.0.8010.12",
+  "flags": [
+    "--enable-unsafe-webgpu",
+    "--ignore-gpu-blocklist"
+  ],
+  "browserTests": 35,
+  "nodeTests": 12,
+  "studioTests": 7,
+  "channelComparisons": 12,
+  "normalProductionEntries": [
+    "/player/",
+    "/player/studio.html"
+  ],
+  "archiveSha256": "9e245578de160cee1050259ef34358c3fcd3353a21bbb1672d29701bc1ac8084",
+  "lockSha256": "dd1d81c31fbf4a6258fae1de1fb7433402728ad61fd4e2f9fff60a7adf58a196",
+  "limits": [
+    "Chromium-only measured environment; adapter identity is redacted",
+    "Read-only source projection; no graph authoring or edited material serialization",
+    "Layout download does not prove disk persistence",
+    "Existing M5 native comparison unchanged; no new native 1K acceptance"
+  ],
+  "retained": {
+    "browser-results.json": {
+      "bytes": 10637,
+      "sha256": "d21e854897cb66966e69f87bd249f526d1793e3401ada89eeb4625678d5ac74a"
+    },
+    "deployment.json": {
+      "bytes": 12257,
+      "sha256": "2e54b5e41e14895154a2e58b4eb8f3bdd6cf6d1f2ae749ae436ddf7605de081b"
+    },
+    "deployment.png": {
+      "bytes": 190709,
+      "sha256": "a6b14ba57a75a033144c01bd513d87e785b33782b07b2df425854d020a66e0ce"
+    },
+    "glazed-ceramic-context.json": {
+      "bytes": 6583,
+      "sha256": "58b4e747f2476656a89ad21b96723ffb9de9dad92744786357edae0473ac02e2"
+    },
+    "glazed-ceramic-measurements.json": {
+      "bytes": 1618,
+      "sha256": "00bbb9473d544b23b21840f9d038cb8503205e2d9776b9c6155b89e0dd72603a"
+    },
+    "isolation.json": {
+      "bytes": 2877,
+      "sha256": "bf3b22f7183bd5d59b45851c0835d6f500facab256400e3198005faade3fcd1b"
+    },
+    "leather-context.json": {
+      "bytes": 6583,
+      "sha256": "58b4e747f2476656a89ad21b96723ffb9de9dad92744786357edae0473ac02e2"
+    },
+    "leather-measurements.json": {
+      "bytes": 1618,
+      "sha256": "b8e74055bdfa7758b458d31587728704c8766496f8f8d96e12706d184286a69b"
+    },
+    "studio-narrow.png": {
+      "bytes": 156911,
+      "sha256": "51ca2fc71db14d6ea2673d757f01a5c8ac8a980bca60c432ee8a7e5285df016f"
+    },
+    "wood-context.json": {
+      "bytes": 6583,
+      "sha256": "58b4e747f2476656a89ad21b96723ffb9de9dad92744786357edae0473ac02e2"
+    },
+    "wood-measurements.json": {
+      "bytes": 1618,
+      "sha256": "7e46b33c98b64dccac47db30c06cd812e66396cf907171d4ac5a1a176af69052"
+    },
+    "wood-studio.png": {
+      "bytes": 238715,
+      "sha256": "2704ab68ab22457eee4e565ca9d7885a6364cb3a9ce5f74c3d9a6acd548391ec"
+    }
+  }
+}
