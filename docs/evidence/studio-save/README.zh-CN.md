@@ -21,7 +21,7 @@ node scripts/verify-isolated.mjs /Users/krapnik/Documents/OpenMixture
 
 - [摘要与摘要值](./summary.json)、[全部 52 项用例结果](./browser-results.json)和[生产回执](./deployment.json)。
 - [棋盘格保存文件](./saved.mix)将 `checker.cellsX` 创作为 `4`，新增指向 `checker.cellsY` 的 `rows`。预览覆盖值 `12` 未写入。[匹配布局](./saved.mix.layout.json)记录位置、视口和确切保存字节摘要。
-- [陶瓷](./saved-glazed-ceramic.mix)、[皮革](./saved-leather.mix)、[木材](./saved-wood.mix)：源于仓库原样例，分别新增指向 `tiles.colorA`、`grain.octaves`、`grain.scale` 的 `savedParameter`。木材先将源数值文本 `0.018` 替换为 `0.0180000000000000001`，保存／重开后保持不变。所有其他 JSON 值均与源比较；重开后下载与首次保存文件逐字节相同。原样例来源仍见[样例说明](../../../public/samples/README.zh-CN.md)。
+- [陶瓷](./saved-glazed-ceramic.mix)、[皮革](./saved-leather.mix)、[木材](./saved-wood.mix)：源于仓库原样例，分别新增指向 `tiles.colorA`、`grain.octaves`、`grain.scale` 的 `savedParameter`。木材先将源数值文本 `0.018` 替换为 `0.0180000000000000001`，保存／重开后保持不变。所有其他 JSON 值均与源比较；重开后下载与首次保存文件逐字节相同。原样例来源仍见[样例说明](../../../public/samples/README.md)。
 - [撤销新鲜度](./undo-freshness.json)：三次真实读回（初始、暂停的编辑后渲染、恢复源码渲染）；撤销期间阻止导出，恢复后的像素与初始一致。
 - 已检查[保存流程截图](./studio-save.png)与[生产截图](./deployment.png)。前者在不获取 GPU 的情况下编辑；后者展示保存／重开的 65 × 3 棋盘格，经过真实渲染与显式释放。
 
