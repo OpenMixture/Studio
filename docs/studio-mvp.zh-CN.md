@@ -4,7 +4,7 @@
 
 ## 状态与基线
 
-规划基线：2026-09-15。当前状态：STUDIO-01 至 STUDIO-04 已实现，STUDIO-05 待完成。下方带日期切片说明各自交付时的范围。工作项标识不是 GitHub PR 编号。
+规划基线：2026-09-15。当前状态：STUDIO-01 至 STUDIO-05 在记录的 macOS 环境内通过工程门槛；集成与发布仍单独处理。下方带日期切片说明各自交付时的范围。工作项标识不是 GitHub PR 编号。
 
 M5 已在记录的 macOS／Linux Chromium 矩阵内验收。[产品回执](./evidence/m5-05/README.zh-CN.md)覆盖已安装运行时执行、隔离和静态部署；[引擎验收](https://github.com/OpenMixture/OpenMixture/blob/c03c7b4/docs/evidence/m5-05/README.zh-CN.md)记录冻结后的原生／浏览器质量比较及限制。现有 Player 已支持打开源文件、修改公开覆盖、通道预览和 PNG 下载。已安装的 `@openmixture/runtime@0.1.0-alpha.0` 归档仍未发布。历史证据保留原始范围与日期。
 
@@ -12,7 +12,9 @@ M5 已在记录的 macOS／Linux Chromium 矩阵内验收。[产品回执](./evi
 
 **2026-09-16 基础编辑切片：** [STUDIO-03](./studio-editing.zh-CN.md)实现节点增删、原子关联清理、连线替换／断开和所有现有参数种类编辑。STUDIO-01 的创作文档传输与初始模板前置条件已解决：原始字节先由 Rust 验证，保留数值词法文本和完整 JSON 字段，候选字节再由 Rust 验证。无需更新引擎包。当时仅保留当前草稿和原始检查点；历史与保存随后在 STUDIO-04 实现。[证据](./evidence/studio-editing/README.zh-CN.md)分别记录本地隔离与远端检查。
 
-**2026-09-16 历史／保存切片：** [STUDIO-04](./studio-save.zh-CN.md)完成有界历史、公开绑定、独立保存检查点和失败恢复。STUDIO-01 前置条件已完成。跨消费者 STUDIO-05 仍待完成。[证据](./evidence/studio-save/README.zh-CN.md)区分实测检查和集成。
+**2026-09-16 历史／保存切片：** [STUDIO-04](./studio-save.zh-CN.md)完成有界历史、公开绑定、独立保存检查点和失败恢复。STUDIO-01 前置条件已完成。当时跨消费者 STUDIO-05 仍待完成。[证据](./evidence/studio-save/README.zh-CN.md)区分实测检查和集成。
+
+**2026-09-16 跨消费者验收：** [STUDIO-05 证据](./evidence/studio-qualification/README.zh-CN.md)在记录环境内闭合五项 MVP 门槛：真实界面保存、七个原生／Player 1K 用例、28 个通道比较、隔离、生命周期及生产部署。未改变容差或原生 golden。更广矩阵、发布、托管和 M6 仍单独决策。
 
 ## 目标与范围
 

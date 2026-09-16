@@ -4,6 +4,8 @@ English | [简体中文](./README.zh-CN.md)
 
 An independent product repository for OpenMixture. The **Player** opens `.mix` source, builds public parameter controls from Rust metadata, explicitly initializes WebGPU, previews requested material channels, and downloads correctly tagged PNGs. [Studio authoring](./docs/studio-save.md) implements graph editing, undo/redo, public bindings and separate material/layout saving; subsequent batches follow the [Studio MVP implementation plan](./docs/studio-mvp.md).
 
+**Studio MVP:** STUDIO-01 through STUDIO-05 pass the [recorded macOS qualification](./docs/evidence/studio-qualification/README.md), including saved `.mix` → independent Player → native CLI and seven 1K cases. PR integration, publication and broader platform qualification remain separate.
+
 The engine and `@openmixture/runtime` are built in [OpenMixture/OpenMixture](https://github.com/OpenMixture/OpenMixture). This repository consumes the real packaged runtime from `vendor/`; it does not compile Rust or import producer source. The package is an unpublished local Alpha archive, not an npm registry release.
 
 ## Run

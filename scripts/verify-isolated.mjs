@@ -70,7 +70,8 @@ if (process.argv[3]) {
   const reference = join(work, 'native-reference');
   cpSync(resolve(process.argv[3]), reference, { recursive: true, errorOnExist: true, force: false });
   receipt.nativeManifestSha256 = sha256(join(reference, 'manifest.json'));
-  run('materials', '/usr/bin/env', ['npm', 'run', 'test:materials', '--', reference, join(work, 'browser-materials')]);
+  const studio = JSON.parse(readFileSync(join(reference, 'manifest.json'), 'utf8')).kind === 'studio';
+  run(studio ? 'studio' : 'materials', '/usr/bin/env', ['npm', 'run', studio ? 'test:studio' : 'test:materials', '--', reference, join(work, studio ? 'browser-studio' : 'browser-materials')]);
 }
 
 console.log(`Passed; receipt and logs: ${work}`);
