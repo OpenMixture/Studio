@@ -22,4 +22,4 @@ node scripts/verify-isolated.mjs /absolute/path/to/OpenMixture /absolute/native-
 
 引擎在测量前以 `6bee22d` 冻结标准：现有 M5 逐通道容差、三组材质不变的默认／变体结构与因果规则，以及精确的棋盘格／默认通道结构。不放宽原生 golden 或容差。新材质或环境范围需独立证据。
 
-保留绑定源码的结果前，验收仍待完成。此流程不发布包、不将应用部署公网，也不验收未测试浏览器／硬件。
+[记录验收](./evidence/studio-qualification/README.zh-CN.md)通过七个用例，在实测环境内完成 MVP 工程门槛。此流程不发布包、不将应用部署公网，也不验收未测试浏览器／硬件。

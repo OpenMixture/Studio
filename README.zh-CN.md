@@ -4,6 +4,8 @@
 
 这是 OpenMixture 的独立产品仓库。**Player** 打开 `.mix` 源文件，从 Rust 元数据生成公开参数控件，显式初始化 WebGPU，并预览请求的材质通道、下载带正确标记的 PNG。[Studio 创作](./docs/studio-save.zh-CN.md)已实现图编辑、撤销／重做、公开绑定及独立材质／布局保存；后续批次遵循 [Studio MVP 实施计划](./docs/studio-mvp.zh-CN.md)。
 
+**Studio MVP：** STUDIO-01 至 STUDIO-05 已通过[记录的 macOS 验收](./docs/evidence/studio-qualification/README.zh-CN.md)，包括保存 `.mix` → 独立 Player → 原生 CLI 及七个 1K 用例。PR 集成、发布及更广平台验收仍单独处理。
+
 引擎与 `@openmixture/runtime` 由 [OpenMixture/OpenMixture](https://github.com/OpenMixture/OpenMixture) 构建。本仓库消费 `vendor/` 中的真实运行时包，不编译 Rust，也不导入生产者源码。该包是尚未发布的本地 Alpha 归档，并非 npm registry 发行版。
 
 ## 运行

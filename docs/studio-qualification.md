@@ -22,4 +22,4 @@ Seven cases cover the new checker (4 × 8), default and authored ceramic (16 × 
 
 The engine froze these criteria in `6bee22d` before measurements: existing M5 per-channel tolerances, unchanged default/variant structural and causal rules for the three material pairs, and exact checker/default-channel structure. No native golden or tolerance is relaxed. New material or environment coverage needs its own evidence.
 
-Acceptance is pending until source-bound results are retained. This workflow does not publish packages, host the app publicly or qualify untested browsers/hardware.
+[Recorded acceptance](./evidence/studio-qualification/README.md) passes all seven cases and completes the MVP engineering gates in its measured environment. This workflow does not publish packages, host the app publicly or qualify untested browsers/hardware.
