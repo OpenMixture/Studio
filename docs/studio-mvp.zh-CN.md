@@ -4,7 +4,7 @@
 
 ## 状态与基线
 
-规划基线：2026-09-15。当前状态：STUDIO-01 至 STUDIO-05 在记录的 macOS 环境内通过工程门槛；集成与发布仍单独处理。下方带日期切片说明各自交付时的范围。工作项标识不是 GitHub PR 编号。
+规划基线：2026-09-15。当前状态：STUDIO-01 至 STUDIO-05 在记录的 macOS 环境内通过工程门槛，并已[集成到 main](./studio-integration.zh-CN.md)；发布仍单独处理。下方带日期切片说明各自交付时的范围。工作项标识不是 GitHub PR 编号。
 
 M5 已在记录的 macOS／Linux Chromium 矩阵内验收。[产品回执](./evidence/m5-05/README.zh-CN.md)覆盖已安装运行时执行、隔离和静态部署；[引擎验收](https://github.com/OpenMixture/OpenMixture/blob/c03c7b4/docs/evidence/m5-05/README.zh-CN.md)记录冻结后的原生／浏览器质量比较及限制。现有 Player 已支持打开源文件、修改公开覆盖、通道预览和 PNG 下载。已安装的 `@openmixture/runtime@0.1.0-alpha.0` 归档仍未发布。历史证据保留原始范围与日期。
 

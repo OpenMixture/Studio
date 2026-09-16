@@ -4,7 +4,7 @@ English | [简体中文](./README.zh-CN.md)
 
 An independent product repository for OpenMixture. The **Player** opens `.mix` source, builds public parameter controls from Rust metadata, explicitly initializes WebGPU, previews requested material channels, and downloads correctly tagged PNGs. [Studio authoring](./docs/studio-save.md) implements graph editing, undo/redo, public bindings and separate material/layout saving; subsequent batches follow the [Studio MVP implementation plan](./docs/studio-mvp.md).
 
-**Studio MVP:** STUDIO-01 through STUDIO-05 pass the [recorded macOS qualification](./docs/evidence/studio-qualification/README.md), including saved `.mix` → independent Player → native CLI and seven 1K cases. PR integration, publication and broader platform qualification remain separate.
+**Studio MVP:** STUDIO-01 through STUDIO-05 pass the [recorded macOS qualification](./docs/evidence/studio-qualification/README.md), including saved `.mix` → independent Player → native CLI and seven 1K cases. The implementation batches are [integrated into main](./docs/studio-integration.md). Publication and broader platform qualification remain separate.
 
 The engine and `@openmixture/runtime` are built in [OpenMixture/OpenMixture](https://github.com/OpenMixture/OpenMixture). This repository consumes the real packaged runtime from `vendor/`; it does not compile Rust or import producer source. The package is an unpublished local Alpha archive, not an npm registry release.
 
@@ -62,7 +62,7 @@ The [checker fixture](./public/samples/checker.mix) is copied unchanged from the
 
 ## Current boundary
 
-The [M5-04 parameter/preview slice](./docs/player-parameters.md) adds metadata-driven controls, channel selection, explicit stale previews and one active render plus one replaceable latest pending request. Edits remain usable while rendering. The [PNG export workflow](./docs/player-export.md) completes the M5-04 product implementation. M5-05 is accepted within the recorded matrix; see [browser qualification](./docs/browser-qualification.md). Registry publication and public hosting remain separate decisions. [Studio MVP](./docs/studio-mvp.md) now delivers basic graph editing; undo/redo, binding editing and authored save remain later batches.
+The [M5-04 parameter/preview slice](./docs/player-parameters.md) adds metadata-driven controls, channel selection, explicit stale previews and one active render plus one replaceable latest pending request. Edits remain usable while rendering. The [PNG export workflow](./docs/player-export.md) completes the M5-04 product implementation. M5-05 is accepted within the recorded matrix; see [browser qualification](./docs/browser-qualification.md). Registry publication and public hosting remain separate decisions. [Studio MVP](./docs/studio-mvp.md) delivers graph editing, undo/redo, public binding editing and validated material saving.
 
 Contributors should follow the paired [agent guide](./AGENTS.md) and the engine's [M5 plan](https://github.com/OpenMixture/OpenMixture/blob/main/M5_PRS.md). Keep product behavior and consumer documentation together; keep render semantics in Rust.
 
