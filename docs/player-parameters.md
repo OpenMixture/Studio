@@ -36,4 +36,4 @@ The macOS isolation recipe requires a clean committed product tree and denies re
 
 ## Remaining scope
 
-The [PNG export workflow](./player-export.md) extends this parameter/preview slice to complete M5-04 product implementation. M5-05 quality/stress/CI, publishing, Studio editing and M6 are separate work.
+The [PNG export workflow](./player-export.md) extends this parameter/preview slice to complete M5-04 product implementation. M5-05 quality/stress/CI acceptance is recorded in [browser qualification](./browser-qualification.md). Publishing and engine M6 remain separate decisions; Studio editing follows the [MVP plan](./studio-mvp.md).

@@ -2,7 +2,7 @@
 
 English | [简体中文](./AGENTS.zh-CN.md)
 
-This is the independent OpenMixture product repository. Read [README.md](./README.md) before extending scope. The Player now includes M5-04 parameters and channel previews. The PNG export workflow completes the M5-04 product implementation; M5-05 qualification and Studio editing follow their own planned batches.
+This is the independent OpenMixture product repository. Read [README.md](./README.md) before extending scope. The Player completes M5-04, including parameters, channel previews and PNG export. M5-05 is accepted within the [recorded matrix](./docs/browser-qualification.md). Follow the [Studio MVP plan](./docs/studio-mvp.md) for subsequent product batches; planning does not imply editor implementation or acceptance.
 
 - Import engine behavior only from the public `@openmixture/runtime` package. Do not import producer paths, link to the engine checkout for acceptance, compile Rust during npm installation, or copy a renderer/catalog/validator into TypeScript.
 - Preserve incoming `.mix` bytes. Do not parse and reserialize user source before Rust validation. Keep editor layout and product state outside the material format.

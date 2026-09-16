@@ -2,7 +2,7 @@
 
 [English](./README.md) | 简体中文
 
-这是 OpenMixture 的独立产品仓库。**Player** 打开 `.mix` 源文件，从 Rust 元数据生成公开参数控件，显式初始化 WebGPU，并预览请求的材质通道、下载带正确标记的 PNG。Studio 节点编辑功能后续再做。
+这是 OpenMixture 的独立产品仓库。**Player** 打开 `.mix` 源文件，从 Rust 元数据生成公开参数控件，显式初始化 WebGPU，并预览请求的材质通道、下载带正确标记的 PNG。Studio 节点编辑按 [Studio MVP 实施计划](./docs/studio-mvp.zh-CN.md)推进。
 
 引擎与 `@openmixture/runtime` 由 [OpenMixture/OpenMixture](https://github.com/OpenMixture/OpenMixture) 构建。本仓库消费 `vendor/` 中的真实运行时包，不编译 Rust，也不导入生产者源码。该包是尚未发布的本地 Alpha 归档，并非 npm registry 发行版。
 
@@ -28,7 +28,7 @@ npm run preview
 
 打开 [http://127.0.0.1:4173/player/](http://127.0.0.1:4173/player/)。生产资源刻意使用非根路径 `/player/`，包括相对包路径解析的 WASM。静态主机需将 `dist/` 内容挂载到该路径，并提供正确的 JavaScript 与 `application/wasm` MIME 类型。`vite preview` 用于本地验证，不是生产托管服务。此次仓库引导不执行线上网站部署。
 
-`Product checks` 工作流执行干净 npm 安装、公开类型检查、九项调度／请求快照测试和生产构建；它**不代表**浏览器 GPU 执行通过。
+`Product checks` 工作流包含类型／构建任务，覆盖干净 npm 安装、公开类型、九项调度／请求快照／PNG 测试及生产构建，另有独立 Chromium WebGPU 契约／部署任务。仅类型／构建成功**不代表** GPU 执行通过；浏览器任务不替代引擎材质比较。
 
 运行真实浏览器验证：
 
@@ -46,7 +46,7 @@ npm run test:browser
 - 65 × 3 的真实棋盘格像素、紧密排列的回读、后续渲染和销毁后独立像素仍可用、忙状态拒绝以及渲染中释放。
 - 用户文件输入、可见验证错误、实际画布像素及释放后保留预览。
 
-报告、浏览器上下文和构建证据、失败 trace 写入被忽略的 `test-results/`。存在测试命令不代表其已在某个环境通过。发布结果时保留准确的浏览器、操作系统、适配器与构建记录。更广泛的浏览器兼容、设备丢失覆盖和完整 M5 验收仍是独立的引擎及产品门槛。
+报告、浏览器上下文和构建证据、失败 trace 写入被忽略的 `test-results/`。存在测试命令不代表其已在某个环境通过。发布结果时保留准确的浏览器、操作系统、适配器与构建记录。包含可控真实设备丢失的 M5 验收已按实测矩阵记录在[浏览器验收](./docs/browser-qualification.zh-CN.md)；更广兼容性和自发硬件故障仍未获验证。
 
 [2026-09-12 浏览器检查点](./docs/evidence/browser-start/README.zh-CN.md)保存 6 项真实浏览器测试通过结果、干净生产者／消费者修订、归档摘要及实际上下文。
 
@@ -58,18 +58,18 @@ npm run test:browser
 
 ## 当前边界
 
-[M5-04 参数／预览切片](./docs/player-parameters.zh-CN.md)增加元数据驱动控件、通道选择、明确的过期预览，以及一个活动渲染加一个可替换最新待处理请求。渲染期间仍可编辑。[PNG 导出流程](./docs/player-export.zh-CN.md)补齐 M5-04 产品实现。M5-05 材质／CI 验证、Registry 发布与 Studio 编辑仍开放。
+[M5-04 参数／预览切片](./docs/player-parameters.zh-CN.md)增加元数据驱动控件、通道选择、明确的过期预览，以及一个活动渲染加一个可替换最新待处理请求。渲染期间仍可编辑。[PNG 导出流程](./docs/player-export.zh-CN.md)补齐 M5-04 产品实现。M5-05 已在记录矩阵内验收，见[浏览器验收](./docs/browser-qualification.zh-CN.md)。Registry 发布和公网托管分别决策。[Studio MVP](./docs/studio-mvp.zh-CN.md) 是下一个已规划产品里程碑，实现与验收仍待完成。
 
 贡献者应遵守成对的 [代理指南](./AGENTS.zh-CN.md) 和引擎的 [M5 计划](https://github.com/OpenMixture/OpenMixture/blob/main/M5_PRS.zh-CN.md)。同步维护产品行为与消费者文档，渲染语义由 Rust 持有。
 
 扩展生命周期与隔离消费者步骤见 [M5-02／M5-03 验证](./docs/m5-02-03.zh-CN.md)。
 
-[2026-09-14 M5-02／M5-03 本地验收](./docs/evidence/m5-02-03/README.zh-CN.md)记录 13 项 Chromium 检查通过、可控真实设备丢失、清理及隔离软件包消费。M5-04／M5-05 仍开放。
+[2026-09-14 M5-02／M5-03 本地验收](./docs/evidence/m5-02-03/README.zh-CN.md)记录 13 项 Chromium 检查通过、可控真实设备丢失、清理及隔离软件包消费。该检查点当时 M5-04／M5-05 仍开放；下方后续记录说明其在实测范围内的完成情况。
 
-[2026-09-14 参数／预览证据](./docs/evidence/m5-04-parameters/README.zh-CN.md)记录干净隔离消费者、23 项浏览器检查、九项 Node 测试及已检查截图。
+[2026-09-14 参数／预览证据](./docs/evidence/m5-04-parameters/README.zh-CN.md)记录干净隔离消费者、23 项浏览器检查、六项 Node 测试及已检查截图。
 
 [2026-09-15 M5-04 导出验收](./docs/evidence/m5-04-export/README.zh-CN.md)记录 28 项浏览器检查、九项 Node 测试及 12 份独立解码的材质 PNG。
 
-M5-05 工具及剩余门槛见[浏览器验收](./docs/browser-qualification.zh-CN.md)。
+M5-05 工具、已记录验收及剩余兼容性限制见[浏览器验收](./docs/browser-qualification.zh-CN.md)。
 
 [M5-05 产品证据](./docs/evidence/m5-05/README.zh-CN.md)记录隔离执行、正常静态部署及通过的浏览器 CI；引擎材质比较单独记录。

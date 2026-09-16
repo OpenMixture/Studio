@@ -36,4 +36,4 @@ macOS 隔离步骤要求干净的已提交产品树，并拒绝读取两个原�
 
 ## 剩余范围
 
-[PNG 导出流程](./player-export.zh-CN.md)在参数／预览切片基础上补齐 M5-04 产品实现。M5-05 质量／压力／CI、发布、Studio 编辑及 M6 仍是独立工作。
+[PNG 导出流程](./player-export.zh-CN.md)在参数／预览切片基础上补齐 M5-04 产品实现。M5-05 质量／压力／CI 验收已记录在[浏览器验收](./browser-qualification.zh-CN.md)。发布和引擎 M6 分别决策；Studio 编辑遵循 [MVP 计划](./studio-mvp.zh-CN.md)。

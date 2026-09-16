@@ -2,7 +2,7 @@
 
 [English](./AGENTS.md) | 简体中文
 
-这是 OpenMixture 的独立产品仓库。扩展范围前先阅读 [README.zh-CN.md](./README.zh-CN.md)。Player 现已包含 M5-04 参数与通道预览。PNG 导出流程补齐 M5-04 产品实现；M5-05 验收和 Studio 编辑功能按各自计划批次推进。
+这是 OpenMixture 的独立产品仓库。扩展范围前先阅读 [README.zh-CN.md](./README.zh-CN.md)。Player 已完成 M5-04，包括参数、通道预览和 PNG 导出。M5-05 已在[记录矩阵](./docs/browser-qualification.zh-CN.md)内验收。后续产品批次遵循 [Studio MVP 计划](./docs/studio-mvp.zh-CN.md)；规划不代表编辑器已实现或验收。
 
 - 引擎行为只能从公开的 `@openmixture/runtime` 包导入。不要导入生产者路径，不要使用引擎源码链接作为验收，不要在 npm 安装时编译 Rust，也不要在 TypeScript 中复制渲染器、目录或验证器。
 - 保留输入 `.mix` 原始字节。Rust 验证前不要解析并重新序列化用户源码。编辑器布局和产品状态应在材质格式之外保存。
