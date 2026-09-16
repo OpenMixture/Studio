@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "productRevision": "72565bd2abbff0c0aed6cef0d406e36b95ab2931",
+  "clean": true,
+  "producerDenied": "/Users/krapnik/Documents/OpenMixture",
+  "productCheckoutDenied": "/Users/krapnik/Documents/OpenMixtureStudio",
+  "sourceArchiveSha256": "c0cc5eecb7855c740dfdcf111d4acfd4096997d25ab742a10611baa8b8f2bdec",
+  "lockSha256": "dd1d81c31fbf4a6258fae1de1fb7433402728ad61fd4e2f9fff60a7adf58a196",
+  "archiveSha256": "9e245578de160cee1050259ef34358c3fcd3353a21bbb1672d29701bc1ac8084",
+  "fixtureSha256": "296c9d92e06211e8583ce0810f49562e0d36a68b6d795268b80dd19d8fda03b0",
+  "node": "v24.20.0",
+  "startedAt": "2026-09-16T05:05:39.505Z",
+  "consumer": "/private/var/folders/bc/yfkbtm095gx181gwtmswdl_m0000gn/T/mixture-browser-consumer-UhkVpT/consumer",
+  "checks": [
+    {
+      "label": "isolation",
+      "command": [
+        "/Users/krapnik/.local/share/fnm/node-versions/v24.20.0/installation/bin/node",
+        "--input-type=module",
+        "-e",
+        "\nimport { readFileSync } from 'node:fs';\nimport { spawnSync } from 'node:child_process';\nfor (const path of [\"/Users/krapnik/Documents/OpenMixtureStudio/package.json\",\"/Users/krapnik/Documents/OpenMixture/Cargo.toml\"]) {\n  let denied = false;\n  try { readFileSync(path); } catch (error) { denied = ['EPERM', 'EACCES'].includes(error.code); }\n  if (!denied) throw new Error('Checkout access was not denied: ' + path);\n}\nfor (const tool of ['cargo', 'rustc']) {\n  if (spawnSync(tool, ['--version']).error?.code !== 'ENOENT') throw new Error(tool + ' is available');\n}\nconsole.log('Both working checkouts denied; cargo and rustc absent from PATH');\n"
+      ],
+      "startedAt": "2026-09-16T05:05:39.506Z",
+      "endedAt": "2026-09-16T05:05:39.534Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "label": "install",
+      "command": [
+        "/usr/bin/env",
+        "npm",
+        "ci"
+      ],
+      "startedAt": "2026-09-16T05:05:39.534Z",
+      "endedAt": "2026-09-16T05:05:40.415Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "label": "check",
+      "command": [
+        "/usr/bin/env",
+        "npm",
+        "run",
+        "check"
+      ],
+      "startedAt": "2026-09-16T05:05:40.415Z",
+      "endedAt": "2026-09-16T05:05:42.788Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "label": "browser",
+      "command": [
+        "/usr/bin/env",
+        "npm",
+        "run",
+        "test:browser"
+      ],
+      "startedAt": "2026-09-16T05:05:42.789Z",
+      "endedAt": "2026-09-16T05:06:22.749Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "label": "deployment",
+      "command": [
+        "/usr/bin/env",
+        "npm",
+        "run",
+        "test:deployment"
+      ],
+      "startedAt": "2026-09-16T05:06:22.750Z",
+      "endedAt": "2026-09-16T05:06:24.432Z",
+      "exitCode": 0,
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "sourceSha256": "1e80450eeb5396d79c97e4ffa3e9ae4588303132eaf67dca8a75fc1ca1125bc5",
+  "positions": {
+    "checker": {
+      "x": 10,
+      "y": 0
+    },
+    "out": {
+      "x": 290,
+      "y": 0
+    }
+  },
+  "viewport": {
+    "zoom": 1,
+    "x": 202,
+    "y": 142
+  }
+}

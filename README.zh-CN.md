@@ -2,7 +2,7 @@
 
 [English](./README.md) | 简体中文
 
-这是 OpenMixture 的独立产品仓库。**Player** 打开 `.mix` 源文件，从 Rust 元数据生成公开参数控件，显式初始化 WebGPU，并预览请求的材质通道、下载带正确标记的 PNG。[Studio 基础编辑](./docs/studio-editing.zh-CN.md)已实现节点、连线和创作参数修改；后续批次遵循 [Studio MVP 实施计划](./docs/studio-mvp.zh-CN.md)。
+这是 OpenMixture 的独立产品仓库。**Player** 打开 `.mix` 源文件，从 Rust 元数据生成公开参数控件，显式初始化 WebGPU，并预览请求的材质通道、下载带正确标记的 PNG。[Studio 创作](./docs/studio-save.zh-CN.md)已实现图编辑、撤销／重做、公开绑定及独立材质／布局保存；后续批次遵循 [Studio MVP 实施计划](./docs/studio-mvp.zh-CN.md)。
 
 引擎与 `@openmixture/runtime` 由 [OpenMixture/OpenMixture](https://github.com/OpenMixture/OpenMixture) 构建。本仓库消费 `vendor/` 中的真实运行时包，不编译 Rust，也不导入生产者源码。该包是尚未发布的本地 Alpha 归档，并非 npm registry 发行版。
 
@@ -19,7 +19,7 @@ npm run dev
 
 渲染需要安全浏览器上下文与可用的 WebGPU。页面会报告初始化和渲染失败，没有其他像素执行器。仅导入模块不会获取 WASM 或请求 GPU。显式释放是已定义的生命周期测试路径；页面终止无法等待异步清理。
 
-Studio 入口为 `/player/studio.html`，支持节点增删、连接／断开、参数编辑、诊断和共享预览。编辑暂存于会话；原文件下载不变。用法与边界见 [Studio 基础编辑](./docs/studio-editing.zh-CN.md)。
+Studio 入口为 `/player/studio.html`，支持节点增删、连接／断开、参数编辑、诊断和共享预览。支持独立保存编辑后的材质与布局、撤销／重做及公开绑定创作。原文件下载不变。恢复与检查点边界见 [Studio 保存](./docs/studio-save.zh-CN.md)。
 
 ## 生产构建与检查
 
@@ -30,7 +30,7 @@ npm run preview
 
 打开 [http://127.0.0.1:4173/player/](http://127.0.0.1:4173/player/)。生产资源刻意使用非根路径 `/player/`，包括相对包路径解析的 WASM。静态主机需将 `dist/` 内容挂载到该路径，并提供正确的 JavaScript 与 `application/wasm` MIME 类型。`vite preview` 用于本地验证，不是生产托管服务。此次仓库引导不执行线上网站部署。
 
-`Product checks` 工作流包含类型／构建任务，覆盖干净 npm 安装、公开类型、18 项调度／请求快照／PNG／源图传输／布局／编辑命令测试及生产构建，另有独立 Chromium WebGPU 契约／部署任务。仅类型／构建成功**不代表** GPU 执行通过；浏览器任务不替代引擎材质比较。
+`Product checks` 工作流包含类型／构建任务，覆盖干净 npm 安装、公开类型、20 项调度／请求快照／PNG／源图传输／布局／编辑命令测试及生产构建，另有独立 Chromium WebGPU 契约／部署任务。仅类型／构建成功**不代表** GPU 执行通过；浏览器任务不替代引擎材质比较。
 
 运行真实浏览器验证：
 

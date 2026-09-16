@@ -42,15 +42,27 @@ try {
  const editedDownload=page.waitForEvent('download');await page.locator('#download').click();
  const editedPng=await readFile(await (await editedDownload).path());
  expect(decodePng(editedPng).pixels).not.toEqual(png.pixels);
- const editedSource=await page.locator('#source-text').textContent();
+ const materialDownload=page.waitForEvent('download');await page.locator('#save-material').click();
+ const editedSource=await readFile(await (await materialDownload).path());
+ expect(JSON.parse(editedSource.toString()).nodes[0].parameters.cellsX).toBe(4);
+ const layoutDownload=page.waitForEvent('download');await page.locator('#save-layout').click();
+ const layoutSource=await readFile(await (await layoutDownload).path());
+ expect(JSON.parse(layoutSource.toString()).sourceSha256).toBe(sha(editedSource));
+ await page.locator('#file').setInputFiles({name:'saved-checker.mix',mimeType:'application/json',buffer:editedSource});
+ await expect(page.locator('#source-name')).toContainText('saved-checker.mix');
+ await page.locator('#layout-file').setInputFiles({name:'saved-checker.mix.layout.json',mimeType:'application/json',buffer:layoutSource});
+ await expect(page.locator('#graph-status')).toContainText('Layout loaded');
+ await expect(page.locator('#status')).toHaveText('Render complete.');
+ const reopenedDownload=page.waitForEvent('download');await page.locator('#download').click();
+ expect(decodePng(await readFile(await (await reopenedDownload).path())).pixels).toEqual(decodePng(editedPng).pixels);
  await writeFile('test-results/deployment/edited-checker.mix',editedSource);
  const sourceDownload=page.waitForEvent('download');await page.locator('#download-source').click();
  const original=await readFile(await (await sourceDownload).path());
- expect(original).toEqual(await readFile('public/samples/checker.mix'));
+ expect(original).toEqual(editedSource);
  await page.locator('#dispose').click();await expect(page.locator('#status')).toContainText('GPU disposed.');
  await page.screenshot({path:'test-results/deployment/studio.png',fullPage:true});
  expect(errors).toEqual([]);
  await writeFile('test-results/deployment/receipt.json',JSON.stringify({browser:browser.version(),args,assets,
-  studio:{htmlSha256:sha(await readFile('dist/studio.html')),context:studioContext,originalSourceSha256:sha(original),pngSha256:sha(studioPng),editedSourceSha256:sha(editedSource),editedPngSha256:sha(editedPng)},
+  studio:{htmlSha256:sha(await readFile('dist/studio.html')),context:studioContext,originalSourceSha256:sha(original),pngSha256:sha(studioPng),editedSourceSha256:sha(editedSource),editedPngSha256:sha(editedPng),savedReopenedPixelsMatch:true},
   archiveSha256:sha(await readFile('vendor/openmixture-runtime-0.1.0-alpha.0.tgz')),htmlSha256:sha(await readFile('dist/index.html')),pngSha256:sha(bytes),testHarnessAbsent:true,result:'passed'},null,2));
 } finally {await browser?.close();await new Promise(resolve=>server.close(resolve));}

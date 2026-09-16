@@ -4,6 +4,8 @@ English | [简体中文](./studio-graph.zh-CN.md)
 
 **Current extension:** This guide retains read-only workflows and their original acceptance scope. [Basic editing](./studio-editing.md) is now implemented; its guide describes layout-file restrictions during authored drafts and the new transport contract. STUDIO-01 pending work and test counts below describe the earlier read-only checkpoint.
 
+> Historical batch guide: the scope and counts below describe this batch when delivered. Current [STUDIO-04](./studio-save.md) adds undo/redo, binding editing, edited material and layout saving, and failed-open recovery; discard now restores the last saved material. See that guide for current behavior.
+
 ## Open and inspect
 
 Run the existing product:

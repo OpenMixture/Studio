@@ -38,7 +38,7 @@ test('source graphs for all samples work without GPU acquisition and show catalo
   await expect(page.locator('.graph-node')).toHaveCount(9);
 });
 
-test('projection keeps disconnected nodes and numeric source tokens; invalid bytes clear the graph', async ({ page }) => {
+test('projection keeps disconnected nodes and numeric source tokens; invalid bytes retain the graph', async ({ page }) => {
   await ready(page);
   const doc = JSON.parse((await sample('checker')).toString());
   doc.nodes.push({ id: 'unused', type: 'checker', version: 1 });
@@ -56,8 +56,8 @@ test('projection keeps disconnected nodes and numeric source tokens; invalid byt
   for (const invalid of [Buffer.from('{"version":1,"version":1}'), Buffer.from([0xff, 0xfe]), Buffer.from('{"version":9007199254740993}')]) {
     await page.locator('#file').setInputFiles({ name: 'invalid.mix', mimeType: 'application/json', buffer: invalid });
     await expect(page.locator('#error')).toBeVisible();
-    await expect(page.locator('.graph-node')).toHaveCount(0);
-    await expect(page.locator('#download-source')).toBeDisabled();
+    await expect(page.locator('.graph-node')).toHaveCount(9);
+    await expect(page.locator('#download-source')).toBeEnabled();
   }
 });
 
@@ -79,7 +79,7 @@ test('keyboard, dragging, sidecar round trips and layout failures preserve mater
   expect(JSON.parse((await download(page, '#save-layout')).bytes.toString())).toEqual(layout);
   expect((await download(page, '#download-source')).bytes.equals(await sample('checker'))).toBe(true);
   await page.locator('#layout-file').setInputFiles({ name: 'wrong.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify({ ...layout, sourceSha256: 'wrong' })) });
-  await expect(page.locator('#graph-status')).toContainText('Layout ignored; using default positions');
+  await expect(page.locator('#graph-status')).toContainText('Layout ignored; current positions retained');
   await expect(page.locator('.graph-node')).toHaveCount(2);
   await page.locator('#layout-file').setInputFiles({ name: 'broken.json', mimeType: 'application/json', buffer: Buffer.from('{') });
   await expect(page.locator('#graph-status')).toContainText('Layout ignored');
@@ -110,7 +110,7 @@ test('late source and layout reads cannot replace a newer graph or layout', asyn
   await expect(page.locator('#source-name')).toContainText('leather.mix');
   const layout = await download(page, '#save-layout');
   await page.locator('#layout-file').setInputFiles({ name: 'slow.json', mimeType: 'application/json', buffer: layout.bytes });
-  await page.locator('#graph-reset').click();
+  await page.locator('#graph-zoom-in').click();
   await page.waitForTimeout(850);
   await expect(page.locator('#graph-status')).toContainText('not saved');
 });

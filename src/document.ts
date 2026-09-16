@@ -53,16 +53,30 @@ export class EditableDocument {
   readonly runtime: RuntimeModule;
   doc: MaterialDocument;
   dirty = false;
+  private saved: Uint8Array;
   constructor(runtime: RuntimeModule, bytes: Uint8Array) {
     const validation = validateBytes(runtime, bytes);
     if (!validation.ok) throw Object.assign(new Error('Source is invalid.'), { diagnostics: validation.diagnostics });
+    this.saved = bytes.slice();
     this.runtime = runtime; this.original = bytes.slice(); this.catalog = runtime.getNodeCatalog();
     this.doc = parseDocument(bytes);
     // Check the transport boundary before enabling edits; this does not replace Rust validation.
     const encoded = documentBytes(this.doc);
     if (jsonText(parseDocument(encoded)) !== jsonText(this.doc)) throw new Error('Source cannot round-trip through editor transport.');
   }
-  bytes(): Uint8Array { return this.dirty ? documentBytes(this.doc) : this.original.slice(); }
+  bytes(): Uint8Array {
+    const text = jsonText(this.doc);
+    if (text === jsonText(parseDocument(this.saved))) return this.saved.slice();
+    if (text === jsonText(parseDocument(this.original))) return this.original.slice();
+    return documentBytes(this.doc);
+  }
+  get unsaved(): boolean { return jsonText(this.doc) !== jsonText(parseDocument(this.saved)); }
+  checkpoint(bytes: Uint8Array): void { this.saved = bytes.slice(); }
+  restoreSaved(): void { this.doc = parseDocument(this.saved); this.dirty = false; }
+  bind(id: string, nodeId: string, parameterId: string): void {
+    (this.doc.exposedParameters ??= []).push({ id, nodeId, parameterId }); this.dirty = true;
+  }
+  unbind(index: number): void { this.doc.exposedParameters?.splice(index, 1); this.dirty = true; }
   validate(): ValidationResult { return validateBytes(this.runtime, this.bytes()); }
   reset(): void { this.doc = parseDocument(this.original); this.dirty = false; }
   node(id: string): AuthoredNode {

@@ -50,7 +50,7 @@ test('delete and rebuild checker graph with atomic binding cleanup, no GPU requi
   await page.locator('#connect-edge').click();
   await expect(page.locator('#editor-status')).toContainText('Valid material draft');
   expect((await download(page, '#download-source')).equals(await sample('checker'))).toBe(true);
-  await expect(page.locator('#save-layout')).toBeDisabled();
+  await expect(page.locator('#save-layout')).toBeEnabled();
 });
 
 test('integer, float, enum and color edits retain invalid field text and can be repaired', async ({ page }) => {
@@ -102,7 +102,7 @@ test('material dirtiness protects replacement, discard restores bytes, and new m
   expect(Buffer.from((await page.locator('#source-text').textContent())!).equals(await sample('checker'))).toBe(true);
   await page.locator('#new-material').click();
   await expect(page.locator('#source-name')).toContainText('untitled.mix');
-  await expect(page.locator('#editor-status')).toHaveText('Material source unchanged.');
+  await expect(page.locator('#editor-status')).toContainText('unsaved');
   await expect(page.locator('.graph-node')).toHaveCount(2);
 });
 
