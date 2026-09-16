@@ -133,14 +133,24 @@ for (const name of ['glazed-ceramic', 'leather', 'wood']) {
     await page.locator('#width').fill('128'); await page.locator('#height').fill('128');
     await page.locator('#initialize').click(); await expect(page.locator('#status')).toHaveText('WebGPU ready. Render when ready.');
     await page.locator('#render').click(); await expect(page.locator('#status')).toHaveText('Render complete.');
+    const measurements = [];
     for (const channel of reference.outputs) {
       if (channel.id !== 'baseColor') { await page.locator('#channels').selectOption(channel.id); await expect(page.locator('#status')).toHaveText('Render complete.'); }
-      const decoded = decodePng((await download(page, '#download')).bytes);
-      expect(sha(decoded.pixels)).toBe(sha(new Uint8Array(channel.pixels)));
+      const png = (await download(page, '#download')).bytes;
+      const decoded = decodePng(png);
+      const canvas = await page.locator('#preview').evaluate((element: HTMLCanvasElement) =>
+        Array.from(element.getContext('2d')!.getImageData(0, 0, element.width, element.height).data));
+      const expected = sha(new Uint8Array(channel.pixels));
+      expect([decoded.width, decoded.height]).toEqual([128, 128]);
+      expect(sha(decoded.pixels)).toBe(expected);
+      expect(sha(new Uint8Array(canvas))).toBe(expected);
+      measurements.push({ channel: channel.id, size: [decoded.width, decoded.height], referencePixelSha256: expected,
+        canvasPixelSha256: sha(new Uint8Array(canvas)), pngPixelSha256: sha(decoded.pixels), pngSha256: sha(png) });
     }
     await page.locator('#dispose').click(); await expect(page.locator('#status')).toContainText('GPU disposed');
     await expect(page.locator('#preview')).toBeVisible();
     expect((await download(page, '#download-source')).bytes.equals(source)).toBe(true);
+    await info.attach(`${name}-measurements.json`, { body: JSON.stringify({ sourceSha256: sha(source), measurements }), contentType: 'application/json' });
     await info.attach(`${name}-context.json`, { body: JSON.stringify(reference.context, (_k, v) => typeof v === 'bigint' ? v.toString() : v), contentType: 'application/json' });
     await info.attach(`${name}-studio.png`, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' });
   });
