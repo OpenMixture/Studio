@@ -30,4 +30,4 @@ npm run test:deployment
 
 测试集包含 20 项 Node 测试和 52 项浏览器用例。新增用例覆盖有界／合并历史、原子删除恢复、无效输入与重复绑定、独立检查点、未修改文件逐字节保存、棋盘格／陶瓷／皮革／木材编辑后保存重开、数值文本保留、匹配布局、下载／导入失败、取消新建／打开及过期读取。真实 GPU 读回屏障验证撤销的新鲜度；保留现有 GPU、Player 和生命周期测试。正常生产部署会保存并重开编辑后的棋盘格，比较其像素。
 
-[证据](./evidence/studio-save/README.zh-CN.md)分别记录已测修订、环境及远端集成。STUDIO-01 至 STUDIO-05 已在[记录的保存文件矩阵](./evidence/studio-qualification/README.zh-CN.md)内完成；集成及更广验收仍单独处理。这不代表发布运行时、将产品部署到公网或建立更广浏览器支持。
+[证据](./evidence/studio-save/README.zh-CN.md)分别记录已测修订、环境及远端集成。STUDIO-01 至 STUDIO-05 已在[记录的保存文件矩阵](./evidence/studio-qualification/README.zh-CN.md)内完成；实现已[集成到 main](./studio-integration.zh-CN.md)，更广验收仍单独处理。这不代表发布运行时、将产品部署到公网或建立更广浏览器支持。

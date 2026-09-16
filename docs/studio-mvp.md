@@ -4,7 +4,7 @@ English | [简体中文](./studio-mvp.zh-CN.md)
 
 ## Status and baseline
 
-Planning baseline: 2026-09-15. Current status: STUDIO-01 through STUDIO-05 pass the recorded macOS engineering gates; integration and publication remain separate. The dated slices below describe their original delivery scope. Work item IDs are not GitHub PR numbers.
+Planning baseline: 2026-09-15. Current status: STUDIO-01 through STUDIO-05 pass the recorded macOS engineering gates and are [integrated into main](./studio-integration.md); publication remains separate. The dated slices below describe their original delivery scope. Work item IDs are not GitHub PR numbers.
 
 M5 is accepted within the recorded macOS/Linux Chromium matrix. The [product receipt](./evidence/m5-05/README.md) covers installed-runtime execution, isolation and static deployment; the [engine acceptance](https://github.com/OpenMixture/OpenMixture/blob/c03c7b4/docs/evidence/m5-05/README.md) records frozen native/browser quality comparisons and limits. The existing Player opens source, edits public overrides, previews channels and downloads PNGs. The installed `@openmixture/runtime@0.1.0-alpha.0` archive remains unpublished. Historical evidence retains its original scope and dates.
 
