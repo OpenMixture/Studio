@@ -6,12 +6,13 @@ import { drawPreview } from './preview';
 import { fileBytes, sampleBytes } from './files';
 import { encodePng, pngFilename } from './png';
 import './style.css';
+import { EditableDocument } from './document';
 import { studioEditor } from './studio-editor';
 import { graphView } from './graph-view';
 
 const graphRoot = document.getElementById('graph-section');
 let editor: ReturnType<typeof studioEditor> | undefined;
-const graph = graphRoot ? graphView(graphRoot, { selected: id => editor?.select(id), materialDirty: () => editor?.dirty() ?? false }) : undefined;
+const graph = graphRoot ? graphView(graphRoot, { selected: id => editor?.select(id), materialDirty: () => editor?.dirty() ?? false, materialBytes: () => editor?.bytes() }) : undefined;
 let currentSample = 'checker';
 
 function element<T extends HTMLElement>(id: string): T {
@@ -64,6 +65,7 @@ const controls = parameterControls(element('parameters'), (id, value) => {
 
 if (graph) editor = studioEditor(element('studio-editor'), graph, {
   invalidate() {
+    sourceGeneration++; samples.value = currentSample;
     scheduler?.invalidate(); validRequest = false; source = undefined; metadataReady = false;
     overrides = Object.create(null); controls.clear('Validate the material draft to see preview overrides.');
     markStale('material draft changed'); updateControls();
@@ -74,7 +76,7 @@ if (graph) editor = studioEditor(element('studio-editor'), graph, {
     if (!result.ok) { showError(result, 'Material draft is invalid.'); updateControls(); }
     else validateCurrent(true);
   },
-  create(bytes) { samples.value = ''; void loadSource(() => Promise.resolve(bytes), 'untitled.mix'); },
+  create(bytes) { samples.value = ''; void loadSource(() => Promise.resolve(bytes), 'untitled.mix', false, true); },
 });
 
 function describe(value: unknown): string {
@@ -159,10 +161,32 @@ function edited(): void {
   validateCurrent(true);
 }
 
-async function loadSource(read: () => Promise<Uint8Array>, name: string, initial = false): Promise<void> {
-  if (graph && !graph.confirmReplace()) { samples.value = currentSample; return; }
+async function loadSource(read: () => Promise<Uint8Array>, name: string, initial = false, fresh = false): Promise<void> {
+  if (graph) {
+    const generation = ++sourceGeneration, requestedSample = samples.value;
+    scheduler?.invalidate(); markStale('opening material');
+    try {
+      const [bytes, module] = await Promise.all([read(), ensureRuntime()]);
+      // Stage admission, transport and layout before touching the recoverable session.
+      new EditableDocument(module, bytes);
+      const commitGraph = await graph.prepare(module, bytes, name);
+      if (generation !== sourceGeneration) return;
+      if (!graph.confirmReplace()) { samples.value = currentSample; return; }
+      scheduler?.invalidate(); editor?.clear(); commitGraph();
+      source = bytes; runtime = module; sourceName = name; currentSample = requestedSample;
+      overrides = Object.create(null); metadataReady = false; validRequest = false;
+      controls.clear('Load a valid material to see its exposed parameters.');
+      channels.replaceChildren(new Option('baseColor', 'baseColor'));
+      element('source-name').textContent = `${name} · ${bytes.byteLength.toLocaleString()} bytes`;
+      element('source-text').textContent = new TextDecoder().decode(bytes);
+      editor?.load(module, bytes, name, fresh); markStale('source changed');
+      if (validateCurrent(true) && initial && !gpu) status.textContent = 'Checker loaded. Initialize WebGPU to render.';
+    } catch (failure) {
+      if (generation === sourceGeneration) { samples.value = currentSample; showError(failure, 'Open failed. Current material, layout and history retained.'); }
+    } finally { if (generation === sourceGeneration) updateControls(); }
+    return;
+  }
   currentSample = samples.value;
-  editor?.clear(); graph?.clear();
   const generation = ++sourceGeneration;
   scheduler?.invalidate();
   loading = true; source = undefined; metadataReady = false; validRequest = false;
@@ -180,11 +204,6 @@ async function loadSource(read: () => Promise<Uint8Array>, name: string, initial
     element('source-name').textContent = `${name} · ${bytes.byteLength.toLocaleString()} bytes`;
     // Display decoding never becomes render input; Rust receives the original bytes.
     element('source-text').textContent = new TextDecoder().decode(bytes);
-    if (graph) {
-      await graph.load(module, bytes, name);
-      if (generation !== sourceGeneration) return;
-      editor?.load(module, bytes);
-    }
     if (validateCurrent(true) && initial && !gpu) status.textContent = 'Checker loaded. Initialize WebGPU to render.';
   } catch (failure) {
     if (generation === sourceGeneration) showError(failure);

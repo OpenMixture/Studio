@@ -2,7 +2,7 @@ import type { Diagnostic, RuntimeModule } from '@openmixture/runtime';
 import { defaultLayout, nodeHeight, NODE_WIDTH, parseLayout, readSourceGraph, type GraphLayout, type SourceGraph } from './source-graph';
 import './graph.css';
 
-export function graphView(root: HTMLElement, options: { selected?: (id: string) => void; materialDirty?: () => boolean } = {}) {
+export function graphView(root: HTMLElement, options: { selected?: (id: string) => void; materialDirty?: () => boolean; materialBytes?: () => Uint8Array | undefined } = {}) {
   const get = <T extends HTMLElement>(id: string) => root.querySelector<T>(`#${id}`)!;
   const viewport = get('graph-viewport'), world = get('graph-world'), nodes = get('graph-nodes');
   const edges = root.querySelector<SVGSVGElement>('#graph-edges')!;
@@ -11,12 +11,17 @@ export function graphView(root: HTMLElement, options: { selected?: (id: string) 
   const sourceButton = get<HTMLButtonElement>('download-source');
   let graph: SourceGraph | undefined, layout: GraphLayout | undefined, bytes: Uint8Array | undefined;
   let selected = '', filename = '', dirty = false, generation = 0, layoutRead = 0;
+  let savedLayout = '', savedLayoutMaterial = '', currentMaterial = '';
+  const layoutDirty = () => snapshot() !== savedLayout || currentMaterial !== savedLayoutMaterial;
+  let onChange: (() => void) | undefined;
+  const snapshot = () => layout ? JSON.stringify({ positions: layout.positions, viewport: layout.viewport }) : '';
+  const digest = async (data: Uint8Array) => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new Uint8Array(data)))].map(n => n.toString(16).padStart(2, '0')).join('');
   const buttons = new Map<string, HTMLButtonElement>();
   const urls = new Set<string>();
   let gesture: { pointer: number; id?: string; x: number; y: number; startX: number; startY: number } | undefined;
 
   function note(message?: string) {
-    status.textContent = message ?? (options.materialDirty?.() ? 'Material draft changed. Layout stays separate from source.' : dirty ? 'Layout changed · not saved. Material source is unchanged.' : 'Layout ready. Material source is read-only.');
+    status.textContent = message ?? `Layout ${dirty ? 'changed · not saved' : 'matches its checkpoint'}. Material ${options.materialDirty?.() ? 'has unsaved changes' : 'matches its checkpoint'}.`;
   }
   function controls(enabled: boolean) {
     for (const control of root.querySelectorAll<HTMLButtonElement | HTMLInputElement | HTMLSelectElement>('button, input, select')) control.disabled = !enabled;
@@ -24,8 +29,8 @@ export function graphView(root: HTMLElement, options: { selected?: (id: string) 
   function download(data: Uint8Array | string, name: string) {
     const blob = typeof data === 'string' ? new Blob([data], { type: 'application/json' }) : new Blob([new Uint8Array(data)], { type: 'application/json' });
     const url = URL.createObjectURL(blob); urls.add(url);
-    const a = document.createElement('a'); a.href = url; a.download = name; a.click();
-    window.setTimeout(() => { URL.revokeObjectURL(url); urls.delete(url); }, 1000);
+    const a = document.createElement('a'); a.href = url; a.download = name;
+    try { a.click(); } finally { window.setTimeout(() => { URL.revokeObjectURL(url); urls.delete(url); }, 1000); }
   }
   function select(id: string) {
     const previous = selected;
@@ -84,7 +89,7 @@ export function graphView(root: HTMLElement, options: { selected?: (id: string) 
       edges.append(path);
     }
   }
-  function changed() { layoutRead++; dirty = true; draw(); note(); }
+  function changed() { layoutRead++; dirty = layoutDirty(); draw(); note(); if (!gesture) onChange?.(); }
   function centerSelected() {
     if (!layout || !graph) return;
     const p = layout.positions[selected], node = graph.nodes.find(n => n.id === selected);
@@ -137,7 +142,7 @@ export function graphView(root: HTMLElement, options: { selected?: (id: string) 
     const y = clamp(gesture.startY + (event.clientY - gesture.y) / divisor);
     if (target.x !== x || target.y !== y) { target.x = x; target.y = y; changed(); }
   });
-  for (const event of ['pointerup', 'pointercancel', 'lostpointercapture']) viewport.addEventListener(event, () => { gesture = undefined; });
+  for (const event of ['pointerup', 'pointercancel', 'lostpointercapture']) viewport.addEventListener(event, () => { if (gesture) { gesture = undefined; onChange?.(); } });
   viewport.addEventListener('keydown', event => {
     if (!layout) return;
     const delta: Record<string, [number, number]> = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
@@ -156,7 +161,15 @@ export function graphView(root: HTMLElement, options: { selected?: (id: string) 
   sourceButton.addEventListener('click', () => { if (bytes) download(bytes, filename); });
   get('save-layout').addEventListener('click', () => {
     if (!layout) return;
-    download(JSON.stringify(layout, null, 2), `${filename}.layout.json`); dirty = false; note('Layout download started. Material source is unchanged.');
+    const current = generation, read = layoutRead, captured = snapshot();
+    void (async () => {
+      const source = options.materialBytes?.() ?? bytes;
+      if (!source) throw Error('Repair the material before saving its layout.');
+      const sha = await digest(source);
+      if (current !== generation || read !== layoutRead || !layout) return;
+      download(JSON.stringify({ version: 1, sourceSha256: sha, ...JSON.parse(captured) }, null, 2), `${filename}.layout.json`);
+      savedLayout = captured; savedLayoutMaterial = new TextDecoder().decode(source); dirty = layoutDirty(); note('Layout download started. Save the matching material separately.');
+    })().catch(error => { if (current === generation && read === layoutRead) note(`Layout save failed; layout retained. ${String(error)}`); });
   });
   layoutFile.addEventListener('change', () => {
     const file = layoutFile.files?.[0]; layoutFile.value = '';
@@ -164,13 +177,15 @@ export function graphView(root: HTMLElement, options: { selected?: (id: string) 
     const current = generation, read = ++layoutRead;
     void (async () => {
       if (file.size > 4 * 1024 * 1024) throw new Error('Layout exceeds 4 MiB.');
-      const text = await file.text();
+      const source = options.materialBytes?.() ?? bytes;
+      if (!source) throw Error('Repair the material before loading its layout.');
+      const [text, sha] = await Promise.all([file.text(), digest(source)]);
       if (current !== generation || read !== layoutRead || !graph || !layout) return;
-      layout = parseLayout(text, graph, layout.sourceSha256); dirty = false; draw(); note('Layout loaded. Material source is unchanged.');
+      layout = parseLayout(text, graph, sha); savedLayout = snapshot(); savedLayoutMaterial = new TextDecoder().decode(source); dirty = layoutDirty();
+      draw(); onChange?.(); note('Layout loaded. Material source is unchanged.');
     })().catch(error => {
       if (current !== generation || read !== layoutRead || !graph || !layout) return;
-      layout = defaultLayout(graph, layout.sourceSha256); fit(false); dirty = false;
-      note(`Layout ignored; using default positions. ${error instanceof Error ? error.message : String(error)}`);
+      note(`Layout ignored; current positions retained. ${error instanceof Error ? error.message : String(error)}`);
     });
   });
   window.addEventListener('beforeunload', event => { if (dirty || options.materialDirty?.()) { event.preventDefault(); event.returnValue = ''; } });
@@ -205,6 +220,13 @@ export function graphView(root: HTMLElement, options: { selected?: (id: string) 
   return {
     clear,
     select,
+    snapshot,
+    onChange(callback: () => void) { onChange = callback; },
+    restore(value: string) {
+      if (!layout || !value) return;
+      const restored = JSON.parse(value); layout.positions = restored.positions; layout.viewport = restored.viewport;
+      layoutRead++; gesture = undefined; dirty = layoutDirty(); draw(); note();
+    },
     update(projected: SourceGraph, preferred = selected) {
       if (!layout) return;
       if (Object.keys(layout.positions).length !== projected.nodes.length || projected.nodes.some(node => !Object.hasOwn(layout!.positions, node.id))) dirty = true;
@@ -213,28 +235,18 @@ export function graphView(root: HTMLElement, options: { selected?: (id: string) 
       for (const node of graph.nodes) if (Object.hasOwn(layout.positions, node.id)) next.positions[node.id] = layout.positions[node.id];
       layout.positions = next.positions; buildNodes(preferred); draw();
     },
-    draftMode(active: boolean) {
-      get<HTMLButtonElement>('save-layout').disabled = active;
-      layoutFile.disabled = active;
-      if (active) { layoutRead++; note('Material draft changed. Original download is unchanged; layout files are available after discarding edits.'); }
-      else note();
-    },
+    draftMode(_active: boolean, source?: Uint8Array) { currentMaterial = source ? new TextDecoder().decode(source) : ''; layoutRead++; dirty = layoutDirty(); note(); },
     diagnostics(diagnostics: Diagnostic[]) {
       for (const [id, button] of buttons) button.classList.toggle('node-error', diagnostics.some(d => d.nodeId === id));
     },
     confirmReplace: () => (!dirty && !options.materialDirty?.()) || window.confirm('Discard unsaved material or layout changes and open another material?'),
-    async load(runtime: RuntimeModule, source: Uint8Array, name: string) {
-      const current = ++generation;
-      try {
-        const projected = readSourceGraph(runtime, source);
-        const digest = [...new Uint8Array(await crypto.subtle.digest('SHA-256', new Uint8Array(source)))].map(n => n.toString(16).padStart(2, '0')).join('');
-        if (current !== generation) return;
-        graph = projected; bytes = source.slice(); filename = name; layout = defaultLayout(graph, digest);
-        buildNodes(graph.nodes[0]?.id ?? '');
-        controls(true); select(graph.nodes[0]?.id ?? ''); fit(false); note();
-      } catch (error) {
-        if (current === generation) { clear(); note(`Graph unavailable: ${error instanceof Error ? error.message : String(error)}`); }
-      }
+    async prepare(runtime: RuntimeModule, source: Uint8Array, name: string) {
+      const projected = readSourceGraph(runtime, source), sha = await digest(source);
+      return () => {
+        clear(); currentMaterial = new TextDecoder().decode(source); savedLayoutMaterial = currentMaterial; graph = projected; bytes = source.slice(); filename = name; layout = defaultLayout(graph, sha);
+        buildNodes(graph.nodes[0]?.id ?? ''); controls(true); select(graph.nodes[0]?.id ?? '');
+        fit(false); savedLayout = snapshot(); dirty = false; note();
+      };
     },
   };
 }

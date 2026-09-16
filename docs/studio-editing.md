@@ -2,6 +2,8 @@
 
 English | [简体中文](./studio-editing.zh-CN.md)
 
+> Historical batch guide: the scope and counts below describe this batch when delivered. Current [STUDIO-04](./studio-save.md) adds undo/redo, binding editing, edited material and layout saving, and failed-open recovery; discard now restores the last saved material. See that guide for current behavior.
+
 ## Workflow
 
 Open `/player/studio.html`. Load a sample or valid `.mix`, or use **New checker material** to start a validated checker-to-output document. Import validation and editing do not acquire a GPU. The Player at `/player/` retains its original byte-preserving workflow.

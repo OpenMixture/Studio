@@ -62,3 +62,13 @@ test('transport retains extension fields and prototype-shaped JSON keys without 
   assert.equal(jsonText(parseDocument(new TextEncoder().encode(jsonText(doc)))), jsonText(doc));
   assert.ok(jsonText(doc).includes('9007199254740993'));
 });
+test('saved checkpoint and public binding commands preserve authored lexemes and use Rust diagnostics', () => {
+  const model = new EditableDocument(runtime, wood);
+  model.parameter('grain', 'seed', new NumberToken('271828'));
+  const saved = model.bytes(); model.checkpoint(saved); assert.equal(model.unsaved, false);
+  model.bind('authoredOctaves', 'grain', 'octaves'); assert.equal(model.validate().ok, true);
+  model.bind('authoredOctaves', 'grain', 'octaves'); assert.equal(model.validate().ok, false);
+  model.unbind(model.doc.exposedParameters.length - 1); assert.equal(model.validate().ok, true);
+  model.restoreSaved(); assert.deepEqual(model.bytes(), saved); assert.equal(model.unsaved, false);
+  model.reset(); assert.deepEqual(model.bytes(), wood); assert.equal(model.unsaved, true);
+});

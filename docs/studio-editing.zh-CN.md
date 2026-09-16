@@ -2,6 +2,8 @@
 
 [English](./studio-editing.md) | 简体中文
 
+> 历史批次指南：下方范围和测试数量描述本批次交付时的状态。当前 [STUDIO-04](./studio-save.zh-CN.md)已加入撤销／重做、绑定编辑、编辑后材质与布局保存及打开失败恢复；丢弃编辑现在恢复上次保存材质。当前行为以该指南为准。
+
 ## 使用流程
 
 打开 `/player/studio.html`。加载样例或有效 `.mix`，或用 **New checker material** 创建已验证的棋盘格连接输出文档。导入验证与编辑不获取 GPU。`/player/` 的 Player 保留原有字节保真流程。
