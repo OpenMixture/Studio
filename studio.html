@@ -4,15 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#202c36" />
-    <title>OpenMixture Studio · Source graph</title>
+    <title>OpenMixture Studio · Material editor</title>
   </head>
   <body class="studio">
     <main>
       <header>
         <a class="brand" href="https://github.com/OpenMixture/Studio">OpenMixture</a>
-        <span class="phase">Studio · read-only graph</span>
+        <span class="phase">Studio · basic editing</span>
         <h1>Explore the material behind the pixels.</h1>
-        <p>Inspect nodes, connections and authored parameters. Arrange the graph without changing your material.</p>
+        <p>Create nodes, connect ports and edit authored parameters. Every material draft is validated before preview.</p>
       </header>
       <nav class="product-nav" aria-label="Product"><a href="./">Player</a><a href="./studio.html" aria-current="page">Studio graph</a></nav>
       <section id="graph-section" class="graph-section" aria-label="Source graph">
@@ -37,8 +37,34 @@
             <div id="graph-inspector" class="graph-inspector"></div>
           </aside>
         </div>
-        <p id="graph-help" class="graph-help">Drag a node to arrange it, or drag the background to pan. Tab to a node and use arrow keys to move it; on the canvas, arrows pan. Shift moves faster. +/− zoom, Home fits the graph. Node parameters below are authored values; preview overrides do not change the source.</p>
+        <p id="graph-help" class="graph-help">Drag a node to arrange it, or drag the background to pan. Tab to a node and use arrow keys to move it; on the canvas, arrows pan. Shift moves faster. +/− zoom, Home fits the graph. The inspector shows authored values. Edit them in the material controls below; preview overrides remain separate.</p>
         <p id="graph-status" class="graph-status" aria-live="polite"></p>
+      </section>
+      <section id="studio-editor" class="editor-section" aria-label="Material editor">
+        <div class="editor-heading"><h2>Author material</h2><button id="new-material" type="button">New checker material</button><button id="discard-edits" type="button">Discard material edits</button></div>
+        <p id="editor-status" aria-live="polite">Open a valid material to edit its graph.</p>
+        <p class="muted">Edits update the preview and stay in this session. Original download keeps the opened file.</p>
+        <div class="editor-panels">
+          <div>
+            <label>Node type<select id="node-type" aria-label="Node type"></select></label>
+            <button id="add-node" type="button">Add node</button>
+            <label>Edit node<select id="edit-node-selection" aria-label="Edit node"></select></label>
+            <h3 id="editor-selection">Select a node</h3>
+            <button id="remove-node" type="button">Delete selected node</button>
+            <p class="muted">Deleting a node also removes its connections and public bindings.</p>
+            <div id="node-parameters" class="parameters"></div>
+          </div>
+          <div>
+            <h3>Connections</h3>
+            <label>From node<select id="edge-from-node" aria-label="From node"></select></label>
+            <label>Output port<select id="edge-from-port" aria-label="Output port"></select></label>
+            <label>To node<select id="edge-to-node" aria-label="To node"></select></label>
+            <label>Input port<select id="edge-to-port" aria-label="Input port"></select></label>
+            <div class="source-actions"><button id="connect-edge" type="button">Connect ports</button><button id="disconnect-edge" type="button">Disconnect input</button></div>
+            <p class="muted">Connecting replaces the selected input's current connection. Port types and graph validity are checked before preview.</p>
+            <h3>Draft diagnostics</h3><ul id="editor-diagnostics" aria-live="polite"></ul>
+          </div>
+        </div>
       </section>
       <div class="workspace">
         <section class="controls" aria-label="Material and runtime controls">

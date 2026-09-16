@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "testedProductRevision": "01326af3dbdb71536130182671b4a9db2001ce78",
+  "date": "2026-09-16",
+  "os": {
+    "system": "Darwin",
+    "release": "25.5.0",
+    "architecture": "arm64"
+  },
+  "node": "v24.20.0",
+  "npm": "11.19.0",
+  "playwright": "1.63.0",
+  "chromium": "153.0.8010.12",
+  "flags": [
+    "--enable-unsafe-webgpu",
+    "--ignore-gpu-blocklist"
+  ],
+  "nodeTests": 18,
+  "browserTests": 44,
+  "newEditingBrowserTests": 9,
+  "editedChannelComparisons": 12,
+  "archiveSha256": "9e245578de160cee1050259ef34358c3fcd3353a21bbb1672d29701bc1ac8084",
+  "lockSha256": "dd1d81c31fbf4a6258fae1de1fb7433402728ad61fd4e2f9fff60a7adf58a196",
+  "limits": [
+    "Measured Chromium environment only; adapter identity redacted",
+    "Session-only authored drafts; no undo/redo, binding editing or edited material download",
+    "No new native 1K or cross-consumer authoring qualification",
+    "Remote CI and PR integration recorded separately"
+  ],
+  "retained": {
+    "authored-freshness.json": {
+      "bytes": 76,
+      "sha256": "c1ea09a849a325c231a04c090b0b142e87d32d37704db0318b8c7468291a81af"
+    },
+    "browser-results.json": {
+      "bytes": 13405,
+      "sha256": "95a47d69d912e48aa82da17dc5a43efcac046f522b72777e81b178b53b51f54f"
+    },
+    "deployment.json": {
+      "bytes": 12442,
+      "sha256": "3dc383a89ce951652a7c867a0747d321a6440aeb52a32c068baafef4266b17a9"
+    },
+    "deployment.png": {
+      "bytes": 280455,
+      "sha256": "e39ea5e05c9dbe7be49e3e234221b83bd4d427ddf6a61811170747fb20b69521"
+    },
+    "glazed-ceramic-edited.mix": {
+      "bytes": 1431,
+      "sha256": "65a693bab1b6837c941b9656be9323cb2fb64aec8b5ec2aaacfb04d9b69076a7"
+    },
+    "glazed-ceramic-editing.json": {
+      "bytes": 8008,
+      "sha256": "a71391bb96a50f2d53c6155f730a04df732558f303125d371397ba2a038a4d16"
+    },
+    "isolation.json": {
+      "bytes": 2877,
+      "sha256": "fd902616f02e326ddeaacd7d4a35c3e218355a9fc5daadad00c3d104d780a0dd"
+    },
+    "leather-edited.mix": {
+      "bytes": 1688,
+      "sha256": "6b4e0d415fe2cb24b22b6e0536f1b4d55f3b2d08b30ac16dc7c0cc01b44f66eb"
+    },
+    "leather-editing.json": {
+      "bytes": 8008,
+      "sha256": "3bc096cc6eb1fd34d3196c46341048b34bfaa79bfd8718967a8c054cef89e78d"
+    },
+    "wood-edited.mix": {
+      "bytes": 2447,
+      "sha256": "a194d497308e9eb61e1fd4deeaf5c0a29cdb88c9af789fd2c5fd676e056dfbfa"
+    },
+    "wood-editing.json": {
+      "bytes": 8008,
+      "sha256": "6c83ae8476af6e186aed33f1f1971e4870c56acc96201ffd8c385478d006fdb8"
+    },
+    "wood-editing.png": {
+      "bytes": 314078,
+      "sha256": "a58977882798f21cd0c0c114aa9a913899213632af236de5c85faf3f696157f6"
+    }
+  }
+}

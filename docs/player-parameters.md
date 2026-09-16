@@ -30,7 +30,7 @@ npm run test:browser
 node scripts/verify-isolated.mjs /absolute/path/to/OpenMixture
 ```
 
-`check` includes 12 Node scheduler/snapshot/PNG/source-transport/layout tests, public TypeScript checking and production build. The browser suite includes real 128 × 128 parameter changes and baseColor/normal/roughness/height previews for all three materials, compared against independently invoked public runtime results in the same browser. It also covers color/enum controls, invalid overrides/source, queued latest requests, retained stale previews after actual device loss, late file reads, acquisition-time pagehide, and a 390-pixel layout. Test-only map-promise barriers control completion timing while keeping real GPU operations/pixels.
+`check` includes 18 Node scheduler/snapshot/PNG/source-transport/layout/edit-command tests, public TypeScript checking and production build. The browser suite includes real 128 × 128 parameter changes and baseColor/normal/roughness/height previews for all three materials, compared against independently invoked public runtime results in the same browser. It also covers color/enum controls, invalid overrides/source, queued latest requests, retained stale previews after actual device loss, late file reads, acquisition-time pagehide, and a 390-pixel layout. Test-only map-promise barriers control completion timing while keeping real GPU operations/pixels.
 
 The macOS isolation recipe requires a clean committed product tree and denies reads of both original checkouts; see [M5-02/M5-03 verification](./m5-02-03.md). Retain exact source/package identity and inspected screenshots with the accepted run. These consumer pixel checks do not replace M5-05 native/browser quality comparisons or frozen 1K tolerances.
 

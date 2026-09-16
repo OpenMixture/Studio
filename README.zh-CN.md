@@ -2,7 +2,7 @@
 
 [English](./README.md) | 简体中文
 
-这是 OpenMixture 的独立产品仓库。**Player** 打开 `.mix` 源文件，从 Rust 元数据生成公开参数控件，显式初始化 WebGPU，并预览请求的材质通道、下载带正确标记的 PNG。[Studio 只读图视图](./docs/studio-graph.zh-CN.md)已实现；节点编辑按 [Studio MVP 实施计划](./docs/studio-mvp.zh-CN.md)推进。
+这是 OpenMixture 的独立产品仓库。**Player** 打开 `.mix` 源文件，从 Rust 元数据生成公开参数控件，显式初始化 WebGPU，并预览请求的材质通道、下载带正确标记的 PNG。[Studio 基础编辑](./docs/studio-editing.zh-CN.md)已实现节点、连线和创作参数修改；后续批次遵循 [Studio MVP 实施计划](./docs/studio-mvp.zh-CN.md)。
 
 引擎与 `@openmixture/runtime` 由 [OpenMixture/OpenMixture](https://github.com/OpenMixture/OpenMixture) 构建。本仓库消费 `vendor/` 中的真实运行时包，不编译 Rust，也不导入生产者源码。该包是尚未发布的本地 Alpha 归档，并非 npm registry 发行版。
 
@@ -19,7 +19,7 @@ npm run dev
 
 渲染需要安全浏览器上下文与可用的 WebGPU。页面会报告初始化和渲染失败，没有其他像素执行器。仅导入模块不会获取 WASM 或请求 GPU。显式释放是已定义的生命周期测试路径；页面终止无法等待异步清理。
 
-只读图入口为 `/player/studio.html`，支持节点／连线／参数查看、独立布局保存及共享通道预览。用法与边界见 [Studio 只读图视图](./docs/studio-graph.zh-CN.md)。
+Studio 入口为 `/player/studio.html`，支持节点增删、连接／断开、参数编辑、诊断和共享预览。编辑暂存于会话；原文件下载不变。用法与边界见 [Studio 基础编辑](./docs/studio-editing.zh-CN.md)。
 
 ## 生产构建与检查
 
@@ -30,7 +30,7 @@ npm run preview
 
 打开 [http://127.0.0.1:4173/player/](http://127.0.0.1:4173/player/)。生产资源刻意使用非根路径 `/player/`，包括相对包路径解析的 WASM。静态主机需将 `dist/` 内容挂载到该路径，并提供正确的 JavaScript 与 `application/wasm` MIME 类型。`vite preview` 用于本地验证，不是生产托管服务。此次仓库引导不执行线上网站部署。
 
-`Product checks` 工作流包含类型／构建任务，覆盖干净 npm 安装、公开类型、12 项调度／请求快照／PNG／源图传输／布局测试及生产构建，另有独立 Chromium WebGPU 契约／部署任务。仅类型／构建成功**不代表** GPU 执行通过；浏览器任务不替代引擎材质比较。
+`Product checks` 工作流包含类型／构建任务，覆盖干净 npm 安装、公开类型、18 项调度／请求快照／PNG／源图传输／布局／编辑命令测试及生产构建，另有独立 Chromium WebGPU 契约／部署任务。仅类型／构建成功**不代表** GPU 执行通过；浏览器任务不替代引擎材质比较。
 
 运行真实浏览器验证：
 
@@ -60,7 +60,7 @@ npm run test:browser
 
 ## 当前边界
 
-[M5-04 参数／预览切片](./docs/player-parameters.zh-CN.md)增加元数据驱动控件、通道选择、明确的过期预览，以及一个活动渲染加一个可替换最新待处理请求。渲染期间仍可编辑。[PNG 导出流程](./docs/player-export.zh-CN.md)补齐 M5-04 产品实现。M5-05 已在记录矩阵内验收，见[浏览器验收](./docs/browser-qualification.zh-CN.md)。Registry 发布和公网托管分别决策。[Studio MVP](./docs/studio-mvp.zh-CN.md) 已开始交付只读图视图；图编辑、撤销重做和编辑后保存仍待后续批次。
+[M5-04 参数／预览切片](./docs/player-parameters.zh-CN.md)增加元数据驱动控件、通道选择、明确的过期预览，以及一个活动渲染加一个可替换最新待处理请求。渲染期间仍可编辑。[PNG 导出流程](./docs/player-export.zh-CN.md)补齐 M5-04 产品实现。M5-05 已在记录矩阵内验收，见[浏览器验收](./docs/browser-qualification.zh-CN.md)。Registry 发布和公网托管分别决策。[Studio MVP](./docs/studio-mvp.zh-CN.md) 已交付基础图编辑；撤销重做、绑定编辑和编辑后保存仍待后续批次。
 
 贡献者应遵守成对的 [代理指南](./AGENTS.zh-CN.md) 和引擎的 [M5 计划](https://github.com/OpenMixture/OpenMixture/blob/main/M5_PRS.zh-CN.md)。同步维护产品行为与消费者文档，渲染语义由 Rust 持有。
 

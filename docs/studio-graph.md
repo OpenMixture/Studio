@@ -2,6 +2,8 @@
 
 English | [简体中文](./studio-graph.zh-CN.md)
 
+**Current extension:** This guide retains read-only workflows and their original acceptance scope. [Basic editing](./studio-editing.md) is now implemented; its guide describes layout-file restrictions during authored drafts and the new transport contract. STUDIO-01 pending work and test counts below describe the earlier read-only checkpoint.
+
 ## Open and inspect
 
 Run the existing product:

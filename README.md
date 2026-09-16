@@ -2,7 +2,7 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-An independent product repository for OpenMixture. The **Player** opens `.mix` source, builds public parameter controls from Rust metadata, explicitly initializes WebGPU, previews requested material channels, and downloads correctly tagged PNGs. The [Studio read-only graph](./docs/studio-graph.md) is implemented; graph authoring is planned in the [Studio MVP implementation plan](./docs/studio-mvp.md).
+An independent product repository for OpenMixture. The **Player** opens `.mix` source, builds public parameter controls from Rust metadata, explicitly initializes WebGPU, previews requested material channels, and downloads correctly tagged PNGs. [Studio basic editing](./docs/studio-editing.md) implements node, connection and authored-parameter changes; subsequent batches follow the [Studio MVP implementation plan](./docs/studio-mvp.md).
 
 The engine and `@openmixture/runtime` are built in [OpenMixture/OpenMixture](https://github.com/OpenMixture/OpenMixture). This repository consumes the real packaged runtime from `vendor/`; it does not compile Rust or import producer source. The package is an unpublished local Alpha archive, not an npm registry release.
 
@@ -19,7 +19,7 @@ Open the local `/player/` URL printed by Vite. Choose checker, glazed ceramic, l
 
 A secure browser context with working WebGPU is required for rendering. The page reports initialization/render failures; there is no alternate pixel executor. Module import itself does not fetch WASM or request a GPU. Explicit disposal is the tested lifecycle path; page termination cannot wait for asynchronous cleanup.
 
-The read-only graph entry is `/player/studio.html`, with node/connection/parameter inspection, separate layout saving and shared channel previews. See [Studio read-only graph](./docs/studio-graph.md) for usage and boundaries.
+The Studio entry is `/player/studio.html`, with node addition/removal, connect/disconnect, parameter editing, diagnostics and shared previews. Edits stay in the session; original downloads remain unchanged. See [Studio basic editing](./docs/studio-editing.md) for usage and boundaries.
 
 ## Production and checks
 
@@ -30,7 +30,7 @@ npm run preview
 
 Open [http://127.0.0.1:4173/player/](http://127.0.0.1:4173/player/). Production assets are intentionally built for the non-root `/player/` base, including package-relative WASM. A static host must serve the `dist/` contents at that base with JavaScript and `application/wasm` MIME types. `vite preview` is a local verification server, not the production hosting service. No hosting deployment is performed by this repository bootstrap.
 
-The `Product checks` workflow has a type/build job covering clean npm installation, public types, 12 scheduler/request-snapshot/PNG/source-transport/layout tests and the production build, plus a separate Chromium WebGPU contract/deployment job. Type/build success alone does **not** certify GPU execution; the browser job does not replace engine material comparison.
+The `Product checks` workflow has a type/build job covering clean npm installation, public types, 18 scheduler/request-snapshot/PNG/source-transport/layout/edit-command tests and the production build, plus a separate Chromium WebGPU contract/deployment job. Type/build success alone does **not** certify GPU execution; the browser job does not replace engine material comparison.
 
 For actual browser verification:
 
@@ -60,7 +60,7 @@ The [checker fixture](./public/samples/checker.mix) is copied unchanged from the
 
 ## Current boundary
 
-The [M5-04 parameter/preview slice](./docs/player-parameters.md) adds metadata-driven controls, channel selection, explicit stale previews and one active render plus one replaceable latest pending request. Edits remain usable while rendering. The [PNG export workflow](./docs/player-export.md) completes the M5-04 product implementation. M5-05 is accepted within the recorded matrix; see [browser qualification](./docs/browser-qualification.md). Registry publication and public hosting remain separate decisions. [Studio MVP](./docs/studio-mvp.md) now delivers the read-only graph slice; graph editing, undo/redo and authored save remain later batches.
+The [M5-04 parameter/preview slice](./docs/player-parameters.md) adds metadata-driven controls, channel selection, explicit stale previews and one active render plus one replaceable latest pending request. Edits remain usable while rendering. The [PNG export workflow](./docs/player-export.md) completes the M5-04 product implementation. M5-05 is accepted within the recorded matrix; see [browser qualification](./docs/browser-qualification.md). Registry publication and public hosting remain separate decisions. [Studio MVP](./docs/studio-mvp.md) now delivers basic graph editing; undo/redo, binding editing and authored save remain later batches.
 
 Contributors should follow the paired [agent guide](./AGENTS.md) and the engine's [M5 plan](https://github.com/OpenMixture/OpenMixture/blob/main/M5_PRS.md). Keep product behavior and consumer documentation together; keep render semantics in Rust.
 

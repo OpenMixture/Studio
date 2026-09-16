@@ -37,6 +37,13 @@ try {
  const studioDownload=page.waitForEvent('download');await page.locator('#download').click();
  const studioPng=await readFile(await (await studioDownload).path());
  expect(decodePng(studioPng).pixels).toEqual(png.pixels);
+ await page.getByLabel('Edit cellsX',{exact:true}).fill('4');
+ await expect(page.locator('#status')).toHaveText('Render complete.');
+ const editedDownload=page.waitForEvent('download');await page.locator('#download').click();
+ const editedPng=await readFile(await (await editedDownload).path());
+ expect(decodePng(editedPng).pixels).not.toEqual(png.pixels);
+ const editedSource=await page.locator('#source-text').textContent();
+ await writeFile('test-results/deployment/edited-checker.mix',editedSource);
  const sourceDownload=page.waitForEvent('download');await page.locator('#download-source').click();
  const original=await readFile(await (await sourceDownload).path());
  expect(original).toEqual(await readFile('public/samples/checker.mix'));
@@ -44,6 +51,6 @@ try {
  await page.screenshot({path:'test-results/deployment/studio.png',fullPage:true});
  expect(errors).toEqual([]);
  await writeFile('test-results/deployment/receipt.json',JSON.stringify({browser:browser.version(),args,assets,
-  studio:{htmlSha256:sha(await readFile('dist/studio.html')),context:studioContext,originalSourceSha256:sha(original),pngSha256:sha(studioPng)},
+  studio:{htmlSha256:sha(await readFile('dist/studio.html')),context:studioContext,originalSourceSha256:sha(original),pngSha256:sha(studioPng),editedSourceSha256:sha(editedSource),editedPngSha256:sha(editedPng)},
   archiveSha256:sha(await readFile('vendor/openmixture-runtime-0.1.0-alpha.0.tgz')),htmlSha256:sha(await readFile('dist/index.html')),pngSha256:sha(bytes),testHarnessAbsent:true,result:'passed'},null,2));
 } finally {await browser?.close();await new Promise(resolve=>server.close(resolve));}
