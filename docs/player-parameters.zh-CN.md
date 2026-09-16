@@ -30,7 +30,7 @@ npm run test:browser
 node scripts/verify-isolated.mjs /absolute/path/to/OpenMixture
 ```
 
-`check` 包含九项 Node 调度／快照测试、公开 TypeScript 检查与生产构建。浏览器套件覆盖三个材质的真实 128 × 128 参数变更，以及 baseColor／normal／roughness／height 预览，与同一浏览器中独立调用的公开运行时结果比较。还覆盖颜色／枚举控件、无效覆盖／源码、最新请求排队、真实设备丢失后保留过期预览、迟到文件读取、获取设备期间的 pagehide，以及 390 像素布局。仅测试使用的映射 Promise 屏障控制完成时序，GPU 操作与像素仍是真实结果。
+`check` 包含 12 项 Node 调度／快照／PNG／源图传输／布局测试、公开 TypeScript 检查与生产构建。浏览器套件覆盖三个材质的真实 128 × 128 参数变更，以及 baseColor／normal／roughness／height 预览，与同一浏览器中独立调用的公开运行时结果比较。还覆盖颜色／枚举控件、无效覆盖／源码、最新请求排队、真实设备丢失后保留过期预览、迟到文件读取、获取设备期间的 pagehide，以及 390 像素布局。仅测试使用的映射 Promise 屏障控制完成时序，GPU 操作与像素仍是真实结果。
 
 macOS 隔离步骤要求干净的已提交产品树，并拒绝读取两个原始检出；见 [M5-02／M5-03 验证](./m5-02-03.zh-CN.md)。接受运行时保留确切源码／包身份及已检查截图。这些消费者像素检查不替代 M5-05 原生／浏览器质量比较或冻结的 1K 容差。
 

@@ -6,6 +6,11 @@ import { drawPreview } from './preview';
 import { fileBytes, sampleBytes } from './files';
 import { encodePng, pngFilename } from './png';
 import './style.css';
+import { graphView } from './graph-view';
+
+const graphRoot = document.getElementById('graph-section');
+const graph = graphRoot ? graphView(graphRoot) : undefined;
+let currentSample = 'checker';
 
 function element<T extends HTMLElement>(id: string): T {
   const result = document.getElementById(id);
@@ -138,6 +143,9 @@ function edited(): void {
 }
 
 async function loadSource(read: () => Promise<Uint8Array>, name: string, initial = false): Promise<void> {
+  if (graph && !graph.confirmReplace()) { samples.value = currentSample; return; }
+  currentSample = samples.value;
+  graph?.clear();
   const generation = ++sourceGeneration;
   scheduler?.invalidate();
   loading = true; source = undefined; metadataReady = false; validRequest = false;
@@ -155,6 +163,7 @@ async function loadSource(read: () => Promise<Uint8Array>, name: string, initial
     element('source-name').textContent = `${name} · ${bytes.byteLength.toLocaleString()} bytes`;
     // Display decoding never becomes render input; Rust receives the original bytes.
     element('source-text').textContent = new TextDecoder().decode(bytes);
+    if (graph) void graph.load(module, bytes, name);
     if (validateCurrent(true) && initial && !gpu) status.textContent = 'Checker loaded. Initialize WebGPU to render.';
   } catch (failure) {
     if (generation === sourceGeneration) showError(failure);

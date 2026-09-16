@@ -8,6 +8,8 @@
 
 M5 已在记录的 macOS／Linux Chromium 矩阵内验收。[产品回执](./evidence/m5-05/README.zh-CN.md)覆盖已安装运行时执行、隔离和静态部署；[引擎验收](https://github.com/OpenMixture/OpenMixture/blob/c03c7b4/docs/evidence/m5-05/README.zh-CN.md)记录冻结后的原生／浏览器质量比较及限制。现有 Player 已支持打开源文件、修改公开覆盖、通道预览和 PNG 下载。已安装的 `@openmixture/runtime@0.1.0-alpha.0` 归档仍未发布。历史证据保留原始范围与日期。
 
+**2026-09-16 只读切片：** [只读图视图](./studio-graph.zh-CN.md)实现 STUDIO-02 及其 STUDIO-01 只读前置条件，入口为 `/player/studio.html`。源字节先经 Rust 验证，再作保留数值文本的展示投影；仅保存原始 `.mix` 和独立布局。STUDIO-01 的编辑后序列化／历史／新建流程推迟到 STUDIO-03/04 之前，不标为完整完成。此顺序细化允许在不改引擎归档的情况下完成用户请求的只读视图。[证据](./evidence/studio-graph/README.zh-CN.md)分别记录本地、隔离及远端检查；STUDIO-03 至 STUDIO-05 仍待实施。
+
 ## 目标与范围
 
 用户可以打开标准 `.mix`，查看和编辑图，配置节点参数和公开绑定，撤销／重做，保存标准 `.mix`，再将保存文件交给独立 Player 和原生 CLI。契约适用时复用 Player 的运行时客户端、有界调度、通道预览和 PNG 编码。

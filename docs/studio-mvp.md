@@ -8,6 +8,8 @@ Planning baseline: 2026-09-15. This document defines the next product milestone;
 
 M5 is accepted within the recorded macOS/Linux Chromium matrix. The [product receipt](./evidence/m5-05/README.md) covers installed-runtime execution, isolation and static deployment; the [engine acceptance](https://github.com/OpenMixture/OpenMixture/blob/c03c7b4/docs/evidence/m5-05/README.md) records frozen native/browser quality comparisons and limits. The existing Player opens source, edits public overrides, previews channels and downloads PNGs. The installed `@openmixture/runtime@0.1.0-alpha.0` archive remains unpublished. Historical evidence retains its original scope and dates.
 
+**2026-09-16 read-only slice:** The [source graph view](./studio-graph.md) implements STUDIO-02 and its read-only STUDIO-01 prerequisites at `/player/studio.html`. Rust validates source bytes before a display projection preserving numeric text; only original `.mix` bytes and separate layout are saved. STUDIO-01 authored serialization/history/new-document work is deferred until before STUDIO-03/04 and is not marked fully complete. This sequencing refinement delivers the requested read-only view without changing the engine archive. [Evidence](./evidence/studio-graph/README.md) distinguishes local, isolated and remote checks; STUDIO-03 through STUDIO-05 remain unimplemented.
+
 ## Goal and scope
 
 A user can open a standard `.mix`, inspect and edit its graph, configure node parameters and public bindings, undo/redo, save a standard `.mix`, then open that saved file in the independent Player and native CLI. Reuse the Player's runtime client, bounded scheduling, channel preview and PNG encoding where their contracts fit.
