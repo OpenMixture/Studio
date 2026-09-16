@@ -20,7 +20,9 @@
     "test:browser:headed": "npm run test:browser -- --headed",
     "test": "node --test tests/unit/*.test.mjs",
     "test:materials": "npm run typecheck && vite build --mode browser-test && node scripts/verify-materials.mjs",
-    "test:deployment": "npm run build && node scripts/verify-deployment.mjs"
+    "test:deployment": "npm run build && node scripts/verify-deployment.mjs",
+    "capture:studio": "npm run build && node scripts/author-studio.mjs",
+    "test:studio": "npm run typecheck && vite build --mode browser-test && node scripts/verify-studio.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",
