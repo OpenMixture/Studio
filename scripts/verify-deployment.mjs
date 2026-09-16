@@ -28,6 +28,22 @@ try {
  const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
  await writeFile('test-results/deployment/checker.png',bytes);
  await page.screenshot({path:'test-results/deployment/player.png',fullPage:true});
+ await page.goto('http://127.0.0.1:4173/player/studio.html');
+ await expect(page.locator('#graph-summary')).toHaveText('2 nodes · 1 connections · source graph');
+ await page.locator('#width').fill('65');await page.locator('#height').fill('3');
+ await page.locator('#initialize').click();await expect(page.locator('#status')).toHaveText('WebGPU ready. Render when ready.');
+ const studioContext=JSON.parse(await page.locator('#details').textContent());
+ await page.locator('#render').click();await expect(page.locator('#status')).toHaveText('Render complete.');
+ const studioDownload=page.waitForEvent('download');await page.locator('#download').click();
+ const studioPng=await readFile(await (await studioDownload).path());
+ expect(decodePng(studioPng).pixels).toEqual(png.pixels);
+ const sourceDownload=page.waitForEvent('download');await page.locator('#download-source').click();
+ const original=await readFile(await (await sourceDownload).path());
+ expect(original).toEqual(await readFile('public/samples/checker.mix'));
+ await page.locator('#dispose').click();await expect(page.locator('#status')).toContainText('GPU disposed.');
+ await page.screenshot({path:'test-results/deployment/studio.png',fullPage:true});
+ expect(errors).toEqual([]);
  await writeFile('test-results/deployment/receipt.json',JSON.stringify({browser:browser.version(),args,assets,
+  studio:{htmlSha256:sha(await readFile('dist/studio.html')),context:studioContext,originalSourceSha256:sha(original),pngSha256:sha(studioPng)},
   archiveSha256:sha(await readFile('vendor/openmixture-runtime-0.1.0-alpha.0.tgz')),htmlSha256:sha(await readFile('dist/index.html')),pngSha256:sha(bytes),testHarnessAbsent:true,result:'passed'},null,2));
 } finally {await browser?.close();await new Promise(resolve=>server.close(resolve));}

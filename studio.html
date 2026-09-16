@@ -4,17 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#202c36" />
-    <title>OpenMixture Player</title>
+    <title>OpenMixture Studio · Source graph</title>
   </head>
-  <body>
+  <body class="studio">
     <main>
       <header>
         <a class="brand" href="https://github.com/OpenMixture/Studio">OpenMixture</a>
-        <span class="phase">Player · browser preview</span>
-        <h1>A material, from source to pixels.</h1>
-        <p>Open a .mix file, initialize WebGPU, adjust its exposed parameters, and preview its channels.</p>
+        <span class="phase">Studio · read-only graph</span>
+        <h1>Explore the material behind the pixels.</h1>
+        <p>Inspect nodes, connections and authored parameters. Arrange the graph without changing your material.</p>
       </header>
-      <nav class="product-nav" aria-label="Product"><a href="./" aria-current="page">Player</a><a href="./studio.html">Studio graph</a></nav>
+      <nav class="product-nav" aria-label="Product"><a href="./">Player</a><a href="./studio.html" aria-current="page">Studio graph</a></nav>
+      <section id="graph-section" class="graph-section" aria-label="Source graph">
+        <div class="graph-top"><h2>Source graph</h2><p id="graph-summary" class="muted">Loading graph…</p></div>
+        <div class="graph-toolbar" aria-label="Graph view controls">
+          <button id="graph-fit" type="button">Fit graph</button>
+          <button id="graph-zoom-out" type="button" aria-label="Zoom out">−</button>
+          <span id="graph-zoom">100%</span>
+          <button id="graph-zoom-in" type="button" aria-label="Zoom in">+</button>
+          <button id="graph-center" type="button">Center selected</button>
+          <button id="graph-reset" type="button">Reset layout</button>
+          <button id="save-layout" type="button">Save layout</button>
+          <label>Load layout <input id="layout-file" type="file" accept=".json,application/json" aria-label="Load layout" /></label>
+          <button id="download-source" type="button">Download original .mix</button>
+        </div>
+        <div class="graph-body">
+          <div id="graph-viewport" class="graph-viewport" tabindex="0" role="region" aria-label="Graph canvas" aria-describedby="graph-help">
+            <div id="graph-world" class="graph-world"><svg id="graph-edges" class="graph-edges" aria-hidden="true"></svg><div id="graph-nodes"></div></div>
+          </div>
+          <aside class="graph-sidebar" aria-label="Selected node">
+            <label>Selected node<select id="graph-selection" aria-label="Selected node"></select></label>
+            <div id="graph-inspector" class="graph-inspector"></div>
+          </aside>
+        </div>
+        <p id="graph-help" class="graph-help">Drag a node to arrange it, or drag the background to pan. Tab to a node and use arrow keys to move it; on the canvas, arrows pan. Shift moves faster. +/− zoom, Home fits the graph. Node parameters below are authored values; preview overrides do not change the source.</p>
+        <p id="graph-status" class="graph-status" aria-live="polite"></p>
+      </section>
       <div class="workspace">
         <section class="controls" aria-label="Material and runtime controls">
           <h2>Source</h2>
@@ -29,7 +54,7 @@
             <summary>View source</summary>
             <pre id="source-text" class="source-code"></pre>
           </details>
-          <div class="parameter-heading"><h2>Parameters</h2><button id="reset" type="button" disabled>Reset parameters</button></div>
+          <div class="parameter-heading"><h2>Preview overrides</h2><button id="reset" type="button" disabled>Reset parameters</button></div>
           <div id="parameters" class="parameters">Loading parameters…</div>
           <h2>Render</h2>
           <div class="dimensions">
