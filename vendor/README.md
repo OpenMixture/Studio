@@ -1,5 +1,9 @@
 # Runtime archive / 运行时归档
 
+Candidate under qualification (2026-09-17): clean engine `7b1cec4ad1d42d6269ef6a9912c2e8ba3a2dfdd9`, build ID `sha256:3a038bcb699327652e56ee3797dbfdc4cbe507125101e06ae3584f41fdebd014`, archive SHA-256 `88f22ac295c3a1cc6bee2e995ed1e4683ca6669026167e4731ee10564f30d48c`. Downloaded from the exact [engine candidate qualification run](https://github.com/OpenMixture/OpenMixture/actions/runs/35112153338), artifact `chromium-material-matrix`. Version remains the unpublished `0.1.0-alpha.0`; `package-lock.json` records the replacement integrity. Producer CI qualification does not close Studio saved-file/native or isolation gates. Historical receipts remain bound to the previous archive.
+
+待验收候选（2026-09-17）：干净引擎 `7b1cec4ad1d42d6269ef6a9912c2e8ba3a2dfdd9`，build ID `sha256:3a038bcb699327652e56ee3797dbfdc4cbe507125101e06ae3584f41fdebd014`，归档 SHA-256 `88f22ac295c3a1cc6bee2e995ed1e4683ca6669026167e4731ee10564f30d48c`。下载自确切[引擎候选验收运行](https://github.com/OpenMixture/OpenMixture/actions/runs/35112153338)的 `chromium-material-matrix` artifact。版本仍为未发布的 `0.1.0-alpha.0`，`package-lock.json` 记录替换后的完整性摘要。生产者 CI 验收不能关闭 Studio 保存文件／原生及隔离门槛。历史回执仍关联之前的归档。
+
 The initial Player consumes the actual `openmixture-runtime-0.1.0-alpha.0.tgz` archive from this directory. Its relative `file:vendor/...` dependency and npm lockfile integrity are the installation boundary; no Rust toolchain, engine checkout, developer absolute path, source symlink or npm registry publication is required.
 
 首个 Player 消费本目录中的真实 `openmixture-runtime-0.1.0-alpha.0.tgz` 归档。相对 `file:vendor/...` 依赖与 npm 锁文件完整性摘要构成安装边界；不需要 Rust 工具链、引擎检出、开发者绝对路径、源码链接或 npm registry 发布。
