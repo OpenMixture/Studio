@@ -25,7 +25,8 @@ const receipt = { schemaVersion: 1, ok: false, startedAt: new Date().toISOString
   os: platform(), osRelease: release(), arch: arch(), node: process.version, executable: resolve(executable), executableSha256: sha(await readFile(executable)), args, steps: [], syntheticDiagnostics: [] };
 const save = () => writeFile(join(out, 'receipt.json'), JSON.stringify(receipt, null, 2) + '\n');
 const done = async name => { receipt.steps.push(name); await save(); console.log(name); };
-const server = await serveStatic(); let browser, child;
+const server = await serveStatic(0), base = `http://127.0.0.1:${server.address().port}/player/`; let browser, child;
+receipt.baseUrl = base;
 try {
   child = spawn(executable, args, { windowsHide: true, stdio: 'ignore' });
   let launchError; child.once('error', error => { launchError = error; });
@@ -63,9 +64,9 @@ try {
     const detail = JSON.parse(await p.locator('#details').textContent()); identity(detail.build); return detail;
   };
   const rendered = p => expect(p.locator('#status')).toHaveText('Render complete.', { timeout: 30000 });
-  await page.goto('http://127.0.0.1:4173/player/studio.html');
+  await page.goto(`${base}studio.html`);
   await expect(page.locator('#editor-status')).toContainText('unchanged');
-  assert.equal((await page.request.get('http://127.0.0.1:4173/player/tests/contract.html')).status(), 404);
+  assert.equal((await page.request.get(`${base}tests/contract.html`)).status(), 404);
   assert.deepEqual(await download(page, '#save-material', 'original.mix'), await readFile('public/samples/checker.mix'));
   await page.locator('#new-material').click(); await expect(page.locator('#source-name')).toContainText('untitled.mix');
   await page.getByLabel('Edit cellsX', { exact: true }).fill('-');
@@ -103,7 +104,7 @@ try {
   assert.deepEqual(await download(page, '#save-material', 'reopened.mix'), source);
   await done('Studio initialize/render/four PNG encodings/exact checker/dispose/save/reopen exact bytes');
   const player = await context.newPage(); player.on('pageerror', e => errors.push(e.message));
-  await player.goto('http://127.0.0.1:4173/player/'); await expect(player.locator('#status')).toContainText('Checker loaded');
+  await player.goto(base); await expect(player.locator('#status')).toContainText('Checker loaded');
   await player.locator('#file').setInputFiles({ name: 'saved.mix', mimeType: 'application/json', buffer: source });
   await expect(player.locator('#source-name')).toContainText('saved.mix');
   receipt.playerContext = await initialize(player); await player.locator('#render').click(); await rendered(player);
@@ -118,7 +119,7 @@ try {
   // Separate injected probe, never counted as a naturally unsupported host or a render.
   const unavailable = await context.newPage();
   await unavailable.addInitScript(() => { Object.defineProperty(navigator, 'gpu', { configurable: true, get: () => undefined }); });
-  await unavailable.goto('http://127.0.0.1:4173/player/studio.html');
+  await unavailable.goto(`${base}studio.html`);
   await expect(unavailable.locator('.graph-node')).toHaveCount(2);
   await unavailable.locator('#initialize').click(); await expect(unavailable.locator('#error')).toBeVisible();
   const diagnostic = await unavailable.locator('#error').textContent();
