@@ -1,0 +1,4 @@
+# Receipt hashes and embedded source provenance must survive platform checkout.
+*.json -text
+*.png -text
+*.sh text eol=lf
