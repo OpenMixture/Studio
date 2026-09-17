@@ -1,0 +1,81 @@
+{
+  "productRevision": "a7e2ba8b20bd72748488883aa30a50414b4578c4",
+  "stats": {
+    "startTime": "2026-09-17T03:34:10.273Z",
+    "duration": 102240.575,
+    "expected": 52,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "config": {
+    "argv": [
+      "C:\\Users\\krapnik\\AppData\\Local\\fnm_multishells\\36748_1789616046748\\node.exe",
+      "D:\\Coding\\OpenMixtureStudio\\work\\p1\\upgrade\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--max-failures=1"
+    ],
+    "configFile": "D:\\Coding\\OpenMixtureStudio\\work\\p1\\upgrade\\playwright.config.ts",
+    "rootDir": "D:/Coding/OpenMixtureStudio/work/p1/upgrade/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 1,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Coding/OpenMixtureStudio/work/p1/upgrade/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "D:/Coding/OpenMixtureStudio/work/p1/upgrade/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/browser.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": {
+      "command": "node scripts/static-server.mjs",
+      "url": "http://127.0.0.1:4186/player/",
+      "reuseExistingServer": false,
+      "timeout": 30000
+    }
+  }
+}
