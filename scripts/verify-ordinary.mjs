@@ -75,6 +75,10 @@ try {
   await page.locator('#redo').click(); await expect(page.getByLabel('Edit cellsX', { exact: true })).toHaveValue('-');
   await page.getByLabel('Edit cellsX', { exact: true }).fill('4');
   await expect(page.locator('#editor-status')).toContainText('Valid material draft');
+  await page.getByLabel('From node', { exact: true }).selectOption('checker');
+  await page.getByLabel('Output port', { exact: true }).selectOption('color');
+  await page.getByLabel('To node', { exact: true }).selectOption('out');
+  await page.getByLabel('Input port', { exact: true }).selectOption('baseColor');
   await page.locator('#disconnect-edge').click(); await expect(page.locator('#save-material')).toBeDisabled();
   await page.locator('#connect-edge').click(); await expect(page.locator('#save-material')).toBeEnabled();
   await done('New/edit/invalid-draft diagnostics/undo/redo/repair/disconnect/reconnect');
