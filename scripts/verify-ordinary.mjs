@@ -30,6 +30,7 @@ const remote = process.env.MIXTURE_ORDINARY_URL;
 if (remote && (new URL(remote).protocol !== 'https:' || !remote.endsWith('/'))) throw Error('Remote trial URL must be HTTPS and end with /');
 const server = remote ? undefined : await serveStatic(0), base = remote ?? `http://127.0.0.1:${server.address().port}${process.env.MIXTURE_TEST_BASE ?? '/player/'}`; let browser, child;
 receipt.baseUrl = base;
+receipt.lockGitSha256 = sha(execFileSync('git', ['show', 'HEAD:package-lock.json']));
 try {
   child = spawn(resolve(executable), args, { windowsHide: true, stdio: 'ignore' });
   let launchError; child.once('error', error => { launchError = error; });
@@ -59,7 +60,9 @@ try {
     assert.equal(deployed.clean, true);
     assert.equal(deployed.productRevision, receipt.productRevision, 'Deployed product differs from checkout');
     assert.equal(deployed.archiveSha256, receipt.archiveSha256);
-    assert.equal(deployed.lockSha256, receipt.lockSha256);
+    // Windows checkout CRLF differs from Linux hosting; compare the committed
+    // lock bytes while retaining both raw checkout digests in the receipt.
+    assert.equal(deployed.lockGitSha256, receipt.lockGitSha256);
     for (const [path, digest] of Object.entries(deployed.assets)) {
       const asset = await context.request.get(`${base}${path}`);
       assert.equal(asset.status(), 200, path);

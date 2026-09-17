@@ -26,4 +26,5 @@ const productRevision = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: '
 const clean = execFileSync('git', ['status', '--porcelain'], { encoding: 'utf8' }).trim() === '';
 await writeFile('dist/trial.json', JSON.stringify({ schemaVersion: 1, scope: 'Exploratory historical-runtime trial; not Alpha candidate acceptance',
   productRevision, clean, builtAt: new Date().toISOString(), base: '/Studio/', archiveSha256,
-  lockSha256: sha(await readFile('package-lock.json')), runtime, assets }, null, 2) + '\n');
+  lockSha256: sha(await readFile('package-lock.json')),
+  lockGitSha256: sha(execFileSync('git', ['show', 'HEAD:package-lock.json'])), runtime, assets }, null, 2) + '\n');
