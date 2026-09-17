@@ -12,11 +12,12 @@ if (git('status', '--porcelain')) throw Error('Commit before recording authoring
 await mkdir(out);
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const server = await serveStatic(); let browser;
+const base = `http://127.0.0.1:${server.address().port}/player/`;
 const manifest = { schemaVersion: 1, productRevision: git('rev-parse', 'HEAD'), archiveSha256: sha(await readFile('vendor/openmixture-runtime-0.1.0-alpha.0.tgz')), cases: [] };
 try {
  browser = await chromium.launch({ channel: 'chromium' }); const page = await browser.newPage();
  page.on('dialog', d => d.accept());
- await page.goto('http://127.0.0.1:4173/player/studio.html');
+ await page.goto(`${base}studio.html`);
  await expect(page.locator('#editor-status')).toContainText('unchanged');
  const save = async (material, id, provenance) => {
   await expect(page.locator('#save-material')).toBeEnabled();

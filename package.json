@@ -21,6 +21,7 @@
     "test": "node --test tests/unit/*.test.mjs",
     "test:materials": "npm run typecheck && vite build --mode browser-test && node scripts/verify-materials.mjs",
     "test:deployment": "npm run build && node scripts/verify-deployment.mjs",
+    "test:ordinary": "npm run build && node scripts/verify-ordinary.mjs",
     "capture:studio": "npm run build && node scripts/author-studio.mjs",
     "test:studio": "npm run typecheck && vite build --mode browser-test && node scripts/verify-studio.mjs"
   },

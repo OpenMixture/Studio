@@ -14,12 +14,13 @@ await mkdir(out); // Fresh output: never accidentally accept stale files.
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const args=['--enable-unsafe-webgpu','--ignore-gpu-blocklist',...JSON.parse(process.env.MIXTURE_BROWSER_ARGS??'[]')];
 const server=await serveStatic();let browser;
+const base = `http://127.0.0.1:${server.address().port}/player/`;
 try {
  browser=await chromium.launch({channel:'chromium',args});
  const page=await browser.newPage(),failures=[];page.on('pageerror',e=>{failures.push(e.message);console.error('Browser error:',e.message);});
  page.on('console',message=>{if(message.type()==='error')console.error('Browser console:',message.text());});
  const responses=[];page.on('response',response=>responses.push({url:response.url(),status:response.status(),type:response.headers()['content-type']}));
- await page.goto('http://127.0.0.1:4173/player/tests/contract.html');
+ await page.goto(`${base}tests/contract.html`);
  const contextText=await page.evaluate(async()=>{
   window.runtime=await window.mixtureContract.loadRuntime();window.gpu=await window.runtime.createGpu();
   return JSON.stringify({build:window.runtime.getBuildInfo(),context:window.gpu.context},(_,v)=>typeof v==='bigint'?v.toString():v);

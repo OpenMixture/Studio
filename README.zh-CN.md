@@ -2,9 +2,11 @@
 
 [English](./README.md) | 简体中文
 
-这是 OpenMixture 的独立产品仓库。**Player** 打开 `.mix` 源文件，从 Rust 元数据生成公开参数控件，显式初始化 WebGPU，并预览请求的材质通道、下载带正确标记的 PNG。[Studio 创作](./docs/studio-save.zh-CN.md)已实现图编辑、撤销／重做、公开绑定及独立材质／布局保存；后续批次遵循 [Studio MVP 实施计划](./docs/studio-mvp.zh-CN.md)。
+这是 OpenMixture 的独立产品仓库。**Player** 打开 `.mix` 源文件，从 Rust 元数据生成公开参数控件，显式初始化 WebGPU，并预览请求的材质通道、下载带正确标记的 PNG。[Studio 创作](./docs/studio-save.zh-CN.md)已实现图编辑、撤销／重做、公开绑定及独立材质／布局保存；已完成批次记录于 [Studio MVP 实施计划](./docs/studio-mvp.zh-CN.md)。
 
 **Studio MVP：** STUDIO-01 至 STUDIO-05 已通过[记录的 macOS 验收](./docs/evidence/studio-qualification/README.zh-CN.md)，包括保存 `.mix` → 独立 Player → 原生 CLI 及七个 1K 用例。实现批次已[集成到 main](./docs/studio-integration.zh-CN.md)。发布及更广平台验收仍单独处理。
+
+**下一阶段：** [Studio MVP 稳定化与外部试用](./docs/studio-alpha.zh-CN.md)由本仓库认领分支保护、普通浏览器验收、候选运行时升级验收、小范围入口整理及用户试用。当前候选包 CI 和 npm 发布仍为引擎侧依赖。[P1 证据](./docs/evidence/alpha-p1/README.zh-CN.md)记录已强制启用的主分支保护及历史归档在普通 Windows／Chrome 配置下通过的流程。候选升级验收仍待完成；高级编辑能力和 M6 继续暂缓。
 
 引擎与 `@openmixture/runtime` 由 [OpenMixture/OpenMixture](https://github.com/OpenMixture/OpenMixture) 构建。本仓库消费 `vendor/` 中的真实运行时包，不编译 Rust，也不导入生产者源码。该包是尚未发布的本地 Alpha 归档，并非 npm registry 发行版。
 
