@@ -26,7 +26,9 @@ const receipt = { schemaVersion: 1, ok: false, startedAt: new Date().toISOString
   os: platform(), osRelease: release(), arch: arch(), node: process.version, executable: resolve(executable), executableSha256: sha(await readFile(executable)), args, steps: [], syntheticDiagnostics: [] };
 const save = () => writeFile(join(out, 'receipt.json'), JSON.stringify(receipt, null, 2) + '\n');
 const done = async name => { receipt.steps.push(name); await save(); console.log(name); };
-const server = await serveStatic(0), base = `http://127.0.0.1:${server.address().port}/player/`; let browser, child;
+const remote = process.env.MIXTURE_ORDINARY_URL;
+if (remote && (new URL(remote).protocol !== 'https:' || !remote.endsWith('/'))) throw Error('Remote trial URL must be HTTPS and end with /');
+const server = remote ? undefined : await serveStatic(0), base = remote ?? `http://127.0.0.1:${server.address().port}${process.env.MIXTURE_TEST_BASE ?? '/player/'}`; let browser, child;
 receipt.baseUrl = base;
 try {
   child = spawn(resolve(executable), args, { windowsHide: true, stdio: 'ignore' });
@@ -50,6 +52,21 @@ try {
   assert.equal(normalize(system.commandLine), normalize(expectedCommand));
   await done('Installed browser command line has only fresh-profile/CDP/about:blank arguments');
   const context = browser.contexts()[0], page = await context.newPage(), errors = [], assets = [];
+  if (remote) {
+    const response = await context.request.get(`${base}trial.json`);
+    assert.equal(response.status(), 200);
+    const deployed = await response.json();
+    assert.equal(deployed.clean, true);
+    assert.equal(deployed.productRevision, receipt.productRevision, 'Deployed product differs from checkout');
+    assert.equal(deployed.archiveSha256, receipt.archiveSha256);
+    assert.equal(deployed.lockSha256, receipt.lockSha256);
+    for (const [path, digest] of Object.entries(deployed.assets)) {
+      const asset = await context.request.get(`${base}${path}`);
+      assert.equal(asset.status(), 200, path);
+      assert.equal(sha(await asset.body()), digest, `Deployed asset changed: ${path}`);
+    }
+    receipt.deployment = deployed;
+  }
   page.on('dialog', d => d.accept()); page.on('pageerror', e => errors.push(e.message));
   page.on('response', r => assets.push({ url: r.url(), status: r.status(), type: r.headers()['content-type'] }));
   const download = async (p, selector, filename) => {
@@ -141,5 +158,5 @@ finally {
   receipt.completedAt = new Date().toISOString(); await save();
   if (browser) { try { const cdp = await browser.newBrowserCDPSession(); await cdp.send('Browser.close'); } catch {} }
   else child?.kill();
-  await new Promise(r => server.close(r));
+  if (server) await new Promise(r => server.close(r));
 }

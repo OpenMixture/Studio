@@ -10,6 +10,8 @@ An independent product repository for OpenMixture. The **Player** opens `.mix` s
 
 The engine and `@openmixture/runtime` are built in [OpenMixture/OpenMixture](https://github.com/OpenMixture/OpenMixture). This repository consumes the real packaged runtime from `vendor/`; it does not compile Rust or import producer source. The package is an unpublished local Alpha archive, not an npm registry release.
 
+**P2:** Player and Studio now have separate startup modules; every build verifies that Player cannot reach editor implementations. The [external trial task card](./docs/external-trial.md) records the agreed exploratory scope: GitHub Pages with the historical runtime, while the owner recruits participants and collects real feedback. This does not close the blocked runtime upgrade.
+
 ## Run
 
 Use **Node 24.20.0** and **npm 11.19.0**. `.nvmrc`, `packageManager`, exact dependency versions and `package-lock.json` record the consumer toolchain: TypeScript 5.9.3, Vite 8.3.0 and Playwright 1.63.0.

@@ -1,0 +1,67 @@
+name: External trial / 外部试用
+description: Record an actual participant session / 记录真实参与者会话
+title: "[Trial] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This report is public. Do not include names, contact details or private materials.
+        本报告公开，请勿填写姓名、联系方式或私人材质。
+        Task card / 任务卡: https://github.com/OpenMixture/Studio/blob/main/docs/external-trial.md
+  - type: input
+    id: session
+    attributes:
+      label: Anonymous session ID and date / 匿名会话编号与日期
+      placeholder: P01, YYYY-MM-DD
+    validations:
+      required: true
+  - type: textarea
+    id: identity
+    attributes:
+      label: Trial URL and build / 试用地址与构建
+      description: Paste the trial URL and product/runtime identity supplied by the organizer. / 粘贴试用 URL 和组织者提供的产品／运行时身份。
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Actual environment / 实际环境
+      description: OS, browser version, GPU if known, any changed browser flags. / OS、浏览器版本、已知 GPU、修改过的浏览器参数。
+    validations:
+      required: true
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Task outcomes / 任务结果
+      description: For each task enter independent, assisted, failed or not attempted; include duration and help. / 各项填写独立完成、帮助后完成、失败或未尝试，附耗时及帮助。
+      value: |
+        T1 Create / 新建:
+        T2 Connect / 连线:
+        T3 Edit and repair / 编辑与修复:
+        T4 Undo/redo / 撤销重做:
+        T5 Preview/export / 预览导出:
+        T6 Save / 保存:
+        T7 Independent reopen / 独立重开:
+    validations:
+      required: true
+  - type: textarea
+    id: blockers
+    attributes:
+      label: Blockers and assistance / 阻塞与帮助
+      description: Steps, expected/actual result, diagnostic and exact assistance. Include unsuccessful attempts. / 步骤、预期与实际结果、诊断及具体帮助，包含失败尝试。
+    validations:
+      required: true
+  - type: textarea
+    id: priority
+    attributes:
+      label: Most important improvement / 最希望改进的事项
+      description: What would help you finish the task? / 哪项改进最有助于完成任务？
+  - type: checkboxes
+    id: source
+    attributes:
+      label: Observation source / 观察来源
+      options:
+        - label: This records a real human session, not CI or an agent demonstration. / 这是真人会话，不是 CI 或 Agent 演示。
+          required: true
+        - label: I am sharing my own observations, or have permission to share anonymized observations. / 我分享自己的观察，或已获准分享匿名观察。
+          required: true

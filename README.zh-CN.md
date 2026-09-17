@@ -10,6 +10,8 @@
 
 引擎与 `@openmixture/runtime` 由 [OpenMixture/OpenMixture](https://github.com/OpenMixture/OpenMixture) 构建。本仓库消费 `vendor/` 中的真实运行时包，不编译 Rust，也不导入生产者源码。该包是尚未发布的本地 Alpha 归档，并非 npm registry 发行版。
 
+**P2：** Player 与 Studio 已拆分启动模块；每次构建检查 Player 无法访问编辑器实现。[外部试用任务卡](./docs/external-trial.zh-CN.md)记录已同意的探索性范围：GitHub Pages 托管历史运行时版本，用户负责招募并回收真实反馈。这不关闭仍被阻塞的运行时升级。
+
 ## 运行
 
 使用 **Node 24.20.0** 和 **npm 11.19.0**。`.nvmrc`、`packageManager`、精确依赖版本以及 `package-lock.json` 记录消费者工具链：TypeScript 5.9.3、Vite 8.3.0、Playwright 1.63.0。
