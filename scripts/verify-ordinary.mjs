@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { chromium, expect } from '@playwright/test';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { execFileSync, spawn } from 'node:child_process';
-import { resolve, join } from 'node:path';
+import { resolve, join, dirname } from 'node:path';
 import { platform, release, arch } from 'node:os';
 import { createHash } from 'node:crypto';
 import { serveStatic } from './static-server.mjs';
@@ -15,6 +15,7 @@ if (platform() !== 'win32' || !executable || !destination) throw Error('Usage on
 const git = (...args) => execFileSync('git', args, { encoding: 'utf8' }).trim();
 assert.equal(git('status', '--porcelain'), '', 'Commit before qualification');
 const out = resolve(destination), profile = join(out, 'profile');
+await mkdir(dirname(out), { recursive: true });
 await mkdir(out); await mkdir(profile);
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const provenance = JSON.parse(await readFile('vendor/runtime-build.json', 'utf8'));
