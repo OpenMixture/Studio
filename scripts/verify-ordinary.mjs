@@ -28,7 +28,7 @@ const done = async name => { receipt.steps.push(name); await save(); console.log
 const server = await serveStatic(0), base = `http://127.0.0.1:${server.address().port}/player/`; let browser, child;
 receipt.baseUrl = base;
 try {
-  child = spawn(executable, args, { windowsHide: true, stdio: 'ignore' });
+  child = spawn(resolve(executable), args, { windowsHide: true, stdio: 'ignore' });
   let launchError; child.once('error', error => { launchError = error; });
   let port;
   for (let attempt = 0; attempt < 100; attempt++) {
