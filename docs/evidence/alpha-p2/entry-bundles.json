@@ -1,0 +1,58 @@
+{
+  "player": {
+    "chunks": [
+      "assets/bindings-CB4mzvib.js",
+      "assets/player-C8y_tHmH.js",
+      "assets/preview-session-C1YflTxv.js"
+    ],
+    "modules": [
+      "\u0000vite/modulepreload-polyfill.js",
+      "\u0000vite/preload-helper.js",
+      "index.html",
+      "node_modules/@openmixture/runtime/src/build-info.mjs",
+      "node_modules/@openmixture/runtime/src/index.mjs",
+      "node_modules/@openmixture/runtime/src/runtime.mjs",
+      "node_modules/@openmixture/runtime/wasm/bindings.mjs",
+      "src/controls.ts",
+      "src/files.ts",
+      "src/latest.ts",
+      "src/player-entry.ts",
+      "src/png.ts",
+      "src/preview-session.ts",
+      "src/preview.ts",
+      "src/runtime-client.ts",
+      "src/style.css"
+    ]
+  },
+  "studio": {
+    "chunks": [
+      "assets/bindings-CB4mzvib.js",
+      "assets/preview-session-C1YflTxv.js",
+      "assets/studio-CexlGZOz.js"
+    ],
+    "modules": [
+      "\u0000vite/modulepreload-polyfill.js",
+      "\u0000vite/preload-helper.js",
+      "node_modules/@openmixture/runtime/src/build-info.mjs",
+      "node_modules/@openmixture/runtime/src/index.mjs",
+      "node_modules/@openmixture/runtime/src/runtime.mjs",
+      "node_modules/@openmixture/runtime/wasm/bindings.mjs",
+      "src/controls.ts",
+      "src/document.ts",
+      "src/files.ts",
+      "src/graph-view.ts",
+      "src/graph.css",
+      "src/history.ts",
+      "src/latest.ts",
+      "src/png.ts",
+      "src/preview-session.ts",
+      "src/preview.ts",
+      "src/runtime-client.ts",
+      "src/source-graph.ts",
+      "src/studio-editor.ts",
+      "src/studio-entry.ts",
+      "src/style.css",
+      "studio.html"
+    ]
+  }
+}

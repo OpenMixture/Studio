@@ -34,7 +34,7 @@ npm run check
 npm run preview
 ```
 
-打开 [http://127.0.0.1:4173/player/](http://127.0.0.1:4173/player/)。生产资源刻意使用非根路径 `/player/`，包括相对包路径解析的 WASM。静态主机需将 `dist/` 内容挂载到该路径，并提供正确的 JavaScript 与 `application/wasm` MIME 类型。`vite preview` 用于本地验证，不是生产托管服务。此次仓库引导不执行线上网站部署。
+打开 [http://127.0.0.1:4173/player/](http://127.0.0.1:4173/player/)。生产资源刻意使用非根路径 `/player/`，包括相对包路径解析的 WASM。静态主机需将 `dist/` 内容挂载到该路径，并提供正确的 JavaScript 与 `application/wasm` MIME 类型。`vite preview` 用于本地验证，不是生产托管服务。单独限定范围的[GitHub Pages 探索性试用](https://openmixture.github.io/Studio/trial.html)使用 `/Studio/`；其身份及普通浏览器结果记录于 [P2 证据](./docs/evidence/alpha-p2/README.zh-CN.md)。
 
 `Product checks` 工作流包含类型／构建任务，覆盖干净 npm 安装、公开类型、20 项调度／请求快照／PNG／源图传输／布局／编辑命令测试及生产构建，另有独立 Chromium WebGPU 契约／部署任务。仅类型／构建成功**不代表** GPU 执行通过；浏览器任务不替代引擎材质比较。
 

@@ -88,7 +88,14 @@ try {
   await page.goto(`${base}studio.html`);
   await expect(page.locator('#editor-status')).toContainText('unchanged');
   assert.equal((await page.request.get(`${base}tests/contract.html`)).status(), 404);
-  assert.deepEqual(await download(page, '#save-material', 'original.mix'), await readFile('public/samples/checker.mix'));
+  const sampleResponse = await page.request.get(`${base}samples/checker.mix`);
+  assert.equal(sampleResponse.status(), 200);
+  const sample = await sampleResponse.body();
+  if (remote) assert.equal(sha(sample), receipt.deployment.assets['samples/checker.mix']);
+  else assert.deepEqual(sample, await readFile('public/samples/checker.mix'));
+  // Saving must preserve the bytes the browser loaded, including their newline
+  // encoding; a remote Linux build need not match a Windows checkout's CRLF.
+  assert.deepEqual(await download(page, '#save-material', 'original.mix'), sample);
   await page.locator('#new-material').click(); await expect(page.locator('#source-name')).toContainText('untitled.mix');
   await page.getByLabel('Edit cellsX', { exact: true }).fill('-');
   await expect(page.locator('#save-material')).toBeDisabled(); await expect(page.locator('#editor-diagnostics')).not.toBeEmpty();
