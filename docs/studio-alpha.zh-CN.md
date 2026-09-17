@@ -8,7 +8,7 @@
 
 Player M5 与 STUDIO-01 至 STUDIO-05 已实现并集成。[MVP 验收](./evidence/studio-qualification/README.zh-CN.md)覆盖记录的 macOS 环境、七个 1K 用例和 28 个通道；[M5 验收](./browser-qualification.zh-CN.md)保留自己的矩阵。运行时仍为未发布的 `@openmixture/runtime@0.1.0-alpha.0` vendor 归档。历史验收及该归档的绿色 CI 都不能证明新构建运行时、普通浏览器配置或公共交付已经通过。
 
-下一阶段为 **Studio MVP 稳定化与外部试用**。[MVP 计划](./studio-mvp.zh-CN.md)保留为实施与架构记录，不重新开启已完成批次。本次仅落实仓库责任认领和验收门槛。下列执行项均待完成；本次不修改远端规则、不升级包、不认证浏览器、不执行发布。
+下一阶段为 **Studio MVP 稳定化与外部试用**。[MVP 计划](./studio-mvp.zh-CN.md)保留为实施与架构记录，不重新开启已完成批次。本次仅落实仓库责任认领和验收门槛。原规划调整未执行这些事项。2026-09-17 后续工作已强制启用主分支保护，并针对历史归档通过普通配置流程，见 [P1 证据](./evidence/alpha-p1/README.zh-CN.md)。候选升级及其完整比较仍待完成。
 
 ## 责任与交接
 
@@ -27,8 +27,8 @@ Player M5 与 STUDIO-01 至 STUDIO-05 已实现并集成。[MVP 验收](./eviden
 
 | ID／优先级 | 状态／依赖 | 工作及完成门槛 |
 |---|---|---|
-| ALPHA-01／P1 | 已认领；待仓库管理操作 | 重新读取实时 `main` 保护／rulesets 和检查名称。要求 PR、`Typecheck and production build` 与 `Chromium WebGPU product contract` 通过，禁止 force push 和删除主分支。保留实际生效规则及后续 PR／检查证据。若权限或仓库策略阻止强制执行，记录阻塞；人工检查纪律不等于分支保护。 |
-| ALPHA-02／P1 | 已认领；可先测当前归档，最终候选需重测 | 选择一个普通桌面环境；初始建议目标为 Windows 与稳定版 Chrome，确切 OS／浏览器／GPU 版本待实测。使用正常生产入口，不加 unsafe-WebGPU、绕过 blocklist 或强制软件适配器参数。完成初始化、打开／新建／编辑、修复无效草稿、撤销／重做、保存、独立 Player 重开、通道预览、PNG 下载及释放。GPU 不可用时仍可查看图／编辑并获得明确诊断。失败目标记录为不支持，不能算渲染通过；Alpha 至少需要一个实测成功的普通配置。 |
+| ALPHA-01／P1 | 保护已生效；后续记录 PR 集成证据 | 重新读取实时 `main` 保护／rulesets 和检查名称。要求 PR、`Typecheck and production build` 与 `Chromium WebGPU product contract` 通过，禁止 force push 和删除主分支。保留实际生效规则及后续 PR／检查证据。若权限或仓库策略阻止强制执行，记录阻塞；人工检查纪律不等于分支保护。 |
+| ALPHA-02／P1 | 历史归档普通流程已通过；最终候选需重测 | 选择一个普通桌面环境；初始建议目标为 Windows 与稳定版 Chrome，确切 OS／浏览器／GPU 版本待实测。使用正常生产入口，不加 unsafe-WebGPU、绕过 blocklist 或强制软件适配器参数。完成初始化、打开／新建／编辑、修复无效草稿、撤销／重做、保存、独立 Player 重开、通道预览、PNG 下载及释放。GPU 不可用时仍可查看图／编辑并获得明确诊断。失败目标记录为不支持，不能算渲染通过；Alpha 至少需要一个实测成功的普通配置。 |
 | ALPHA-03／P1 | 已认领；可先制定流程，执行依赖引擎候选包 | 建立升级回执，并在独立运行时升级 PR 中执行：核对候选 SHA-256 和实际构建身份，更新精确依赖／锁文件及归档来源，再运行公开类型、干净安装、生产构建、浏览器、部署、隔离及保存文件／导出比较。引擎发布后针对 registry 精确版本重做；仅版本文本相同不能证明包内容相同。 |
 | ALPHA-04／P2 | 已认领；下次触及入口／编辑器编排时执行 | 分离 Player 与 Studio 启动，使 Player 不再静态导入编辑器／文档／图实现。共享内部 runtime-client、preview、controls、files/export 和 latest-request 模块。仅按需提取明确的编辑器职责。检查构建后 Player 依赖图和两个使用流程，保留字节传输、显式 GPU 生命周期与有界新鲜度。不新增仓库、UI 包、框架、command bus 或插件平台。 |
 | ALPHA-05／P2 | 已认领；依赖合格候选及单独确定的试用范围 | 部署合格的生产候选用于小规模试用，记录 URL、产品／运行时身份和支持限制。观察用户能否独立完成新建、连线、修复错误、撤销、保存和重开。记录参与人数、任务结果、帮助情况与阻塞，不将 Agent 截图当成人类验证。依据真实反馈排列下一批工作。 |
