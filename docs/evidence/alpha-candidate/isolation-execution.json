@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "productRevision": "a7e2ba8b20bd72748488883aa30a50414b4578c4",
+  "exitCode": 0,
+  "commands": [
+    "npm ci",
+    "npm run check",
+    "npx playwright install chromium",
+    "npm run test:browser -- --max-failures=1",
+    "npm run test:deployment",
+    "npm run test:studio -- /reference /consumer/work/player"
+  ],
+  "nodeTests": {
+    "passed": 20,
+    "failed": 0
+  },
+  "browserStats": {
+    "startTime": "2026-09-17T03:40:43.701Z",
+    "duration": 81169.921,
+    "expected": 52,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "logSha256": "4d8f0ee219c33ba7a06db5884316c1cf6ac0bfe0464a4f57777282776dbd9d4c",
+  "deploymentReceiptSha256": "beee314ab26fefc4d3a5e9179077eb73a0c99dac6dccab8e3ff9ccfe62f76b3e",
+  "playerReceiptSha256": "34fd56dbb1267619bdb97d9c73a1644532fd3ea691079c5a9e5175cf9bad789e",
+  "comparisonStatus": "failed; separately recorded"
+}

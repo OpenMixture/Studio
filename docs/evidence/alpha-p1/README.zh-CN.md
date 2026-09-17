@@ -6,6 +6,8 @@
 
 [保护回执](./protection.json)记录已应用的 GitHub `main` 策略：必须通过 PR、两项现有 GitHub Actions 检查且严格保持最新，管理员也受约束，禁止强推／删除。不额外要求批准评审人数，采用最小 PR／检查策略。后续 PR 检查与集成另行记录。
 
+[PR #11](https://github.com/OpenMixture/Studio/pull/11)在 `2300004829e3a9f950b136abf314c55a2a708afa` 的两项必需检查通过 [CI 35178571892](https://github.com/OpenMixture/Studio/actions/runs/35178571892) 后，未绕过规则，合并为 `16b2934bbc4607c44645775363b93743d0b5d99c`。再次读取 API 确认 `protected: true`。用全新隔离下载替代无法启动的全局安装后，本地受控 Chromium 153.0.8010.12 的 52 项浏览器检查及正常部署也通过。另行阻塞的升级见[候选结果](../alpha-candidate/README.zh-CN.md)。
+
 [普通浏览器回执](./ordinary-baseline.json)针对产品 `e7c76874e2da0bd0343b8693410d7bc1e4869322`、历史运行时 `4b914feb9f3365d292b27ea60c5e0b6004f745e8`、归档 SHA-256 `9e245578de160cee1050259ef34358c3fcd3353a21bbb1672d29701bc1ac8084` 通过。使用 Node 24.20.0 与 npm 11.19.0。该结果不认证新的引擎候选。
 
 实测环境：Windows 11 build 26100、已安装 Chrome 153.0.8010.48。系统 GPU 信息列出 NVIDIA GeForce GT 1030，驱动 32.0.15.8266；运行时适配器 name/vendor/device 字段被隐藏。保留的系统／上下文记录区分可用设备和运行时报告身份。实际 OS 和浏览器命令行仅包含新配置目录、本机 CDP 端口及 `about:blank`，无 GPU、软件适配器、headless 或安全覆盖参数。这是普通配置自动化检查，不是人类可用性测试。
