@@ -9,8 +9,9 @@ import { createHash } from 'node:crypto';
 import { serveStatic } from './static-server.mjs';
 import { decodePng } from '../tests/helpers/png.ts';
 
-const [executable, destination] = process.argv.slice(2);
-if (platform() !== 'win32' || !executable || !destination) throw Error('Usage on Windows: node scripts/verify-ordinary.mjs <installed-browser.exe> <new-output>');
+const [browserName, destination] = process.argv.slice(2);
+const executable = { chrome: 'C:/Program Files/Google/Chrome/Application/chrome.exe', edge: 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe' }[browserName] ?? browserName;
+if (platform() !== 'win32' || !executable || !destination) throw Error('Usage on Windows: node scripts/verify-ordinary.mjs <chrome|edge|installed-browser.exe> <new-output>');
 const git = (...args) => execFileSync('git', args, { encoding: 'utf8' }).trim();
 assert.equal(git('status', '--porcelain'), '', 'Commit before qualification');
 const out = resolve(destination), profile = join(out, 'profile');
