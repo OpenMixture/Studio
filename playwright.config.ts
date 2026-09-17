@@ -3,6 +3,8 @@ import { defineConfig } from '@playwright/test';
 const extraArgs = process.env.MIXTURE_BROWSER_ARGS
   ? JSON.parse(process.env.MIXTURE_BROWSER_ARGS) as string[]
   : [];
+const port = Number(process.env.MIXTURE_TEST_PORT ?? 4173);
+if (!Number.isInteger(port) || port < 1024 || port > 65535) throw Error('Invalid MIXTURE_TEST_PORT');
 
 export default defineConfig({
   testDir: './tests',
@@ -14,7 +16,7 @@ export default defineConfig({
   retries: 0,
   reporter: [['list'], ['json', { outputFile: 'test-results/browser.json' }]],
   use: {
-    baseURL: 'http://127.0.0.1:4173/player/',
+    baseURL: `http://127.0.0.1:${port}/player/`,
     channel: 'chromium',
     headless: true,
     launchOptions: { args: ['--enable-unsafe-webgpu', '--ignore-gpu-blocklist', ...extraArgs] },
@@ -23,7 +25,7 @@ export default defineConfig({
   },
   webServer: {
     command: 'node scripts/static-server.mjs',
-    url: 'http://127.0.0.1:4173/player/',
+    url: `http://127.0.0.1:${port}/player/`,
     reuseExistingServer: false,
     timeout: 30_000,
   },

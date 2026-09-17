@@ -2,7 +2,8 @@ import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import { resolve, extname, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
-export async function serveStatic(port=4173) {
+export async function serveStatic(port=Number(process.env.MIXTURE_TEST_PORT ?? 4173)) {
+  if (!Number.isInteger(port) || port < 0 || port > 65535) throw Error('Invalid static server port');
   const root=resolve('dist');
   const server=createServer(async(req,res)=>{
     try {
