@@ -6,6 +6,8 @@
 
 规划基线：2026-09-15。当前状态：STUDIO-01 至 STUDIO-05 在记录的 macOS 环境内通过工程门槛，并已[集成到 main](./studio-integration.zh-CN.md)；发布仍单独处理。下方带日期切片说明各自交付时的范围。工作项标识不是 GitHub PR 编号。
 
+**当前后续计划（2026-09-16）：** [Studio MVP 稳定化与外部试用](./studio-alpha.zh-CN.md)认领下一阶段产品工作并说明引擎依赖。本文保留已完成的 MVP 范围和架构规则；原批次为历史记录，不是新的功能待办。
+
 M5 已在记录的 macOS／Linux Chromium 矩阵内验收。[产品回执](./evidence/m5-05/README.zh-CN.md)覆盖已安装运行时执行、隔离和静态部署；[引擎验收](https://github.com/OpenMixture/OpenMixture/blob/c03c7b4/docs/evidence/m5-05/README.zh-CN.md)记录冻结后的原生／浏览器质量比较及限制。现有 Player 已支持打开源文件、修改公开覆盖、通道预览和 PNG 下载。已安装的 `@openmixture/runtime@0.1.0-alpha.0` 归档仍未发布。历史证据保留原始范围与日期。
 
 **2026-09-16 只读切片：** [只读图视图](./studio-graph.zh-CN.md)实现 STUDIO-02 及其 STUDIO-01 只读前置条件，入口为 `/player/studio.html`。源字节先经 Rust 验证，再作保留数值文本的展示投影；仅保存原始 `.mix` 和独立布局。STUDIO-01 的编辑后序列化／历史／新建流程推迟到 STUDIO-03/04 之前，不标为完整完成。此顺序细化允许在不改引擎归档的情况下完成用户请求的只读视图。[证据](./evidence/studio-graph/README.zh-CN.md)分别记录本地、隔离及远端检查；当时 STUDIO-03 至 STUDIO-05 尚未实施。

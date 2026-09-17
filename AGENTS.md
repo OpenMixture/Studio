@@ -2,7 +2,7 @@
 
 English | [简体中文](./AGENTS.zh-CN.md)
 
-This is the independent OpenMixture product repository. Read [README.md](./README.md) before extending scope. The Player completes M5-04, including parameters, channel previews and PNG export. M5-05 is accepted within the [recorded matrix](./docs/browser-qualification.md). Follow the [Studio MVP plan](./docs/studio-mvp.md) for subsequent product batches; [Studio MVP acceptance](./docs/evidence/studio-qualification/README.md) completes STUDIO-01 through STUDIO-05 within its recorded environment; publication and wider qualification remain separate.
+This is the independent OpenMixture product repository. Read [README.md](./README.md) before extending scope. The Player completes M5-04, including parameters, channel previews and PNG export. M5-05 is accepted within the [recorded matrix](./docs/browser-qualification.md). The [Studio MVP plan](./docs/studio-mvp.md) records completed implementation; [Studio MVP acceptance](./docs/evidence/studio-qualification/README.md) completes STUDIO-01 through STUDIO-05 within its recorded environment. Follow the [stabilization and external trial plan](./docs/studio-alpha.md) for subsequent batches and repository ownership; publication and wider qualification remain separate.
 
 - Import engine behavior only from the public `@openmixture/runtime` package. Do not import producer paths, link to the engine checkout for acceptance, compile Rust during npm installation, or copy a renderer/catalog/validator into TypeScript.
 - Preserve incoming `.mix` bytes. Do not parse and reserialize user source before Rust validation. Keep editor layout and product state outside the material format.
@@ -12,5 +12,6 @@ This is the independent OpenMixture product repository. Read [README.md](./READM
 - Update English and Simplified Chinese documentation together, with identical commands, versions and API examples. Preserve fixture provenance and archive identity.
 - Pin direct dependencies, retain `package-lock.json`, and use the real vendor tarball. Updating the artifact requires documenting its build identity/digest and rerunning public type/build/browser checks.
 - Run `npm run check` for changes. Run `npm run test:browser` when package loading, pixels, input boundaries or lifecycle change. Record the actual browser, OS, adapter, flags and unresolved limits; do not imply broad browser support.
+- Runtime upgrades, material serialization/saving changes and Alpha candidate acceptance require the full saved-file cross-consumer gate in the [active plan](./docs/studio-alpha.md), including separate engine comparison. Controlled browser CI is not ordinary-browser qualification; routine documentation/CSS changes do not require the heavy matrix.
 - Keep generated build output, test reports and transient evidence under ignored directories. The intentional runtime archive in `vendor/` is the bootstrap distribution artifact.
 - Use reviewable commits and actual pull requests for integration. Do not bypass required checks or claim a remote push when only local work was completed.

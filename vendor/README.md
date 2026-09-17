@@ -20,3 +20,7 @@ npm run test:browser
 
 Do not publish this private product package or publish the runtime as a side effect of an archive update.
 不要因更新归档而发布此私有产品包或运行时。
+
+The commands above are the minimum bootstrap checks, not the complete Studio upgrade gate. Every runtime upgrade now follows [ALPHA-03 and its verification tiers](../docs/studio-alpha.md): candidate identity assertion, clean installation, normal deployment, isolated consumption and full Studio saved-file/native comparison. Record provenance in `vendor/runtime-build.json` and the dated receipt. The producer must supply the actual candidate archive; historical vendor acceptance cannot certify it. After registry publication, verify the exact published version again before trial deployment.
+
+上述命令是引导阶段的最低检查，不是完整 Studio 升级门槛。每次运行时升级现须遵循 [ALPHA-03 及验证分层](../docs/studio-alpha.zh-CN.md)：候选身份断言、干净安装、正常部署、隔离消费及完整 Studio 保存文件／原生比较。在 `vendor/runtime-build.json` 和带日期回执中记录来源。生产者必须提供实际候选归档；历史 vendor 验收不能认证该候选。Registry 发布后，试用部署前再次验证精确发布版本。

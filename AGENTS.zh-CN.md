@@ -2,7 +2,7 @@
 
 [English](./AGENTS.md) | 简体中文
 
-这是 OpenMixture 的独立产品仓库。扩展范围前先阅读 [README.zh-CN.md](./README.zh-CN.md)。Player 已完成 M5-04，包括参数、通道预览和 PNG 导出。M5-05 已在[记录矩阵](./docs/browser-qualification.zh-CN.md)内验收。后续产品批次遵循 [Studio MVP 计划](./docs/studio-mvp.zh-CN.md)；[Studio MVP 验收](./docs/evidence/studio-qualification/README.zh-CN.md)在记录环境内完成 STUDIO-01 至 STUDIO-05；发布和更广验收仍单独决策。
+这是 OpenMixture 的独立产品仓库。扩展范围前先阅读 [README.zh-CN.md](./README.zh-CN.md)。Player 已完成 M5-04，包括参数、通道预览和 PNG 导出。M5-05 已在[记录矩阵](./docs/browser-qualification.zh-CN.md)内验收。[Studio MVP 计划](./docs/studio-mvp.zh-CN.md)记录已完成实现；[Studio MVP 验收](./docs/evidence/studio-qualification/README.zh-CN.md)在记录环境内完成 STUDIO-01 至 STUDIO-05。后续批次与仓库责任遵循[稳定化与外部试用计划](./docs/studio-alpha.zh-CN.md)；发布和更广验收仍单独决策。
 
 - 引擎行为只能从公开的 `@openmixture/runtime` 包导入。不要导入生产者路径，不要使用引擎源码链接作为验收，不要在 npm 安装时编译 Rust，也不要在 TypeScript 中复制渲染器、目录或验证器。
 - 保留输入 `.mix` 原始字节。Rust 验证前不要解析并重新序列化用户源码。编辑器布局和产品状态应在材质格式之外保存。
@@ -12,5 +12,6 @@
 - 同步更新英文和简体中文文档，保持命令、版本及 API 示例一致。保留样例来源与归档身份。
 - 锁定直接依赖，保留 `package-lock.json`，使用真实 vendor tarball。更新归档时记录构建身份和摘要，并重新执行公开类型、构建与浏览器检查。
 - 修改后执行 `npm run check`。包加载、像素、输入边界或生命周期变化时执行 `npm run test:browser`。记录实际浏览器、操作系统、适配器、启动参数及未解决限制，不暗示广泛的浏览器支持。
+- 运行时升级、材质序列化／保存变化和 Alpha 候选验收必须通过[当前计划](./docs/studio-alpha.zh-CN.md)中的完整保存文件跨消费者门槛，包括独立引擎比较。受控浏览器 CI 不代表普通浏览器验收；日常文档／CSS 修改不要求重型矩阵。
 - 构建产物、测试报告和临时证据放入被忽略的目录。`vendor/` 中有意保留的运行时归档是引导阶段的分发产物。
 - 通过可审查提交和真实 pull request 集成。不要绕过必需检查，也不要将仅完成的本地工作描述为已推送远端。
