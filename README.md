@@ -34,7 +34,7 @@ npm run check
 npm run preview
 ```
 
-Open [http://127.0.0.1:4173/player/](http://127.0.0.1:4173/player/). Production assets are intentionally built for the non-root `/player/` base, including package-relative WASM. A static host must serve the `dist/` contents at that base with JavaScript and `application/wasm` MIME types. `vite preview` is a local verification server, not the production hosting service. No hosting deployment is performed by this repository bootstrap.
+Open [http://127.0.0.1:4173/player/](http://127.0.0.1:4173/player/). Production assets are intentionally built for the non-root `/player/` base, including package-relative WASM. A static host must serve the `dist/` contents at that base with JavaScript and `application/wasm` MIME types. `vite preview` is a local verification server, not the production hosting service. The separately scoped [exploratory GitHub Pages trial](https://openmixture.github.io/Studio/trial.html) uses `/Studio/`; its identity and ordinary-browser result are recorded in [P2 evidence](./docs/evidence/alpha-p2/README.md).
 
 The `Product checks` workflow has a type/build job covering clean npm installation, public types, 20 scheduler/request-snapshot/PNG/source-transport/layout/edit-command tests and the production build, plus a separate Chromium WebGPU contract/deployment job. Type/build success alone does **not** certify GPU execution; the browser job does not replace engine material comparison.
 

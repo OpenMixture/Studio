@@ -2,7 +2,7 @@
 
 [English](./external-trial.md) | 简体中文
 
-**状态：准备完成，尚未执行。** 本记录没有已部署试用 URL、已招募参与者或真人任务结果。ALPHA-05 保持未完成。[PR #12](https://github.com/OpenMixture/Studio/pull/12) 的候选升级未通过冻结的原生像素比较。主分支保留历史归档，不能证明该升级已通过。参见[当前验收门槛](./studio-alpha.zh-CN.md)。
+**状态：探索性部署已上线；真人反馈待回收。** [Studio](https://openmixture.github.io/Studio/studio.html)、[Player](https://openmixture.github.io/Studio/) 和[任务卡](https://openmixture.github.io/Studio/trial.html)已部署。[P2 回执](./evidence/alpha-p2/README.zh-CN.md)记录精确版本及通过的线上普通浏览器流程。尚无参与者或真人任务结果，ALPHA-05 保持未完成。[PR #12](https://github.com/OpenMixture/Studio/pull/12) 的候选升级未通过冻结的原生像素比较。主分支保留历史归档，不能证明该升级已通过。参见[当前验收门槛](./studio-alpha.zh-CN.md)。
 
 ## 邀请参与者之前
 
@@ -47,11 +47,11 @@
 
 ## 当前结果
 
-实际参与者：**0**。实际外部任务观察：**0**。URL、招募及已验收候选依赖尚未解决。尚未选择基于反馈的功能优先级。下一批产品工作将依据真实观察确定；候选像素失败仍在 P1 单独追踪。
+实际参与者：**0**。实际外部任务观察：**0**。部署及普通浏览器流程已验证；招募、反馈及已验收候选依赖仍未解决。尚未选择基于反馈的功能优先级。下一批产品工作将依据真实观察确定；候选像素失败仍在 P1 单独追踪。
 
 ## 已同意的交付范围与命令
 
-用户选择 GitHub Pages，并负责邀请参与者和回收反馈。本次部署定位为**历史运行时探索性试用**，不是合格 Alpha 发行。预定根地址为 `https://openmixture.github.io/Studio/`；Studio 位于 `studio.html`，双语任务卡位于 `trial.html`。部署证据将确认可用性。手动 `Exploratory trial deployment` 工作流只允许 main，要求该精确提交的两项产品检查通过，固定历史归档，验证 `/Studio/` 生产构建，生成含产品／运行时身份和资产摘要的 `trial.json`。其他变更合并后不会自动部署。
+用户选择 GitHub Pages，并负责邀请参与者和回收反馈。本次部署定位为**历史运行时探索性试用**，不是合格 Alpha 发行。已部署根地址为 `https://openmixture.github.io/Studio/`；Studio 位于 `studio.html`，双语任务卡位于 `trial.html`。P2 证据已确认可用性及线上普通流程。手动 `Exploratory trial deployment` 工作流只允许 main，要求该精确提交的两项产品检查通过，固定历史归档，验证 `/Studio/` 生产构建，生成含产品／运行时身份和资产摘要的 `trial.json`。其他变更合并后不会自动部署。
 
 ```bash
 npm run build:trial

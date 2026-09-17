@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "scope": "Exploratory historical-runtime trial; not Alpha candidate acceptance",
+  "productRevision": "b7d91fee0c45abc6c11c4967e2bc27e9874f514d",
+  "clean": true,
+  "builtAt": "2026-09-17T04:50:33.803Z",
+  "base": "/Studio/",
+  "archiveSha256": "9e245578de160cee1050259ef34358c3fcd3353a21bbb1672d29701bc1ac8084",
+  "lockSha256": "dd1d81c31fbf4a6258fae1de1fb7433402728ad61fd4e2f9fff60a7adf58a196",
+  "lockGitSha256": "dd1d81c31fbf4a6258fae1de1fb7433402728ad61fd4e2f9fff60a7adf58a196",
+  "runtime": {
+    "runtimeVersion": "0.1.0-alpha.0",
+    "apiSchemaVersion": 1,
+    "engineVersion": "0.1.0",
+    "engineRevision": "4b914feb9f3365d292b27ea60c5e0b6004f745e8",
+    "engineDirty": false,
+    "buildId": "sha256:759549793271c7fdd257b0289dab11b2fa9524dbc500b5033cb717179f5d1243",
+    "tarball": "target/browser-runtime/openmixture-runtime-0.1.0-alpha.0.tgz",
+    "sha256": "9e245578de160cee1050259ef34358c3fcd3353a21bbb1672d29701bc1ac8084",
+    "toolchain": {
+      "rust": "rustc 1.98.1 (48a229cea 2026-09-01)",
+      "bindgen": "wasm-bindgen 0.2.128",
+      "node": "v24.20.0",
+      "npm": "11.19.0",
+      "target": "wasm32-unknown-unknown"
+    },
+    "files": [
+      "LICENSE-APACHE",
+      "LICENSE-MIT",
+      "README.md",
+      "README.zh-CN.md",
+      "build-info.json",
+      "package.json",
+      "src/build-info.mjs",
+      "src/index.d.ts",
+      "src/index.mjs",
+      "src/runtime.mjs",
+      "wasm/bindings.mjs",
+      "wasm/mixture_wasm_bg.wasm"
+    ],
+    "status": "built; browser acceptance is a separate verification"
+  },
+  "assets": {
+    "assets/bindings-CB4mzvib.js": "5926af6dd5ae1151e7c5781227b13ff1fec06602ba3f674cd8337c18a592215d",
+    "assets/mixture_wasm_bg-DFFsGYHH.wasm": "fe09b40f00764ce8964ac2f4ad2a350bd69872f8a13e14a602f8aa57579620fb",
+    "assets/player-C8y_tHmH.js": "e9d871769178448a1b367c1d2179e5f1abdb544f50d804a717331788f643c7b4",
+    "assets/preview-session-C1YflTxv.js": "db9398d9f660e3d978e21fd4638669dc62b52e5a100692c52f8207f6f726d5c7",
+    "assets/preview-session-DyVTljJd.css": "c4cf9a0bb217db5af9aab7b10efbeead117ab64403effbeb7dad807675e6046c",
+    "assets/studio-CexlGZOz.js": "158375274befa2864c9fd57254b1dd1c36f9093aaef41ac7d15b31d05e3d551d",
+    "assets/studio-d9BoGOa5.css": "19b239ef05c8567fad5e67592e31b881334971d847387833446258cff43e0d7b",
+    "index.html": "225ed485bd76d9f5eebf23712386d8e30c4461eddf10b4b3f51b6c100328c764",
+    "samples/README.md": "df2df15a4fa9e2cd7b84cf289347b0b210f1331d7735ea306f29776fd4af8c51",
+    "samples/checker.mix": "296c9d92e06211e8583ce0810f49562e0d36a68b6d795268b80dd19d8fda03b0",
+    "samples/glazed-ceramic.mix": "ec04b518719ec7aab7a7cf351624bfc370e755b41645cf2edbd9425dd3bbf4fd",
+    "samples/leather.mix": "8f74e407d0b7359c74149adc2440d39dbc0d64e821655404310939e5c5be9153",
+    "samples/wood.mix": "204e1952105d51a369a8549ee11c0f4bf06c22afd78b4a43daa765623b86b21d",
+    "studio.html": "fd1062b9db4ac68d3ff595aa2b6fc68c60204ad9528ab4843b3b7fb817169556",
+    "trial.html": "d39a3c31fe3b6a8979013de3918021c8611fe6b9be91fff12e6a98fd96311075"
+  }
+}

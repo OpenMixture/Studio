@@ -2,7 +2,7 @@
 
 English | [简体中文](./external-trial.zh-CN.md)
 
-**Status: prepared, not executed.** There is no deployed trial URL, enrolled participant or human task result in this record. ALPHA-05 remains open. The candidate upgrade in [PR #12](https://github.com/OpenMixture/Studio/pull/12) fails the frozen native pixel comparison. The historical archive retained on main is not evidence that this upgrade passed. See the [active acceptance gates](./studio-alpha.md).
+**Status: exploratory deployment live; human feedback pending.** [Studio](https://openmixture.github.io/Studio/studio.html), [Player](https://openmixture.github.io/Studio/) and the [task card](https://openmixture.github.io/Studio/trial.html) are deployed. The [P2 receipt](./evidence/alpha-p2/README.md) records the exact version and passing live ordinary-browser workflow. No participant or human task result is recorded yet; ALPHA-05 remains open. The candidate upgrade in [PR #12](https://github.com/OpenMixture/Studio/pull/12) fails the frozen native pixel comparison. The historical archive retained on main is not evidence that this upgrade passed. See the [active acceptance gates](./studio-alpha.md).
 
 ## Before inviting participants
 
@@ -47,11 +47,11 @@ Proposed exit criteria: at least three external users attempt the task card; at 
 
 ## Current result
 
-Actual participants: **0**. Actual external task observations: **0**. URL, recruitment and qualified-candidate dependencies are unresolved. No feedback-derived feature priority has been selected. The next product batch will be chosen from recorded observations; candidate pixel failures remain tracked separately in P1.
+Actual participants: **0**. Actual external task observations: **0**. Deployment and its ordinary workflow are verified; recruitment, feedback and qualified-candidate dependencies remain unresolved. No feedback-derived feature priority has been selected. The next product batch will be chosen from recorded observations; candidate pixel failures remain tracked separately in P1.
 
 ## Agreed delivery scope and commands
 
-The owner selected GitHub Pages and will invite participants and collect feedback. Deploy this as an **exploratory historical-runtime trial**, not a qualified Alpha release. The intended root is `https://openmixture.github.io/Studio/`; Studio is `studio.html`, and the bilingual task card is `trial.html`. Deployment evidence will establish availability. The manual `Exploratory trial deployment` workflow runs only on main, requires both product checks on that exact commit, pins the historical archive, verifies the production `/Studio/` build, and emits `trial.json` with product/runtime identity and asset digests. It does not deploy automatically after unrelated changes.
+The owner selected GitHub Pages and will invite participants and collect feedback. Deploy this as an **exploratory historical-runtime trial**, not a qualified Alpha release. The deployed root is `https://openmixture.github.io/Studio/`; Studio is `studio.html`, and the bilingual task card is `trial.html`. The P2 evidence confirms availability and the live ordinary workflow. The manual `Exploratory trial deployment` workflow runs only on main, requires both product checks on that exact commit, pins the historical archive, verifies the production `/Studio/` build, and emits `trial.json` with product/runtime identity and asset digests. It does not deploy automatically after unrelated changes.
 
 ```bash
 npm run build:trial
