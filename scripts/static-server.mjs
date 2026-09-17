@@ -5,11 +5,13 @@ import { pathToFileURL } from 'node:url';
 export async function serveStatic(port=Number(process.env.MIXTURE_TEST_PORT ?? 4173)) {
   if (!Number.isInteger(port) || port < 0 || port > 65535) throw Error('Invalid static server port');
   const root=resolve('dist');
+  const base=process.env.MIXTURE_TEST_BASE ?? '/player/';
+  if (!/^\/(?:[A-Za-z0-9_-]+\/)*$/.test(base)) throw new Error('Invalid static server base');
   const server=createServer(async(req,res)=>{
     try {
       const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname);
-      if(!pathname.startsWith('/player/'))throw new Error('Not found');
-      const file=resolve(root,pathname.slice(8)||'index.html');
+      if(!pathname.startsWith(base))throw new Error('Not found');
+      const file=resolve(root,pathname.slice(base.length)||'index.html');
       if(!file.startsWith(root+sep)||(await stat(file)).isDirectory())throw new Error('Not found');
       const bytes=await readFile(file);
       res.writeHead(200,{'Content-Type':({'.html':'text/html','.js':'text/javascript','.css':'text/css','.wasm':'application/wasm','.mix':'application/json'})[extname(file)]??'application/octet-stream','Cache-Control':'no-store'});

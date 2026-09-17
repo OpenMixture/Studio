@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenMixture · Exploratory trial / 探索性试用</title>
+  <style>
+    :root { color-scheme: light dark; font: 17px/1.65 system-ui, sans-serif; }
+    body { max-width: 780px; margin: 3rem auto; padding: 0 1.25rem; }
+    h1 { line-height: 1.25; } nav { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    a { color: light-dark(#155fa0, #83c8ff); } li { margin-block: .7rem; }
+    .scope { border-inline-start: 4px solid #c38a25; padding-inline-start: 1rem; }
+    small { display: block; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+  <h1>Try OpenMixture Studio<br><span lang="zh-CN">试用材质编辑器</span></h1>
+  <p class="scope">Exploratory trial using the historical runtime. The runtime upgrade is still under qualification. This is not an accepted Alpha release.<br><span lang="zh-CN">本次使用历史运行时开展探索性试用。运行时升级仍在验收中，这不是已通过验收的 Alpha 发行版。</span></p>
+  <nav aria-label="Trial links">
+    <a href="./studio.html">Open Studio / 打开编辑器</a>
+    <a href="./">Open Player / 打开播放器</a>
+    <a href="https://github.com/OpenMixture/Studio/issues/new?template=trial-feedback.yml">Send feedback / 提交反馈</a>
+  </nav>
+  <p>Allow about 20 minutes. Use a desktop browser with WebGPU; start at 128 × 128. Do not enable experimental GPU flags. If rendering fails, record the diagnostic and continue editing and saving.<br><span lang="zh-CN">预留约 20 分钟。使用支持 WebGPU 的桌面浏览器，从 128 × 128 开始，不开启实验性 GPU 参数。若渲染失败，记录诊断后继续编辑和保存。</span></p>
+  <ol>
+    <li>Create a material and add a checker node.<br><span lang="zh-CN">新建材质，添加 checker 节点。</span></li>
+    <li>Connect the checker output to the material base-color input.<br><span lang="zh-CN">将 checker 输出连接到材质 base-color 输入。</span></li>
+    <li>Edit a parameter, enter an invalid value, then find the diagnostic and repair it.<br><span lang="zh-CN">修改参数，输入无效值，找到诊断并修复。</span></li>
+    <li>Undo and redo your change.<br><span lang="zh-CN">撤销并重做修改。</span></li>
+    <li>Initialize WebGPU, render, switch channels and download a PNG.<br><span lang="zh-CN">初始化 WebGPU，渲染、切换通道并下载 PNG。</span></li>
+    <li>Save the material as a .mix file. Layout is saved separately.<br><span lang="zh-CN">将材质另存为 .mix 文件，布局单独保存。</span></li>
+    <li>Open Player in a new tab, load the saved .mix and compare its preview. Dispose the GPU in both tabs. Reopen the file in Studio to check the graph.<br><span lang="zh-CN">在新标签页用 Player 打开刚保存的 .mix，对照预览。释放两个标签页的 GPU，再用 Studio 重开检查图。</span></li>
+  </ol>
+  <p>For each step, report: independent, assisted, failed or not attempted. Include your browser/OS version, time spent and any help needed.<br><span lang="zh-CN">每项记录：独立完成、帮助后完成、失败或未尝试，附浏览器／OS 版本、耗时和获得的帮助。</span></p>
+  <p>GitHub feedback is public. Use samples or non-confidential material. You may send feedback to your inviter instead. There is no added feedback telemetry.<br><span lang="zh-CN">GitHub 反馈公开。请使用示例或非保密材质，也可直接向邀请人反馈。本试用不添加反馈遥测。</span></p>
+  <p><a href="https://github.com/OpenMixture/Studio/blob/main/docs/external-trial.md">Full task card</a> · <a href="https://github.com/OpenMixture/Studio/blob/main/docs/external-trial.zh-CN.md" lang="zh-CN">完整任务卡与限制</a></p>
+  <small>On the GitHub Pages trial, <a href="./trial.json">deployment receipt / 部署回执</a> identifies this build. Local standard builds do not generate this receipt.</small>
+</body>
+</html>

@@ -6,7 +6,7 @@ import { decodePng } from '../tests/helpers/png.ts';
 const args=['--enable-unsafe-webgpu','--ignore-gpu-blocklist',...JSON.parse(process.env.MIXTURE_BROWSER_ARGS??'[]')];
 await mkdir('test-results/deployment',{recursive:true});
 const server=await serveStatic();let browser;
-const base = `http://127.0.0.1:${server.address().port}/player/`;
+const base = `http://127.0.0.1:${server.address().port}${process.env.MIXTURE_TEST_BASE ?? '/player/'}`;
 try {
  browser=await chromium.launch({channel:'chromium',args});
  const page=await browser.newPage(),assets=[],errors=[];
