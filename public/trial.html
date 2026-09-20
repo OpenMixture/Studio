@@ -23,13 +23,13 @@
   </nav>
   <p>Allow about 20 minutes. Use a desktop browser with WebGPU; start at 128 × 128. Do not enable experimental GPU flags. If rendering fails, record the diagnostic and continue editing and saving.<br><span lang="zh-CN">预留约 20 分钟。使用支持 WebGPU 的桌面浏览器，从 128 × 128 开始，不开启实验性 GPU 参数。若渲染失败，记录诊断后继续编辑和保存。</span></p>
   <ol>
-    <li>Create a material and add a checker node.<br><span lang="zh-CN">新建材质，添加 checker 节点。</span></li>
-    <li>Connect the checker output to the material base-color input.<br><span lang="zh-CN">将 checker 输出连接到材质 base-color 输入。</span></li>
+    <li>Choose Edit, then New checker material. This template already has a connected checker. Use Add node to add a second checker for the connection exercise.<br><span lang="zh-CN">点击 Edit（编辑），再点击 New checker material（新建棋盘材质）。模板已包含连好的 checker；使用 Add node（添加节点）再添加一个 checker，练习替换连接。</span></li>
+    <li>Under Connect, connect the new checker’s color output to out.baseColor. This replaces the template connection. Delete the original checker, which is now unused.<br><span lang="zh-CN">在 Connect（连线）中，将新 checker 的 color 输出连接到 out.baseColor，替换模板的原连接。随后删除已不再使用的原 checker。</span></li>
     <li>Edit a parameter, enter an invalid value, then find the diagnostic and repair it.<br><span lang="zh-CN">修改参数，输入无效值，找到诊断并修复。</span></li>
     <li>Undo and redo your change.<br><span lang="zh-CN">撤销并重做修改。</span></li>
     <li>Initialize WebGPU, render, switch channels and download a PNG.<br><span lang="zh-CN">初始化 WebGPU，渲染、切换通道并下载 PNG。</span></li>
     <li>Save the material as a .mix file. Layout is saved separately.<br><span lang="zh-CN">将材质另存为 .mix 文件，布局单独保存。</span></li>
-    <li>Open Player in a new tab, load the saved .mix and compare its preview. Dispose the GPU in both tabs. Reopen the file in Studio to check the graph.<br><span lang="zh-CN">在新标签页用 Player 打开刚保存的 .mix，对照预览。释放两个标签页的 GPU，再用 Studio 重开检查图。</span></li>
+    <li>Open Player in a new tab, load the saved .mix, match Studio’s dimensions and channel, then initialize WebGPU and render to compare previews. Dispose the GPU in both tabs. Reopen the file in Studio to check the graph.<br><span lang="zh-CN">在新标签页用 Player 打开刚保存的 .mix，选择与 Studio 相同的尺寸和通道，再初始化 WebGPU 并渲染、对照预览。释放两个标签页的 GPU，再用 Studio 重开检查图。</span></li>
   </ol>
   <p>For each step, report: independent, assisted, failed or not attempted. Include your browser/OS version, time spent and any help needed.<br><span lang="zh-CN">每项记录：独立完成、帮助后完成、失败或未尝试，附浏览器／OS 版本、耗时和获得的帮助。</span></p>
   <p>GitHub feedback is public. Use samples or non-confidential material. You may send feedback to your inviter instead. There is no added feedback telemetry.<br><span lang="zh-CN">GitHub 反馈公开。请使用示例或非保密材质，也可直接向邀请人反馈。本试用不添加反馈遥测。</span></p>

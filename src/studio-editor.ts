@@ -82,9 +82,33 @@ export function studioEditor(root: HTMLElement, graph: GraphView, hooks: {
     for (const item of result.diagnostics) {
       const row = document.createElement('li');
       row.textContent = `${item.code}: ${[item.nodeId, item.portId, item.parameterId].filter(Boolean).join(' / ')} ${item.message}`;
+      const node = model?.doc.nodes.find(n => n.id === item.nodeId);
+      const kind = model?.catalog.find(c => c.typeId === node?.type)?.parameters.find(p => p.id === item.parameterId)?.kind;
+      if (kind && (item.code === 'MIX_PARAMETER_INVALID_VALUE' || item.code === 'EDITOR_NUMBER_INCOMPLETE')) {
+        const hint = document.createElement('p');
+        hint.textContent = kind.type === 'enum'
+          ? `Choose / 请选择: ${kind.values.join(', ')}.`
+          : kind.type === 'color'
+            ? 'Enter numeric RGBA components. / 请为 RGBA 分量输入数值。'
+            : `Enter ${kind.type === 'integer' ? 'an integer' : 'a number'} from ${kind.min} to ${kind.max}. / 请输入 ${kind.min}–${kind.max} 范围内的${kind.type === 'integer' ? '整数' : '数值'}。`;
+        row.append(hint);
+      }
       if (item.nodeId && model?.doc.nodes.some(n => n.id === item.nodeId)) {
-        const button = document.createElement('button'); button.type = 'button'; button.textContent = 'Select node';
-        button.addEventListener('click', () => { graph.select(item.nodeId!); }); row.append(button);
+        const inputPort = !item.parameterId && model.catalog.find(c => c.typeId === node?.type)?.inputs.find(port => port.id === item.portId);
+        const button = document.createElement('button'); button.type = 'button';
+        button.textContent = inputPort ? 'Edit connection / 编辑连线' : 'Select node';
+        button.addEventListener('click', () => {
+          graph.select(item.nodeId!);
+          const field = [...form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-parameter]')].find(input => input.dataset.parameter === item.parameterId);
+          if (field) { field.focus({ preventScroll: true }); field.scrollIntoView({ block: 'center' }); }
+          else if (inputPort) {
+            toNode.value = item.nodeId!;
+            portOptions(toNode, toPort, 'inputs');
+            toPort.value = inputPort.id; edgeActions();
+            toPort.focus({ preventScroll: true }); toPort.scrollIntoView({ block: 'center' });
+          }
+          else selection.focus();
+        }); row.append(button);
       }
       diagnostics.append(row);
     }

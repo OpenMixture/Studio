@@ -16,15 +16,17 @@ The host must serve both production entries and package-relative WASM over HTTPS
 
 Open the supplied **Studio** link. Try the tasks independently first; record any help, confusion or failure. Use a sample or non-confidential material. Feedback submitted on GitHub is public. The product adds no feedback telemetry; share only the observations and files you choose to disclose.
 
+The updated workspace provides Edit, Connect, Render and Preview shortcuts and a selected-node editing link. Studio and Player both default to 128 × 128. On wide screens, the preview stays beside the editor while scrolling. Parameter diagnostics retain the runtime error and add catalog-based input guidance; Select node focuses the affected field when available. Input-port diagnostics offer Edit connection, which selects the affected destination node and port and focuses the input-port control without changing the material. Canvas ports are indicators; use the linked Connections panel to connect or disconnect them. These changes require deployment before they appear on the public trial URL; the deployment receipt identifies the live build.
+
 | Task | Intended outcome |
 |---|---|
-| T1 · Create | Create a new material, find the node controls and add a checker node. |
-| T2 · Connect | Connect the checker output to the material base-color input; obtain a valid graph. |
+| T1 · Create | Choose Edit → New checker material. The template already has a connected checker. Add a second checker to practice replacing a connection. |
+| T2 · Connect | Under Connect, connect the new checker's color output to out.baseColor, replacing the template connection. Delete the now-unused original checker; obtain a valid graph. |
 | T3 · Edit and repair | Change a checker parameter. Enter an incomplete/invalid value, find the diagnostic, then repair it. |
 | T4 · Undo/redo | Undo the last valid change and redo it; describe whether the graph and values match expectations. |
 | T5 · Preview/export | Explicitly initialize WebGPU, render at 128 × 128, switch channels and download a PNG. If GPU initialization fails, record its diagnostic and continue with saving. |
 | T6 · Save | Save the material as a `.mix` file. Save layout separately if desired; record where the browser put the downloads. |
-| T7 · Independent reopen | Open the supplied **Player** link in a new tab, load that downloaded `.mix`, initialize and render. Compare the chosen channel with Studio, then dispose the GPU in both tabs. Reopen the `.mix` in Studio and check the graph. |
+| T7 · Independent reopen | Open the supplied **Player** link in a new tab, load that downloaded `.mix`, match Studio's dimensions and channel, then initialize and render. Compare with Studio, then dispose the GPU in both tabs. Reopen the `.mix` in Studio and check the graph. |
 
 Report each task as **independent / assisted / failed / not attempted**, with approximate duration and the exact point of difficulty. Visual matching is user feedback, not a substitute for the native pixel gate. Stop if you would need to expose private material. Report diagnostics without uploading the material itself.
 

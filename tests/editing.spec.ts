@@ -47,6 +47,17 @@ test('delete and rebuild checker graph with atomic binding cleanup, no GPU requi
   await expect(page.locator('#editor-status')).toContainText('Valid material draft');
   await page.locator('#disconnect-edge').click();
   await expect(page.locator('#editor-status')).toContainText('Invalid draft');
+  // Diagnostic navigation restores the affected destination without changing the draft.
+  await page.locator('#edge-to-node').selectOption('checker-1');
+  const beforeNavigation = await page.locator('#source-text').textContent();
+  await page.locator('#editor-diagnostics').getByRole('button', { name: 'Edit connection / 编辑连线', exact: true }).click();
+  await expect(page.locator('#edit-node-selection')).toHaveValue('out');
+  await expect(page.locator('#edge-to-node')).toHaveValue('out');
+  await expect(page.locator('#edge-to-port')).toHaveValue('baseColor');
+  await expect(page.locator('#edge-to-port')).toBeFocused();
+  await expect(page.locator('#edge-to-port')).toBeInViewport();
+  await expect(page.locator('#source-text')).toHaveText(beforeNavigation!);
+  await expect(page.locator('#save-material')).toBeDisabled();
   await page.locator('#connect-edge').click();
   await expect(page.locator('#editor-status')).toContainText('Valid material draft');
   expect((await download(page, '#download-source')).equals(await sample('checker'))).toBe(true);
@@ -186,4 +197,26 @@ for (const [name, node, parameter, value] of [
   await info.attach(`${name}-editing.json`, { body: JSON.stringify({ sourceSha256: sha(Buffer.from(source)), measurements, context: reference.context }, (_key, v) => typeof v === 'bigint' ? v.toString() : v), contentType: 'application/json' });
   await page.evaluate(() => window.scrollTo(0, 0));
   await info.attach(`${name}-editing.png`, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' });
+});
+test('trial guidance links to editing and diagnostic action focuses the invalid field', async ({ page }, info) => {
+  await page.setViewportSize({ width: 1266, height: 712 });
+  await ready(page);
+  await expect(page.locator('#width')).toHaveValue('128');
+  await expect(page.locator('#height')).toHaveValue('128');
+  await page.locator('.studio-shortcuts a[href="#studio-editor"]').click();
+  const field = page.getByLabel('Edit cellsX', { exact: true });
+  await field.fill('0');
+  await expect(page.locator('#editor-diagnostics')).toContainText('Enter an integer from 1 to 1024');
+  await expect(page.locator('#save-material')).toBeDisabled();
+  await page.locator('#editor-diagnostics').getByRole('button', { name: 'Select node' }).click();
+  await expect(field).toBeFocused();
+  await expect(field).toBeInViewport();
+  await expect(page.locator('#preview-panel')).toBeInViewport();
+  await info.attach('trial-desktop.png', { body: await page.screenshot(), contentType: 'image/png' });
+  await field.fill('16');
+  await expect(page.locator('#save-material')).toBeEnabled();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.locator('.studio-shortcuts a[href="#studio-editor"]').click();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await info.attach('trial-mobile.png', { body: await page.screenshot(), contentType: 'image/png' });
 });
