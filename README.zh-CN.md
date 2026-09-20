@@ -6,11 +6,11 @@
 
 **Studio MVP：** STUDIO-01 至 STUDIO-05 已通过[记录的 macOS 验收](./docs/evidence/studio-qualification/README.zh-CN.md)，包括保存 `.mix` → 独立 Player → 原生 CLI 及七个 1K 用例。实现批次已[集成到 main](./docs/studio-integration.zh-CN.md)。发布及更广平台验收仍单独处理。
 
-**下一阶段：** [Studio MVP 稳定化与外部试用](./docs/studio-alpha.zh-CN.md)由本仓库认领分支保护、普通浏览器验收、候选运行时升级验收、小范围入口整理及用户试用。当前候选包 CI 和 npm 发布仍为引擎侧依赖。[P1 证据](./docs/evidence/alpha-p1/README.zh-CN.md)记录已强制启用的主分支保护及历史归档在普通 Windows／Chrome 配置下通过的流程。候选也通过该流程，但[完整升级验收被 7/28 项像素比较阻塞](./docs/evidence/alpha-candidate/README.zh-CN.md)，main 保留历史归档。高级编辑能力和 M6 继续暂缓。
+**下一阶段：** [Studio MVP 稳定化与外部试用](./docs/studio-alpha.zh-CN.md)由本仓库认领分支保护、普通浏览器验收、候选运行时升级验收、小范围入口整理及用户试用。当前候选包 CI 和 npm 发布仍为引擎侧依赖。[P1 证据](./docs/evidence/alpha-p1/README.zh-CN.md)记录已强制启用的主分支保护及历史归档在普通 Windows／Chrome 配置下通过的流程。[准确候选升级](./docs/evidence/runtime-alpha04/README.zh-CN.md)现已通过 Windows 与隔离 Linux 的七用例／28 通道比较、各 52 项契约及普通 Chrome 保存／Player／导出；旧候选失败保留为历史记录。高级编辑能力和 M6 继续暂缓。
 
 引擎与 `@openmixture/runtime` 由 [OpenMixture/OpenMixture](https://github.com/OpenMixture/OpenMixture) 构建。本仓库消费 `vendor/` 中的真实运行时包，不编译 Rust，也不导入生产者源码。该包是尚未发布的本地 Alpha 归档，并非 npm registry 发行版。
 
-**P2：** Player 与 Studio 已拆分启动模块；每次构建检查 Player 无法访问编辑器实现。[外部试用任务卡](./docs/external-trial.zh-CN.md)记录已同意的探索性范围：GitHub Pages 托管历史运行时版本，用户负责招募并回收真实反馈。这不关闭仍被阻塞的运行时升级。
+**P2：** Player 与 Studio 已拆分启动模块；每次构建检查 Player 无法访问编辑器实现。[外部试用任务卡](./docs/external-trial.zh-CN.md)记录已同意的探索性范围：GitHub Pages 托管历史运行时版本，用户负责招募并回收真实反馈。此次仓库候选升级不会自动重新部署该试用；registry 消费与真人结果仍待完成。
 
 ## 运行
 
