@@ -8,9 +8,9 @@
 
 **下一阶段：** [Studio MVP 稳定化与外部试用](./docs/studio-alpha.zh-CN.md)由本仓库认领分支保护、普通浏览器验收、候选运行时升级验收、小范围入口整理及用户试用。当前候选包 CI 和 npm 发布仍为引擎侧依赖。[P1 证据](./docs/evidence/alpha-p1/README.zh-CN.md)记录已强制启用的主分支保护及历史归档在普通 Windows／Chrome 配置下通过的流程。[准确候选升级](./docs/evidence/runtime-alpha04/README.zh-CN.md)现已通过 Windows 与隔离 Linux 的七用例／28 通道比较、各 52 项契约及普通 Chrome 保存／Player／导出；旧候选失败保留为历史记录。高级编辑能力和 M6 继续暂缓。
 
-引擎与 `@openmixture/runtime` 由 [OpenMixture/OpenMixture](https://github.com/OpenMixture/OpenMixture) 构建。本仓库消费 `vendor/` 中的真实运行时包，不编译 Rust，也不导入生产者源码。该包是尚未发布的本地 Alpha 归档，并非 npm registry 发行版。
+引擎与 `@openmixture/runtime` 由 [OpenMixture/OpenMixture](https://github.com/OpenMixture/OpenMixture) 构建。本仓库从 npm 锁定已发布的 `@openmixture/runtime@0.1.0-alpha.0`，不编译 Rust，也不导入生产者源码。字节一致的 `vendor/` 归档继续作为身份／测试夹具。[注册表验收](./docs/evidence/npm-alpha/README.zh-CN.md)绑定安装及浏览器门槛。
 
-**P2：** Player 与 Studio 已拆分启动模块；每次构建检查 Player 无法访问编辑器实现。[外部试用任务卡](./docs/external-trial.zh-CN.md)记录已同意的探索性范围：GitHub Pages 托管历史运行时版本，用户负责招募并回收真实反馈。此次仓库候选升级不会自动重新部署该试用；registry 消费与真人结果仍待完成。
+**P2：** Player 与 Studio 已拆分启动模块；每次构建检查 Player 无法访问编辑器实现。[外部试用任务卡](./docs/external-trial.zh-CN.md)记录已同意的探索性范围：GitHub Pages 托管历史运行时版本，用户负责招募并回收真实反馈。此次仓库候选升级不会自动重新部署该试用；准确 registry 消费现已通过；真人结果仍待完成。
 
 ## 运行
 
