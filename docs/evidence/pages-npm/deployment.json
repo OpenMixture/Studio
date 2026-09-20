@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 2,
+  "scope": "External trial of accepted npm Alpha; human feedback pending",
+  "productRevision": "c0b0e104f520f946a7e7fa3c02f1de8674c9adc6",
+  "clean": true,
+  "builtAt": "2026-09-20T08:18:39.534Z",
+  "base": "/Studio/",
+  "archiveSha256": "a9bcfe8d849f9fb9982a750dd99d026807fdf6453b5be491deeda90e99a2c6ae",
+  "lockSha256": "3e8bac4914c7fd07cb81862c329ded8d7d423663c3620773f3f2a2fc0a2bab7c",
+  "lockGitSha256": "3e8bac4914c7fd07cb81862c329ded8d7d423663c3620773f3f2a2fc0a2bab7c",
+  "registry": {
+    "version": "0.1.0-alpha.0",
+    "resolved": "https://registry.npmjs.org/@openmixture/runtime/-/runtime-0.1.0-alpha.0.tgz",
+    "integrity": "sha512-VgovS/VAM5qDikntmM6a/TGc/s66qL8v4kbyJLs1fSFMJtT0lW4Tskb5WXwhLmezZjk+beCWWzPgRzErzQ/jqg==",
+    "license": "MIT OR Apache-2.0"
+  },
+  "actualBuild": {
+    "runtimeVersion": "0.1.0-alpha.0",
+    "apiSchemaVersion": 1,
+    "engineVersion": "0.1.0",
+    "engineRevision": "82b74707b2a8a998190e2f28b16f91fb9614486a",
+    "engineDirty": false,
+    "buildId": "sha256:94f9cc455fcd5f805942b0196b39a276782ce0e504772c3a140ea8ad85814a28"
+  },
+  "runtime": {
+    "runtimeVersion": "0.1.0-alpha.0",
+    "apiSchemaVersion": 1,
+    "engineVersion": "0.1.0",
+    "engineRevision": "82b74707b2a8a998190e2f28b16f91fb9614486a",
+    "engineDirty": false,
+    "buildId": "sha256:94f9cc455fcd5f805942b0196b39a276782ce0e504772c3a140ea8ad85814a28",
+    "tarball": "target/browser-runtime/openmixture-runtime-0.1.0-alpha.0.tgz",
+    "sha256": "a9bcfe8d849f9fb9982a750dd99d026807fdf6453b5be491deeda90e99a2c6ae",
+    "toolchain": {
+      "rust": "rustc 1.98.1 (48a229cea 2026-09-01)",
+      "bindgen": "wasm-bindgen 0.2.128",
+      "node": "v24.20.0",
+      "npm": "11.19.0",
+      "target": "wasm32-unknown-unknown"
+    },
+    "files": [
+      "LICENSE-APACHE",
+      "LICENSE-MIT",
+      "README.md",
+      "README.zh-CN.md",
+      "build-info.json",
+      "package.json",
+      "src/build-info.mjs",
+      "src/index.d.ts",
+      "src/index.mjs",
+      "src/runtime.mjs",
+      "wasm/bindings.mjs",
+      "wasm/mixture_wasm_bg.wasm"
+    ],
+    "status": "built; browser acceptance is a separate verification"
+  },
+  "assets": {
+    "assets/bindings-DlTC8ZjZ.js": "5e654fce99046eaecd7c8c4ed633713f5bad10bfe94ad42915aed6fb46907051",
+    "assets/mixture_wasm_bg-DuUjf4_N.wasm": "a8fa8a84ebaa60ba40e20c0a5c1971edda65d57259043096d0517abbe7d79bbf",
+    "assets/player-D8OSzchp.js": "c10ee1393f51061d697aded827a683b0ad5cd79c4115e3edae80354ae68a47e2",
+    "assets/preview-session-CuNibUUX.js": "f7bb3d1dd1a0c0d4dcc1bb03c14ba3dc19c7f2b8e727ed58d14b5695c03fe4e9",
+    "assets/preview-session-DyVTljJd.css": "c4cf9a0bb217db5af9aab7b10efbeead117ab64403effbeb7dad807675e6046c",
+    "assets/studio-Cuvw547Q.js": "c3063c049d8940a0445aada847213827efb5d0476cfabde2367a8fbdacb6ce3f",
+    "assets/studio-d9BoGOa5.css": "19b239ef05c8567fad5e67592e31b881334971d847387833446258cff43e0d7b",
+    "index.html": "f1341dcb0cb992e7ac3cb0bf7988836bbfd34564388fc26c74e9a9732494b999",
+    "samples/README.md": "df2df15a4fa9e2cd7b84cf289347b0b210f1331d7735ea306f29776fd4af8c51",
+    "samples/checker.mix": "296c9d92e06211e8583ce0810f49562e0d36a68b6d795268b80dd19d8fda03b0",
+    "samples/glazed-ceramic.mix": "ec04b518719ec7aab7a7cf351624bfc370e755b41645cf2edbd9425dd3bbf4fd",
+    "samples/leather.mix": "8f74e407d0b7359c74149adc2440d39dbc0d64e821655404310939e5c5be9153",
+    "samples/wood.mix": "204e1952105d51a369a8549ee11c0f4bf06c22afd78b4a43daa765623b86b21d",
+    "studio.html": "7d0d1b59074791464ea9446cca1dc56363473a572d2b573365cff10cac5dc3fd",
+    "trial.html": "eba70970980212c4671746b7fc0957901186843c4743321809ee7a9f591a876b"
+  }
+}

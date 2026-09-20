@@ -10,7 +10,7 @@
 
 引擎与 `@openmixture/runtime` 由 [OpenMixture/OpenMixture](https://github.com/OpenMixture/OpenMixture) 构建。本仓库从 npm 锁定已发布的 `@openmixture/runtime@0.1.0-alpha.0`，不编译 Rust，也不导入生产者源码。字节一致的 `vendor/` 归档继续作为身份／测试夹具。[注册表验收](./docs/evidence/npm-alpha/README.zh-CN.md)绑定安装及浏览器门槛。
 
-**P2：** Player 与 Studio 已拆分启动模块；每次构建检查 Player 无法访问编辑器实现。[外部试用任务卡](./docs/external-trial.zh-CN.md)记录已同意的探索性范围：GitHub Pages 托管历史运行时版本，用户负责招募并回收真实反馈。此次仓库候选升级不会自动重新部署该试用；准确 registry 消费现已通过；真人结果仍待完成。
+**P2：** Player 与 Studio 已拆分启动模块，并有构建依赖检查。GitHub Pages 现已运行已验收的 npm `0.1.0-alpha.0`；[部署证据](./docs/evidence/pages-npm/README.zh-CN.md)记录精确身份及通过的线上普通浏览器流程。用户按[任务卡](./docs/external-trial.zh-CN.md)负责招募并回收反馈；真人结果仍待完成。
 
 ## 运行
 
@@ -34,7 +34,7 @@ npm run check
 npm run preview
 ```
 
-打开 [http://127.0.0.1:4173/player/](http://127.0.0.1:4173/player/)。生产资源刻意使用非根路径 `/player/`，包括相对包路径解析的 WASM。静态主机需将 `dist/` 内容挂载到该路径，并提供正确的 JavaScript 与 `application/wasm` MIME 类型。`vite preview` 用于本地验证，不是生产托管服务。单独限定范围的[GitHub Pages 探索性试用](https://openmixture.github.io/Studio/trial.html)使用 `/Studio/`；其身份及普通浏览器结果记录于 [P2 证据](./docs/evidence/alpha-p2/README.zh-CN.md)。
+打开 [http://127.0.0.1:4173/player/](http://127.0.0.1:4173/player/)。生产资源刻意使用非根路径 `/player/`，包括相对包路径解析的 WASM。静态主机需将 `dist/` 内容挂载到该路径，并提供正确的 JavaScript 与 `application/wasm` MIME 类型。`vite preview` 用于本地验证，不是生产托管服务。单独限定范围的[GitHub Pages 探索性试用](https://openmixture.github.io/Studio/trial.html)使用 `/Studio/`；其身份及普通浏览器结果记录于 [当前部署证据](./docs/evidence/pages-npm/README.zh-CN.md)。
 
 `Product checks` 工作流包含类型／构建任务，覆盖干净 npm 安装、公开类型、20 项调度／请求快照／PNG／源图传输／布局／编辑命令测试及生产构建，另有独立 Chromium WebGPU 契约／部署任务。仅类型／构建成功**不代表** GPU 执行通过；浏览器任务不替代引擎材质比较。
 

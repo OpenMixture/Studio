@@ -31,7 +31,7 @@ Player M5 与 STUDIO-01 至 STUDIO-05 已实现并集成。[MVP 验收](./eviden
 | ALPHA-02／P1 | 准确候选普通 Windows Chrome 流程通过；1K 比较另行通过 | 选择一个普通桌面环境；初始建议目标为 Windows 与稳定版 Chrome，确切 OS／浏览器／GPU 版本待实测。使用正常生产入口，不加 unsafe-WebGPU、绕过 blocklist 或强制软件适配器参数。完成初始化、打开／新建／编辑、修复无效草稿、撤销／重做、保存、独立 Player 重开、通道预览、PNG 下载及释放。GPU 不可用时仍可查看图／编辑并获得明确诊断。失败目标记录为不支持，不能算渲染通过；Alpha 至少需要一个实测成功的普通配置。 |
 | ALPHA-03／P1 | 准确候选及 registry 精确版本消费门槛均通过 | 建立升级回执，并在独立运行时升级 PR 中执行：核对候选 SHA-256 和实际构建身份，更新精确依赖／锁文件及归档来源，再运行公开类型、干净安装、生产构建、浏览器、部署、隔离及保存文件／导出比较。引擎发布后针对 registry 精确版本重做；仅版本文本相同不能证明包内容相同。 |
 | ALPHA-04／P2 | 完成；PR #14 已合并，构建依赖门槛及两个流程通过 | 分离 Player 与 Studio 启动，使 Player 不再静态导入编辑器／文档／图实现。共享内部 runtime-client、preview、controls、files/export 和 latest-request 模块。仅按需提取明确的编辑器职责。检查构建后 Player 依赖图和两个使用流程，保留字节传输、显式 GPU 生命周期与有界新鲜度。不新增仓库、UI 包、框架、command bus 或插件平台。 |
-| ALPHA-05／P2 | 探索性试用已部署且普通流程通过；真人结果为 0，用户负责回收；新候选部署待决策；registry 消费已通过 | 部署合格的生产候选用于小规模试用，记录 URL、产品／运行时身份和支持限制。观察用户能否独立完成新建、连线、修复错误、撤销、保存和重开。记录参与人数、任务结果、帮助情况与阻塞，不将 Agent 截图当成人类验证。依据真实反馈排列下一批工作。 |
+| ALPHA-05／P2 | 已验收 npm Alpha 已部署，线上普通流程通过；真人结果为 0，用户负责回收 | 部署合格的生产候选用于小规模试用，记录 URL、产品／运行时身份和支持限制。观察用户能否独立完成新建、连线、修复错误、撤销、保存和重开。记录参与人数、任务结果、帮助情况与阻塞，不将 Agent 截图当成人类验证。依据真实反馈排列下一批工作。 |
 
 ## 验证分层与候选回执
 
@@ -81,4 +81,4 @@ node scripts/verify-isolated.mjs /absolute/path/to/OpenMixture /absolute/native-
 
 本阶段仅在集成规则强制生效、候选可追踪且完整验收、至少一个普通桌面环境成功、精确发布版本消费及外部试用均有记录后关闭。发布／试用范围确定前单独报告候选就绪状态，不能将交付标为完成。
 
-已单独同意的[历史运行时探索性试用](./external-trial.zh-CN.md)现已上线 GitHub Pages；[P2 回执](./evidence/alpha-p2/README.zh-CN.md)记录入口拆分及通过的线上普通流程。用户负责招募和回收反馈。此限定试用不豁免 ALPHA-03、registry 消费或真人结果门槛。
+[外部试用](./external-trial.zh-CN.md)现已在 GitHub Pages 使用已验收 npm Alpha；[当前部署证据](./evidence/pages-npm/README.zh-CN.md)替代最初的历史运行时部署状态。用户负责招募和回收。ALPHA-03 与 registry 消费已通过；ALPHA-05 仍需要真人结果。

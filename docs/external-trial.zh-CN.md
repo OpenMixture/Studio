@@ -2,13 +2,13 @@
 
 [English](./external-trial.md) | 简体中文
 
-**状态：探索性部署已上线；真人反馈待回收。** [Studio](https://openmixture.github.io/Studio/studio.html)、[Player](https://openmixture.github.io/Studio/) 和[任务卡](https://openmixture.github.io/Studio/trial.html)已部署。[P2 回执](./evidence/alpha-p2/README.zh-CN.md)记录精确版本及通过的线上普通浏览器流程。尚无参与者或真人任务结果，ALPHA-05 保持未完成。[PR #12](https://github.com/OpenMixture/Studio/pull/12) 的候选升级未通过冻结的原生像素比较。主分支保留历史归档，不能证明该升级已通过。参见[当前验收门槛](./studio-alpha.zh-CN.md)。
+**状态：已验收 npm Alpha 已部署；真人反馈待回收。** [Studio](https://openmixture.github.io/Studio/studio.html)、[Player](https://openmixture.github.io/Studio/) 和[任务卡](https://openmixture.github.io/Studio/trial.html)现使用已验收的 npm `0.1.0-alpha.0`。[当前部署回执](./evidence/pages-npm/README.zh-CN.md)关联精确版本和通过的线上普通浏览器流程。[最初 P2 回执](./evidence/alpha-p2/README.zh-CN.md)保留为历史记录。尚无真人任务结果，ALPHA-05 保持未完成。
 
 ## 邀请参与者之前
 
-产品负责人选择托管地址，并招募 **3–5 名未参与编辑器实现的外部桌面用户**。这是建议样本量，不是实际参与人数。未经授权不得发送邀请或公开参与者信息。开始前，维护者记录已验收产品提交、运行时回执、公开 HTTPS URL、部署资产摘要、部署检查及普通浏览器结果。ALPHA-03 和 registry 精确版本消费仍是发行依赖。若另行同意使用历史归档开展探索性试用，必须明确标注，且不能关闭候选验收。
+产品负责人选择托管地址，并招募 **3–5 名未参与编辑器实现的外部桌面用户**。这是建议样本量，不是实际参与人数。未经授权不得发送邀请或公开参与者信息。开始前，维护者记录已验收产品提交、运行时回执、公开 HTTPS URL、部署资产摘要、部署检查及普通浏览器结果。ALPHA-03 和 registry 精确版本消费已经通过，用户已授权部署该已验收 npm 版本。保留记录中的支持限制，收集真实参与者结果后才能关闭试用。
 
-使用普通桌面浏览器，不添加 unsafe-WebGPU、绕过 blocklist 或强制软件适配器参数。历史证据包含 Windows 11 build 26100、Chrome 153.0.8010.48、NVIDIA GT 1030；不能证明广泛浏览器支持或 1K 像素质量通过。记录每位参与者的实际 OS、浏览器版本和适配器。GPU 失败属于试用结果，不能算渲染成功。以 128 × 128 开始；更高分辨率可选，单独记录。
+使用普通桌面浏览器，不添加 unsafe-WebGPU、绕过 blocklist 或强制软件适配器参数。历史证据包含 Windows 11 build 26100、Chrome 153.0.8010.48、NVIDIA GT 1030；不能证明广泛浏览器支持。已验收运行时另有记录的七用例／1K 原生比较证据。记录每位参与者的实际 OS、浏览器版本和适配器。GPU 失败属于试用结果，不能算渲染成功。以 128 × 128 开始；更高分辨率可选，单独记录。
 
 托管服务必须通过 HTTPS 提供两个生产入口和包内相对路径 WASM，并使用正确 MIME 类型。正常构建使用 `/player/`，应将 `dist/` 内容放在该前缀下。不得部署 `browser-test` 构建。其他托管前缀必须单独构建并验证。本地 `vite preview` 和受控浏览器 CI 通过都不等于外部部署。
 
@@ -47,11 +47,11 @@
 
 ## 当前结果
 
-实际参与者：**0**。实际外部任务观察：**0**。部署及普通浏览器流程已验证；招募、反馈及已验收候选依赖仍未解决。尚未选择基于反馈的功能优先级。下一批产品工作将依据真实观察确定；候选像素失败仍在 P1 单独追踪。
+实际参与者：**0**。实际外部任务观察：**0**。部署及普通浏览器流程已验证；招募和反馈仍待完成；候选及 registry 消费门槛已通过。尚未选择基于反馈的功能优先级。下一批产品工作将依据真实观察确定；之前的候选失败保留为历史证据。
 
 ## 已同意的交付范围与命令
 
-用户选择 GitHub Pages，并负责邀请参与者和回收反馈。本次部署定位为**历史运行时探索性试用**，不是合格 Alpha 发行。已部署根地址为 `https://openmixture.github.io/Studio/`；Studio 位于 `studio.html`，双语任务卡位于 `trial.html`。P2 证据已确认可用性及线上普通流程。手动 `Exploratory trial deployment` 工作流只允许 main，要求该精确提交的两项产品检查通过，固定历史归档，验证 `/Studio/` 生产构建，生成含产品／运行时身份和资产摘要的 `trial.json`。其他变更合并后不会自动部署。
+用户选择 GitHub Pages，并负责邀请参与者和回收反馈。用户随后要求在相同托管地址部署**已验收 npm Alpha 版本**，仍定位为预发布用户试用。已部署根地址为 `https://openmixture.github.io/Studio/`；Studio 位于 `studio.html`，双语任务卡位于 `trial.html`。当前部署证据已确认可用性及线上普通流程。手动 `Exploratory trial deployment` 工作流只允许 main，要求该精确提交的两项产品检查通过，核对已验收 npm 锁身份、安装文件摘要、实际构建身份和输出 WASM，验证 `/Studio/` 生产构建，生成含产品／运行时身份和资产摘要的 `trial.json`。其他变更合并后不会自动部署。
 
 ```bash
 npm run build:trial
