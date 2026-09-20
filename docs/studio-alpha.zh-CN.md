@@ -6,9 +6,9 @@
 
 这是依据 2026-09-16 两仓库审查制定的当前产品计划，审查基线为 Studio `5138afc`、引擎 `c41fcfb`。审查没有重新构建两个仓库，其远端 CI 和分支规则观察只描述当时快照，不代表重新核实后的当前设置。本次规划调整的本地 Studio 基线与 `5138afc` 一致。
 
-Player M5 与 STUDIO-01 至 STUDIO-05 已实现并集成。[MVP 验收](./evidence/studio-qualification/README.zh-CN.md)覆盖记录的 macOS 环境、七个 1K 用例和 28 个通道；[M5 验收](./browser-qualification.zh-CN.md)保留自己的矩阵。运行时仍为未发布的 `@openmixture/runtime@0.1.0-alpha.0` vendor 归档。历史验收及该归档的绿色 CI 都不能证明新构建运行时、普通浏览器配置或公共交付已经通过。
+Player M5 与 STUDIO-01 至 STUDIO-05 已实现并集成。[MVP 验收](./evidence/studio-qualification/README.zh-CN.md)覆盖记录的 macOS 环境、七个 1K 用例和 28 个通道；[M5 验收](./browser-qualification.zh-CN.md)保留自己的矩阵。运行时现从 npm 锁定已发布的 `@openmixture/runtime@0.1.0-alpha.0`；[注册表验收](./evidence/npm-alpha/README.zh-CN.md)针对保留的相同字节 vendor 夹具进行验证。历史验收及该归档的绿色 CI 都不能证明新构建运行时、普通浏览器配置或公共交付已经通过。
 
-下一阶段为 **Studio MVP 稳定化与外部试用**。[MVP 计划](./studio-mvp.zh-CN.md)保留为实施与架构记录，不重新开启已完成批次。本次仅落实仓库责任认领和验收门槛。原规划调整未执行这些事项。2026-09-17 后续工作已强制启用主分支保护，并针对历史归档通过普通配置流程，见 [P1 证据](./evidence/alpha-p1/README.zh-CN.md)。2026-09-17 的[旧候选失败](./evidence/alpha-candidate/README.zh-CN.md)保留为历史记录。2026-09-20 [准确候选升级](./evidence/runtime-alpha04/README.zh-CN.md)通过 Windows 与隔离 Linux 各七用例／28 通道比较及普通 Chrome 流程；候选归档门槛关闭，registry 消费仍待发布后执行。
+下一阶段为 **Studio MVP 稳定化与外部试用**。[MVP 计划](./studio-mvp.zh-CN.md)保留为实施与架构记录，不重新开启已完成批次。本次仅落实仓库责任认领和验收门槛。原规划调整未执行这些事项。2026-09-17 后续工作已强制启用主分支保护，并针对历史归档通过普通配置流程，见 [P1 证据](./evidence/alpha-p1/README.zh-CN.md)。2026-09-17 的[旧候选失败](./evidence/alpha-candidate/README.zh-CN.md)保留为历史记录。2026-09-20 [准确候选升级](./evidence/runtime-alpha04/README.zh-CN.md)通过 Windows 与隔离 Linux 各七用例／28 通道比较及普通 Chrome 流程；候选归档门槛关闭，后续注册表验收已针对准确发布字节重做门槛。
 
 ## 责任与交接
 
@@ -29,9 +29,9 @@ Player M5 与 STUDIO-01 至 STUDIO-05 已实现并集成。[MVP 验收](./eviden
 |---|---|---|
 | ALPHA-01／P1 | 完成；规则生效且 PR #11 已合并 | 重新读取实时 `main` 保护／rulesets 和检查名称。要求 PR、`Typecheck and production build` 与 `Chromium WebGPU product contract` 通过，禁止 force push 和删除主分支。保留实际生效规则及后续 PR／检查证据。若权限或仓库策略阻止强制执行，记录阻塞；人工检查纪律不等于分支保护。 |
 | ALPHA-02／P1 | 准确候选普通 Windows Chrome 流程通过；1K 比较另行通过 | 选择一个普通桌面环境；初始建议目标为 Windows 与稳定版 Chrome，确切 OS／浏览器／GPU 版本待实测。使用正常生产入口，不加 unsafe-WebGPU、绕过 blocklist 或强制软件适配器参数。完成初始化、打开／新建／编辑、修复无效草稿、撤销／重做、保存、独立 Player 重开、通道预览、PNG 下载及释放。GPU 不可用时仍可查看图／编辑并获得明确诊断。失败目标记录为不支持，不能算渲染通过；Alpha 至少需要一个实测成功的普通配置。 |
-| ALPHA-03／P1 | 准确候选归档全部升级门槛通过；registry 精确版本消费待发布后执行 | 建立升级回执，并在独立运行时升级 PR 中执行：核对候选 SHA-256 和实际构建身份，更新精确依赖／锁文件及归档来源，再运行公开类型、干净安装、生产构建、浏览器、部署、隔离及保存文件／导出比较。引擎发布后针对 registry 精确版本重做；仅版本文本相同不能证明包内容相同。 |
+| ALPHA-03／P1 | 准确候选及 registry 精确版本消费门槛均通过 | 建立升级回执，并在独立运行时升级 PR 中执行：核对候选 SHA-256 和实际构建身份，更新精确依赖／锁文件及归档来源，再运行公开类型、干净安装、生产构建、浏览器、部署、隔离及保存文件／导出比较。引擎发布后针对 registry 精确版本重做；仅版本文本相同不能证明包内容相同。 |
 | ALPHA-04／P2 | 完成；PR #14 已合并，构建依赖门槛及两个流程通过 | 分离 Player 与 Studio 启动，使 Player 不再静态导入编辑器／文档／图实现。共享内部 runtime-client、preview、controls、files/export 和 latest-request 模块。仅按需提取明确的编辑器职责。检查构建后 Player 依赖图和两个使用流程，保留字节传输、显式 GPU 生命周期与有界新鲜度。不新增仓库、UI 包、框架、command bus 或插件平台。 |
-| ALPHA-05／P2 | 探索性试用已部署且普通流程通过；真人结果为 0，用户负责回收；新候选部署与 registry 消费待决策 | 部署合格的生产候选用于小规模试用，记录 URL、产品／运行时身份和支持限制。观察用户能否独立完成新建、连线、修复错误、撤销、保存和重开。记录参与人数、任务结果、帮助情况与阻塞，不将 Agent 截图当成人类验证。依据真实反馈排列下一批工作。 |
+| ALPHA-05／P2 | 探索性试用已部署且普通流程通过；真人结果为 0，用户负责回收；新候选部署待决策；registry 消费已通过 | 部署合格的生产候选用于小规模试用，记录 URL、产品／运行时身份和支持限制。观察用户能否独立完成新建、连线、修复错误、撤销、保存和重开。记录参与人数、任务结果、帮助情况与阻塞，不将 Agent 截图当成人类验证。依据真实反馈排列下一批工作。 |
 
 ## 验证分层与候选回执
 
