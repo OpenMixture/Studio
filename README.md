@@ -10,7 +10,7 @@ An independent product repository for OpenMixture. The **Player** opens `.mix` s
 
 The engine and `@openmixture/runtime` are built in [OpenMixture/OpenMixture](https://github.com/OpenMixture/OpenMixture). This repository pins published `@openmixture/runtime@0.1.0-alpha.0` from npm; it does not compile Rust or import producer source. The byte-identical `vendor/` archive remains an identity/test fixture. [Registry acceptance](./docs/evidence/npm-alpha/README.md) binds installation and browser gates.
 
-**P2:** Player and Studio now have separate startup modules; every build verifies that Player cannot reach editor implementations. The [external trial task card](./docs/external-trial.md) records the agreed exploratory scope: GitHub Pages with the historical runtime, while the owner recruits participants and collects real feedback. This repository candidate upgrade does not redeploy that trial; exact registry consumption now passes; human trial results remain pending.
+**P2:** Player and Studio have separate startup modules with a build dependency guard. GitHub Pages now runs the accepted npm `0.1.0-alpha.0` runtime; [deployment evidence](./docs/evidence/pages-npm/README.md) records exact identity and the passing live ordinary-browser workflow. The owner recruits participants and collects feedback using the [task card](./docs/external-trial.md); human results remain pending.
 
 ## Run
 
@@ -34,7 +34,7 @@ npm run check
 npm run preview
 ```
 
-Open [http://127.0.0.1:4173/player/](http://127.0.0.1:4173/player/). Production assets are intentionally built for the non-root `/player/` base, including package-relative WASM. A static host must serve the `dist/` contents at that base with JavaScript and `application/wasm` MIME types. `vite preview` is a local verification server, not the production hosting service. The separately scoped [exploratory GitHub Pages trial](https://openmixture.github.io/Studio/trial.html) uses `/Studio/`; its identity and ordinary-browser result are recorded in [P2 evidence](./docs/evidence/alpha-p2/README.md).
+Open [http://127.0.0.1:4173/player/](http://127.0.0.1:4173/player/). Production assets are intentionally built for the non-root `/player/` base, including package-relative WASM. A static host must serve the `dist/` contents at that base with JavaScript and `application/wasm` MIME types. `vite preview` is a local verification server, not the production hosting service. The separately scoped [exploratory GitHub Pages trial](https://openmixture.github.io/Studio/trial.html) uses `/Studio/`; its identity and ordinary-browser result are recorded in [current deployment evidence](./docs/evidence/pages-npm/README.md).
 
 The `Product checks` workflow has a type/build job covering clean npm installation, public types, 20 scheduler/request-snapshot/PNG/source-transport/layout/edit-command tests and the production build, plus a separate Chromium WebGPU contract/deployment job. Type/build success alone does **not** certify GPU execution; the browser job does not replace engine material comparison.
 
