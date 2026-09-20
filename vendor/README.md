@@ -1,5 +1,9 @@
 # Runtime archive / 运行时归档
 
+**2026-09-20 candidate:** this archive now comes from clean engine `82b74707b2a8a998190e2f28b16f91fb9614486a`, SHA-256 `a9bcfe8d849f9fb9982a750dd99d026807fdf6453b5be491deeda90e99a2c6ae`. [Upgrade evidence](../docs/evidence/runtime-alpha04/README.md) records the new saved-file/Player/export and isolated-consumer gates. The unpublished version remains `0.1.0-alpha.0`; version text alone cannot identify these bytes.
+
+**2026-09-20 候选：** 当前归档来自干净引擎 `82b74707b2a8a998190e2f28b16f91fb9614486a`，SHA-256 为 `a9bcfe8d849f9fb9982a750dd99d026807fdf6453b5be491deeda90e99a2c6ae`。[升级证据](../docs/evidence/runtime-alpha04/README.zh-CN.md)记录新的保存文件／Player／导出及隔离消费门槛。版本仍为未发布的 `0.1.0-alpha.0`，仅版本文本不能识别这份字节。
+
 The initial Player consumes the actual `openmixture-runtime-0.1.0-alpha.0.tgz` archive from this directory. Its relative `file:vendor/...` dependency and npm lockfile integrity are the installation boundary; no Rust toolchain, engine checkout, developer absolute path, source symlink or npm registry publication is required.
 
 首个 Player 消费本目录中的真实 `openmixture-runtime-0.1.0-alpha.0.tgz` 归档。相对 `file:vendor/...` 依赖与 npm 锁文件完整性摘要构成安装边界；不需要 Rust 工具链、引擎检出、开发者绝对路径、源码链接或 npm registry 发布。
